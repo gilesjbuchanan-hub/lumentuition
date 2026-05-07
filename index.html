@@ -1,0 +1,2429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumen Tuition — Illuminate Your Potential</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Cormorant+SC:wght@500;600;700&family=Raleway:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --navy:       #0D1B52;
+      --navy-deep:  #08113A;
+      --navy-mid:   #1A2D7C;
+      --gold:       #F2C94C;
+      --gold-light: #FDE99A;
+      --gold-dark:  #D4A832;
+      --cream:      #F7F6F1;
+      --cream-alt:  #122260;
+      --white:      #FFFFFF;
+      --text:       #0B1020;
+      --text-mid:   #46506E;
+      --text-light: #8B93B0;
+      --radius-sm:  8px;
+      --radius-md:  16px;
+      --radius-lg:  28px;
+      --radius-xl:  48px;
+      --shadow:     0 4px 32px rgba(13,27,82,.08);
+      --shadow-lg:  0 16px 64px rgba(13,27,82,.14);
+    }
+
+    /* ─── RESET ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Lora', serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* ─── TYPOGRAPHY ─────────────────────────────────────────── */
+    h1, h2, h3, .display {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+    }
+    h4 {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .display { font-size: clamp(3rem, 6vw, 5.5rem); }
+    h2 { font-size: clamp(2.2rem, 4vw, 3.4rem); }
+    h3 { font-size: 1.5rem; font-weight: 600; }
+
+    /* ─── UTILITIES ──────────────────────────────────────────── */
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+    .gold { color: var(--gold); }
+    .tag {
+      display: inline-block;
+      font-family: 'Raleway', sans-serif;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      background: var(--gold-light);
+      color: var(--navy);
+      margin-bottom: 20px;
+    }
+
+    /* ─── BUTTONS ────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      letter-spacing: .08em;
+      border-radius: 100px;
+      padding: 15px 32px;
+      border: none;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy-deep);
+      box-shadow: 0 6px 24px rgba(242,201,76,.35);
+    }
+    .btn-primary:hover { background: var(--gold-light); box-shadow: 0 10px 32px rgba(242,201,76,.5); }
+    .btn-ghost {
+      background: rgba(255,255,255,.12);
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,.25);
+      backdrop-filter: blur(6px);
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.4); }
+    .btn-outline {
+      background: transparent;
+      color: var(--navy);
+      border: 2px solid var(--navy);
+    }
+    .btn-outline:hover { background: var(--navy); color: var(--white); }
+
+    /* ─── NAV ────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 18px 0;
+      transition: background .3s ease, box-shadow .3s ease;
+    }
+    nav.scrolled {
+      background: rgba(8,17,58,.92);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 32px rgba(0,0,0,.18);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Cormorant SC', serif;
+      font-weight: 600;
+      font-size: 1.3rem;
+      color: var(--white);
+      letter-spacing: -0.01em;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+    .nav-links a {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 400;
+      font-size: .95rem;
+      letter-spacing: .06em;
+      color: rgba(255,255,255,.75);
+      transition: color .2s;
+      letter-spacing: .01em;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta { display: flex; align-items: center; gap: 14px; }
+
+    /* ─── HERO ───────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+      overflow: hidden;
+      padding: 76px 0 40px;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(26,45,124,.6) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(242,201,76,.06) 0%, transparent 60%);
+    }
+    .hero-stars { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      background: white;
+      animation: twinkle var(--dur) ease-in-out var(--delay) infinite;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: var(--min-op); transform: scale(1); }
+      50%       { opacity: var(--max-op); transform: scale(var(--scale)); }
+    }
+    .shooting-star {
+      position: absolute;
+      height: 1.5px;
+      border-radius: 100px;
+      background: linear-gradient(to right, transparent, white 55%, rgba(242,201,76,.9));
+      pointer-events: none;
+      animation: shoot var(--dur) ease-out forwards;
+    }
+    @keyframes shoot {
+      0%   { opacity: 0; transform: rotate(var(--angle)) translateX(0); }
+      6%   { opacity: 1; }
+      78%  { opacity: 1; }
+      100% { opacity: 0; transform: rotate(var(--angle)) translateX(var(--dist)); }
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      align-items: center;
+      gap: 32px;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-content { max-width: 780px; margin-left: -48px; }
+    .hero-ornament {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 32px;
+      width: 120px;
+    }
+    .orn-line {
+      height: 1px;
+      flex: 1;
+      background: linear-gradient(90deg, rgba(242,201,76,.7), transparent);
+    }
+    .orn-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: .7;
+      flex-shrink: 0;
+    }
+    .hero-content h1 {
+      font-size: clamp(8.5rem, 8vw, 8.5rem);
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+    .hero-content h1 .accent {
+      color: var(--white);
+      display: block;
+    }
+    .hero-content p {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,.65);
+      line-height: 1.7;
+      max-width: 460px;
+      margin-bottom: 40px;
+      font-weight: 300;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    /* Floating tutor avatars */
+    .tutor-floaters { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
+    .tf {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      pointer-events: all;
+      animation: tf-drift var(--fdur) ease-in-out var(--fdelay) infinite alternate;
+    }
+    .tf-av {
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      background: rgba(8,17,58,.65);
+      border: 1.5px solid rgba(242,201,76,.35);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--gold);
+      box-shadow: 0 4px 28px rgba(0,0,0,.35), 0 0 0 1px rgba(242,201,76,.08);
+      transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+    }
+    .tf:hover .tf-av {
+      transform: scale(1.12);
+      border-color: rgba(242,201,76,.7);
+      box-shadow: 0 8px 36px rgba(0,0,0,.45), 0 0 20px rgba(242,201,76,.15);
+    }
+    .tf-name {
+      font-family: 'Raleway', sans-serif;
+      font-size: .6rem;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.45);
+      white-space: nowrap;
+      transition: color .35s;
+    }
+    .tf:hover .tf-name { color: rgba(255,255,255,.8); }
+    @keyframes tf-drift {
+      0%   { transform: translate(0, 0); }
+      30%  { transform: translate(var(--fx), calc(var(--fy) * .6)); }
+      65%  { transform: translate(calc(var(--fx) * .4), var(--fy)); }
+      100% { transform: translate(calc(var(--fx) * -.3), calc(var(--fy) * .5)); }
+    }
+
+    /* Hero visual */
+    .hero-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .compass-wrap {
+      position: relative;
+      width: 480px;
+      height: 480px;
+    }
+    .compass-wrap svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 0 60px rgba(242,201,76,.18));
+    }
+    .orbit-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(242,201,76,.12);
+      animation: spin-slow linear infinite;
+    }
+    .orbit-ring:nth-child(1) {
+      width: 540px; height: 540px;
+      top: -30px; left: -30px;
+      animation-duration: 40s;
+    }
+    .orbit-ring:nth-child(2) {
+      width: 620px; height: 620px;
+      top: -70px; left: -70px;
+      animation-duration: 60s;
+      animation-direction: reverse;
+      border-color: rgba(255,255,255,.05);
+    }
+    .orbit-dot {
+      position: absolute;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    @keyframes spin-slow { to { transform: rotate(360deg); } }
+    @keyframes pulse-glow {
+      0%, 100% { opacity: .6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.04); }
+    }
+    .compass-svg-anim { animation: pulse-glow 5s ease-in-out infinite; }
+
+    /* floating chips */
+    /* Orbiting buttons */
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+    .hero-actions .btn {
+      font-size: 1rem;
+      padding: 15px 32px;
+    }
+
+    /* ─── STATS BAND ─────────────────────────────────────────── */
+    #stats {
+      background: linear-gradient(to bottom, #0D1B52 0%, #0D1B52 calc(100% - 110px), #122260 100%);
+      padding: 40px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 24px;
+      border-right: 1px solid rgba(255,255,255,.08);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: .85rem;
+      color: rgba(255,255,255,.5);
+      font-weight: 400;
+    }
+
+    /* ─── SECTION SHARED ─────────────────────────────────────── */
+    section { padding: 100px 0; }
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-header p {
+      max-width: 540px;
+      margin: 16px auto 0;
+      color: rgba(255,255,255,.7);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    /* ─── WHY LUMEN ──────────────────────────────────────────── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+    .why-visual {
+      position: relative;
+      aspect-ratio: 4/5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+    }
+    /* ─── WHY PHOTO ───────────────────────────────────── */
+    .why-photo-wrap {
+      position: relative;
+      width: 520px;
+      height: 660px;
+      flex-shrink: 0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow:
+        0 2px 4px rgba(0,0,0,.15),
+        0 8px 24px rgba(0,0,0,.25),
+        0 24px 64px rgba(0,0,0,.2);
+    }
+    .why-photo-inner {
+      position: absolute;
+      width: 660px;
+      height: 520px;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+    .why-photo-inner img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+      user-select: none;
+    }
+    .why-content { padding-left: 24px; }
+    .why-content .tag { margin-bottom: 16px; }
+    .why-content h2 { margin-bottom: 20px; }
+    .why-content > p {
+      color: var(--text-mid);
+      font-size: 1.05rem;
+      margin-bottom: 36px;
+      line-height: 1.75;
+    }
+    .feature-list { display: flex; flex-direction: column; gap: 20px; }
+    .feature-item {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+    }
+    .feature-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.1rem;
+    }
+    .feature-text h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .feature-text p {
+      font-size: .9rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    /* ─── SUBJECTS ───────────────────────────────────────────── */
+    #subjects .section-header h2 { color: var(--white); }
+    #subjects .section-header p { color: rgba(255,255,255,.7); }
+
+    .scroll-row { margin-bottom: 44px; }
+    .scroll-row:last-child { margin-bottom: 0; }
+    .scroll-row-header {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .scroll-row-title {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: .68rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .scroll-row-sub {
+      font-family: 'Raleway', sans-serif;
+      font-size: .8rem;
+      color: rgba(255,255,255,.3);
+    }
+
+    /* Carousel wrapper — positions buttons + fade edges */
+    .subj-carousel-wrap {
+      position: relative;
+    }
+    .subj-carousel-wrap::before,
+    .subj-carousel-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 80px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .subj-carousel-wrap::before { left: 0; background: linear-gradient(to right, var(--navy-deep), transparent); }
+    .subj-carousel-wrap::after  { right: 0; background: linear-gradient(to left,  var(--navy-deep), transparent); }
+
+    /* Scroll container */
+    .subj-scroll {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      padding: 8px 4px 20px;
+    }
+    .subj-scroll::-webkit-scrollbar { display: none; }
+
+    /* Arrow buttons */
+    .subj-carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-60%);
+      z-index: 10;
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: rgba(8,17,58,.85);
+      border: 1px solid rgba(242,201,76,.25);
+      color: var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity .25s, background .25s, transform .2s;
+      backdrop-filter: blur(8px);
+    }
+    .subj-carousel-wrap:hover .subj-carousel-btn { opacity: 1; }
+    .subj-carousel-btn:hover {
+      background: rgba(242,201,76,.15);
+      transform: translateY(-60%) scale(1.08);
+    }
+    .subj-carousel-btn--left  { left: -6px; }
+    .subj-carousel-btn--right { right: -6px; }
+
+    /* Card */
+    .subj-card {
+      flex-shrink: 0;
+      width: 220px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      scroll-snap-align: start;
+      transition: transform .35s cubic-bezier(.34,1.56,.64,1), border-color .25s, box-shadow .35s;
+      cursor: default;
+    }
+    .subj-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(242,201,76,.3);
+      box-shadow: 0 20px 50px rgba(0,0,0,.35), 0 0 0 1px rgba(242,201,76,.08);
+    }
+    .subj-card-img {
+      height: 118px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .subj-card-icon { width: 52px; height: 52px; filter: drop-shadow(0 2px 10px rgba(0,0,0,.5)); overflow: visible; }
+    .subj-card-body {
+      padding: 15px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .subj-card-tag {
+      font-family: 'Raleway', sans-serif;
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.3);
+    }
+    .subj-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.2;
+    }
+    .subj-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .subj-card-badge {
+      font-family: 'Raleway', sans-serif;
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      background: rgba(242,201,76,.1);
+      color: var(--gold);
+    }
+    .subj-card-arrow {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.08);
+      display: flex; align-items: center; justify-content: center;
+      transition: background .25s, color .25s, transform .3s;
+    }
+    .subj-card-arrow svg { width: 13px; height: 13px; stroke: rgba(255,255,255,.45); transition: stroke .25s; }
+    .subj-card:hover .subj-card-arrow { background: var(--gold); transform: rotate(-45deg); }
+    .subj-card:hover .subj-card-arrow svg { stroke: var(--navy-deep); }
+
+    /* ─── TEAM ───────────────────────────────────────────────── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .tutor-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(13,27,82,.07), 0 1px 4px rgba(13,27,82,.04);
+      transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .35s ease, outline-color .2s ease;
+      cursor: pointer;
+      outline: 2px solid transparent;
+      outline-offset: -2px;
+    }
+    .tutor-card:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 24px 60px rgba(13,27,82,.15), 0 4px 12px rgba(13,27,82,.08), 0 0 0 2px rgba(242,201,76,.4);
+      outline-color: rgba(242,201,76,.4);
+    }
+    .tutor-card:hover .tutor-photo-overlay {
+      opacity: 1;
+    }
+    .tutor-card:hover .tutor-photo-overlay-text {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .tutor-card:hover .tutor-photo img,
+    .tutor-card:hover .tutor-photo-placeholder {
+      transform: scale(1.04);
+    }
+    .tutor-photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8,17,58,.72) 0%, rgba(8,17,58,.1) 55%, transparent 100%);
+      opacity: 0;
+      transition: opacity .3s ease;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 18px;
+    }
+    .tutor-photo-overlay-text {
+      font-family: 'Raleway', sans-serif;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      transform: translateY(8px);
+      opacity: 0;
+      transition: transform .3s ease, opacity .3s ease;
+    }
+    .tutor-card-interests {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding-top: 12px;
+      margin-top: 12px;
+      border-top: 1px solid rgba(13,27,82,.07);
+    }
+    .tutor-interest-tag {
+      font-family: 'Raleway', sans-serif;
+      font-size: .6rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 100px;
+      background: transparent;
+      border: 1px solid rgba(13,27,82,.15);
+      color: var(--text-mid);
+    }
+    .tutor-photo {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: linear-gradient(145deg, #0D1B52, #1A2D7C);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .tutor-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .tutor-photo-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      transition: transform .35s ease;
+    }
+    .tutor-photo-placeholder svg { opacity: .35; }
+    .tutor-photo-placeholder span {
+      font-family: 'Raleway', sans-serif;
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.35);
+    }
+    .tutor-photo-initials {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(242,201,76,.15);
+      border: 1.5px solid rgba(242,201,76,.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .tutor-card-body {
+      padding: 24px 26px 28px;
+    }
+    .tutor-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+    .tutor-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.15;
+    }
+    .tutor-card-rate {
+      font-family: 'Raleway', sans-serif;
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--gold-dark);
+      background: rgba(242,201,76,.1);
+      border: 1px solid rgba(242,201,76,.25);
+      padding: 4px 10px;
+      border-radius: 100px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .tutor-card-role {
+      font-family: 'Raleway', sans-serif;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 12px;
+    }
+    .tutor-card-subjects {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .tutor-subj-tag {
+      font-family: 'Raleway', sans-serif;
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      background: rgba(13,27,82,.07);
+      color: var(--navy);
+    }
+    .tutor-card-desc {
+      font-size: .88rem;
+      color: var(--text-mid);
+      line-height: 1.65;
+      border-top: 1px solid rgba(13,27,82,.07);
+      padding-top: 14px;
+      min-height: 80px;
+    }
+    .tutor-card-desc em {
+      color: var(--text-light);
+      font-style: italic;
+    }
+
+    /* ─── HOW IT WORKS ───────────────────────────────────────── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      position: relative;
+    }
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: calc(16.6% + 16px);
+      right: calc(16.6% + 16px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--navy) 0%, var(--gold) 50%, var(--navy) 100%);
+      opacity: .15;
+    }
+    .step-card {
+      text-align: center;
+      padding: 40px 28px;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      position: relative;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .step-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .step-num {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 900;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      position: relative;
+      z-index: 2;
+    }
+    .step-card h3 { margin-bottom: 12px; }
+    .step-card p { color: var(--text-mid); font-size: .95rem; line-height: 1.65; }
+
+    /* ─── TESTIMONIALS ───────────────────────────────────────── */
+    /* ── Horizontal testimonial carousel ── */
+    .stagger-outer { margin: 0 -60px; position: relative; }
+    .stagger-wrap { position: relative; height: 320px; overflow: hidden; }
+    .stagger-card {
+      position: absolute; left: 50%; top: 50%;
+      padding: 26px 28px 28px;
+      cursor: pointer;
+      transition: transform .52s cubic-bezier(.34,1.05,.64,1), opacity .35s ease, box-shadow .3s ease, background .25s ease, border-color .25s ease;
+      border: 2px solid rgba(255,255,255,.1);
+      background: rgba(13,27,82,.55);
+      backdrop-filter: blur(6px);
+      border-radius: 18px;
+      display: flex; flex-direction: column;
+    }
+    .stagger-card.stagger-center {
+      background: var(--white);
+      border-color: var(--gold);
+      cursor: default;
+      box-shadow: 0 10px 0 5px rgba(242,201,76,.22), 0 28px 64px rgba(0,0,0,.45);
+    }
+    .stagger-stars { color: var(--gold); font-size: .85rem; letter-spacing: 2px; margin-bottom: 14px; flex-shrink: 0; }
+    .stagger-center .stagger-stars { color: var(--gold-dark); }
+    .stagger-text {
+      font-family: 'Lora', serif; font-style: italic;
+      font-size: .88rem; line-height: 1.72;
+      color: rgba(255,255,255,.78); flex: 1;
+    }
+    .stagger-center .stagger-text { color: var(--navy); }
+    .stagger-author { display: flex; align-items: center; gap: 12px; margin-top: 18px; flex-shrink: 0; }
+    .stagger-ini {
+      width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(242,201,76,.15); border: 1px solid rgba(242,201,76,.3);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: .85rem;
+      color: var(--gold);
+    }
+    .stagger-center .stagger-ini { background: rgba(13,27,82,.08); border-color: rgba(13,27,82,.15); color: var(--navy); }
+    .stagger-name { font-family: 'Raleway', sans-serif; font-size: .78rem; font-weight: 700; color: rgba(255,255,255,.9); }
+    .stagger-center .stagger-name { color: var(--navy); }
+    .stagger-role { font-family: 'Raleway', sans-serif; font-size: .7rem; color: rgba(255,255,255,.4); margin-top: 2px; }
+    .stagger-center .stagger-role { color: var(--text-mid); }
+    .stagger-nav { display: flex; justify-content: center; gap: 10px; margin-top: 22px; }
+    .stagger-btn {
+      width: 50px; height: 50px; border-radius: 50%;
+      background: var(--navy-deep); border: 2px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.7); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; transition: background .2s, border-color .2s, color .2s;
+    }
+    .stagger-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--navy-deep); }
+
+    /* ─── DARK SECTION TEXT OVERRIDES (cream-alt sections) ──── */
+    #why h2,
+    #team .section-header h2,
+    #testimonials .section-header h2 { color: var(--white); }
+    #why .why-content > p { color: rgba(255,255,255,.7); }
+    #why .feature-text h4 { color: var(--white); }
+    #why .feature-text p { color: rgba(255,255,255,.65); }
+
+
+
+    /* ── SECTION STAR FIELDS ── */
+    #why, #subjects, #team, #how, #testimonials, #cta { position: relative; overflow: hidden; }
+    .section-stars { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .deco-stars { position: absolute; pointer-events: none; overflow: visible; z-index: 0; }
+
+    /* ── SECTION GRADIENTS (seamless blends) ── */
+    #hero        { background: linear-gradient(to bottom, #08113A 78%, #0D1B52 100%); }
+    #why         { background: linear-gradient(to bottom, #122260 0%, #122260 100px, #122260 calc(100% - 100px), #08113A 100%); }
+    #subjects    { background: linear-gradient(to bottom, #08113A 0%, #08113A 100px, #08113A calc(100% - 100px), #122260 100%); }
+    #team        { background: linear-gradient(to bottom, #122260 0%, #122260 100px, #122260 calc(100% - 100px), #08113A 100%); }
+    #how         { background: linear-gradient(to bottom, #08113A 0%, #08113A 100px, #08113A calc(100% - 100px), #122260 100%); }
+    #testimonials{ background: linear-gradient(to bottom, #122260 0%, #122260 100px, #122260 calc(100% - 100px), #091240 100%); }
+    #cta         { background: linear-gradient(to bottom, #091240 0%, #091240 100%); }
+    /* ─── CTA ────────────────────────────────────────────────── */
+    #cta {
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 80% 50%, rgba(242,201,76,.08) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 10% 40%, rgba(26,45,124,.4) 0%, transparent 60%);
+    }
+    .cta-inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+      align-items: center;
+    }
+    .cta-inner h2 { color: var(--white); font-size: clamp(1.8rem, 3.5vw, 2.8rem); }
+    .cta-inner p {
+      color: rgba(255,255,255,.55);
+      margin-top: 14px;
+      font-size: 1rem;
+      max-width: 480px;
+    }
+    .cta-actions { display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
+    .cta-note { font-size: .8rem; color: rgba(255,255,255,.35); text-align: right; }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      background: var(--navy-deep);
+      padding: 60px 0 36px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      margin-bottom: 32px;
+    }
+    .footer-brand .nav-logo { margin-bottom: 16px; }
+    .footer-brand p {
+      font-size: .88rem;
+      color: rgba(255,255,255,.4);
+      line-height: 1.65;
+      max-width: 260px;
+    }
+    .footer-col h4 {
+      color: rgba(255,255,255,.7);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a {
+      font-size: .88rem;
+      color: rgba(255,255,255,.4);
+      transition: color .2s;
+    }
+    .footer-col ul li a:hover { color: var(--gold); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-bottom p { font-size: .82rem; color: rgba(255,255,255,.3); }
+
+    /* ─── SCROLL ANIMATIONS ──────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero-grid { gap: 32px; }
+      .compass-wrap { width: 380px; height: 380px; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      section { padding: 70px 0; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .why-grid { grid-template-columns: 1fr; }
+      .why-photo-wrap { width: 100%; height: 260px; }
+      .why-content { padding-left: 0; }
+      .team-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .steps-grid::before { display: none; }
+.stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .cta-inner { grid-template-columns: 1fr; }
+      .cta-actions { align-items: flex-start; }
+      .cta-note { text-align: left; }
+      .nav-links { display: none; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+    .subj-modal-overlay{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(8,17,58,.7);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .25s ease;}
+    .subj-modal-overlay.open{opacity:1;pointer-events:all;}
+    .subj-modal{background:var(--navy);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-lg);width:100%;max-width:460px;box-shadow:0 32px 80px rgba(0,0,0,.5);transform:translateY(16px) scale(.97);transition:transform .28s cubic-bezier(.34,1.56,.64,1);overflow:hidden;}
+    .subj-modal-overlay.open .subj-modal{transform:translateY(0) scale(1);}
+    .subj-modal-header{display:flex;align-items:center;gap:16px;padding:28px 28px 20px;border-bottom:1px solid rgba(255,255,255,.08);}
+    .subj-modal-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .subj-modal-name{flex:1;font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--white);line-height:1.15;}
+    .subj-modal-level{font-family:'Raleway',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-top:4px;}
+    .subj-modal-close{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);transition:background .2s,color .2s;flex-shrink:0;}
+    .subj-modal-close:hover{background:rgba(255,255,255,.15);color:var(--white);}
+    .subj-modal-body{padding:24px 28px 28px;}
+    .subj-modal-desc{font-size:.95rem;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:24px;font-family:'Lora',serif;font-style:italic;min-height:56px;}
+    .subj-modal-tutors-label{font-family:'Raleway',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:12px;}
+    .subj-modal-tutor-list{display:flex;flex-wrap:wrap;gap:10px;}
+    .subj-modal-tutor{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:100px;padding:6px 14px 6px 8px;}
+    .subj-modal-tutor-ini{width:28px;height:28px;border-radius:50%;background:rgba(242,201,76,.15);border:1px solid rgba(242,201,76,.3);font-family:'Cormorant Garamond',serif;font-size:.85rem;font-weight:600;color:var(--gold);display:flex;align-items:center;justify-content:center;}
+    .subj-modal-tutor-name{font-family:'Raleway',sans-serif;font-size:.78rem;font-weight:600;color:rgba(255,255,255,.85);}
+    /* ── Tutor modal ── */
+    .tutor-modal-overlay{position:fixed;inset:0;z-index:600;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(8,17,58,.78);backdrop-filter:blur(7px);opacity:0;pointer-events:none;transition:opacity .25s ease;}
+    .tutor-modal-overlay.open{opacity:1;pointer-events:all;}
+    .tutor-modal{position:relative;background:var(--navy-deep);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-lg);width:100%;max-width:1140px;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 40px 100px rgba(0,0,0,.65);transform:translateY(18px) scale(.97);transition:transform .3s cubic-bezier(.34,1.56,.64,1);overflow:hidden;}
+    .tutor-modal-overlay.open .tutor-modal{transform:translateY(0) scale(1);}
+    .tutor-modal-close{position:absolute;top:16px;right:18px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);transition:background .2s,color .2s;z-index:10;}
+    .tutor-modal-close:hover{background:rgba(255,255,255,.15);color:var(--white);}
+    .tutor-modal-header{display:flex;align-items:center;gap:0;padding:0;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0;}
+    .tutor-modal-header-left{display:flex;align-items:center;gap:20px;padding:24px 28px;flex-shrink:0;}
+    .tutor-modal-header-quote{flex:1;padding:24px 28px;border-left:1px solid rgba(255,255,255,.08);border-right:1px solid rgba(255,255,255,.08);align-self:stretch;display:flex;flex-direction:column;justify-content:center;}
+    .tutor-modal-quote-text{font-family:'Lora',serif;font-style:italic;font-size:.9rem;color:rgba(255,255,255,.62);line-height:1.72;}
+    .tutor-modal-quote-attr{font-family:'Raleway',sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.07em;color:rgba(255,255,255,.28);margin-top:8px;}
+    .tutor-modal-header-right{padding:24px 28px;flex-shrink:0;display:flex;align-items:center;}
+    .tutor-modal-avatar{width:68px;height:68px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--navy-deep);flex-shrink:0;}
+    .tutor-modal-header-info{min-width:0;}
+    .tutor-modal-name{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:600;color:var(--white);line-height:1.1;}
+    .tutor-modal-contact{font-family:'Raleway',sans-serif;font-size:.78rem;font-weight:500;color:rgba(255,255,255,.45);margin-top:4px;margin-bottom:6px;}
+    .tutor-modal-rate-pill{display:inline-flex;align-items:center;margin-top:7px;background:rgba(242,201,76,.14);border:1px solid rgba(242,201,76,.28);border-radius:100px;padding:3px 13px;font-family:'Raleway',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.07em;color:var(--gold);}
+    .tutor-modal-book{display:inline-flex;align-items:center;gap:6px;background:var(--gold);color:var(--navy-deep);font-family:'Raleway',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.04em;padding:11px 22px;border-radius:100px;text-decoration:none;transition:background .2s,transform .18s;flex-shrink:0;}
+    .tutor-modal-book:hover{background:#e8b93e;transform:translateY(-1px);}
+    .tutor-modal-body{display:grid;grid-template-columns:1fr 1fr 1fr;flex:1;}
+    .tutor-modal-col{padding:26px 28px;}
+    .tutor-modal-col-left{border-right:1px solid rgba(255,255,255,.06);}
+    .tutor-modal-col-mid{border-right:1px solid rgba(255,255,255,.06);}
+    .tutor-modal-section{margin-bottom:22px;}
+    .tutor-modal-section:last-child{margin-bottom:0;}
+    .tutor-modal-section-label{font-family:'Raleway',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-bottom:10px;}
+    .tutor-modal-bio{font-family:'Lora',serif;font-size:.95rem;color:rgba(255,255,255,.8);line-height:1.78;}
+    .tutor-modal-interest-tags{display:flex;flex-wrap:wrap;gap:7px;}
+    .tutor-modal-interest-tag{font-family:'Raleway',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.05em;padding:5px 13px;border-radius:100px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.65);}
+    .tutor-modal-subj-list{display:flex;flex-direction:column;gap:7px;}
+    .tutor-modal-subj-row{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:9px;}
+    .tutor-modal-subj-name{font-family:'Raleway',sans-serif;font-size:.8rem;font-weight:600;color:rgba(255,255,255,.82);}
+    .tutor-modal-subj-score{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--gold);}
+    .tutor-modal-subj-tags{display:flex;flex-wrap:wrap;gap:6px;}
+    .tutor-modal-subj-tag{font-family:'Raleway',sans-serif;font-size:.69rem;font-weight:600;letter-spacing:.04em;padding:4px 11px;border-radius:100px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.6);}
+    .tutor-modal-edu-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--white);margin-bottom:4px;}
+    .tutor-modal-edu-detail{font-family:'Raleway',sans-serif;font-size:.78rem;color:rgba(255,255,255,.45);}
+    .tutor-modal-days-grid{display:flex;flex-wrap:nowrap;gap:5px;margin-bottom:8px;}
+    .tutor-modal-day{font-family:'Raleway',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.02em;padding:4px 0;border-radius:6px;background:rgba(242,201,76,.1);border:1px solid rgba(242,201,76,.22);color:var(--gold);flex:1;text-align:center;}
+    .tutor-modal-hours{font-family:'Raleway',sans-serif;font-size:.76rem;color:rgba(255,255,255,.38);}
+    @media(max-width:860px){.tutor-modal-body{grid-template-columns:1fr 1fr;}.tutor-modal-col-mid{border-right:none;border-bottom:1px solid rgba(255,255,255,.06);}}
+    @media(max-width:560px){.tutor-modal-body{grid-template-columns:1fr;overflow-y:auto;}.tutor-modal-col-left,.tutor-modal-col-mid{border-right:none;border-bottom:1px solid rgba(255,255,255,.06);}.tutor-modal-header{flex-wrap:wrap;}.tutor-modal-book{width:100%;justify-content:center;}}
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ─────────────────────────────────────────────── -->
+  <nav id="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="nav-logo">
+        <svg width="36" height="36" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 50 L28 14 L38 38 Z" fill="#F2C94C" opacity=".9"/>
+          <path d="M50 50 L72 14 L62 38 Z" fill="#F2C94C" opacity=".9"/>
+          <path d="M50 50 L86 28 L62 38 Z" fill="#F2C94C" opacity=".9"/>
+          <path d="M50 50 L86 72 L62 62 Z" fill="#F2C94C" opacity=".9"/>
+          <path d="M50 50 L72 86 L62 62 Z" fill="#F2C94C" opacity=".9"/>
+          <path d="M50 50 L28 86 L38 62 Z" fill="#F2C94C" opacity=".9"/>
+          <path d="M50 50 L14 72 L38 62 Z" fill="#F2C94C" opacity=".9"/>
+          <path d="M50 50 L14 28 L38 38 Z" fill="#F2C94C" opacity=".9"/>
+          <path d="M50 50 L38 38 L50 2 L62 38 Z" fill="#1A2D7C"/>
+          <path d="M50 50 L62 38 L98 50 L62 62 Z" fill="#1A2D7C"/>
+          <path d="M50 50 L62 62 L50 98 L38 62 Z" fill="#1A2D7C"/>
+          <path d="M50 50 L38 62 L2 50 L38 38 Z" fill="#1A2D7C"/>
+          <circle cx="50" cy="50" r="14" fill="white"/>
+          <circle cx="50" cy="50" r="10" fill="#F2C94C"/>
+        </svg>
+        Lumen Tuition
+      </a>
+      <ul class="nav-links">
+        <li><a href="#why">About</a></li>
+        <li><a href="#subjects">Subjects</a></li>
+        <li><a href="#team">Our Team</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#testimonials">Results</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="booking.html" class="btn btn-primary" style="padding:11px 24px;font-size:.9rem;">Book Now</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─────────────────────────────────────────────── -->
+  <section id="hero">
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;top:0;right:0;width:210px;height:150px;opacity:0.2" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="192" y1="14" x2="165" y2="34"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="165" y1="34" x2="136" y2="22"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="136" y1="22" x2="108" y2="42"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="108" y1="42" x2="102" y2="84"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="102" y1="84" x2="64" y2="88"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="64" y1="88" x2="60" y2="50"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="60" y1="50" x2="108" y2="42"/>
+    <circle fill="white" cx="192" cy="14" r="2"/><circle fill="white" cx="165" cy="34" r="1.3"/><circle fill="white" cx="136" cy="22" r="1.6"/><circle fill="white" cx="108" cy="42" r="2.4"/><circle fill="white" cx="102" cy="84" r="1.9"/><circle fill="white" cx="64" cy="88" r="1.6"/><circle fill="white" cx="60" cy="50" r="2.1"/>
+    <circle fill="white" cx="28" cy="14" r="0.8"/><circle fill="white" cx="170" cy="68" r="0.7"/><circle fill="white" cx="115" cy="8" r="0.9"/><circle fill="white" cx="32" cy="100" r="0.7"/><circle fill="white" cx="148" cy="120" r="0.8"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;bottom:8%;left:2%;width:190px;height:100px;opacity:0.18" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="12" y1="74" x2="48" y2="28"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="48" y1="28" x2="84" y2="58"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="84" y1="58" x2="122" y2="20"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="122" y1="20" x2="158" y2="52"/>
+    <circle fill="white" cx="12" cy="74" r="2.2"/><circle fill="white" cx="48" cy="28" r="1.9"/><circle fill="white" cx="84" cy="58" r="1.5"/><circle fill="white" cx="122" cy="20" r="2.1"/><circle fill="white" cx="158" cy="52" r="1.8"/>
+    <circle fill="white" cx="172" cy="18" r="0.8"/><circle fill="white" cx="34" cy="8" r="0.7"/><circle fill="white" cx="108" cy="82" r="0.9"/><circle fill="white" cx="148" cy="84" r="0.6"/><circle fill="white" cx="68" cy="8" r="0.7"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;top:20%;left:5%;width:100px;height:95px;opacity:0.17" xmlns="http://www.w3.org/2000/svg">
+    <circle fill="white" cx="50" cy="20" r="2.4"/><circle fill="white" cx="32" cy="38" r="1.8"/><circle fill="white" cx="68" cy="35" r="2.0"/><circle fill="white" cx="24" cy="58" r="1.5"/><circle fill="white" cx="52" cy="52" r="2.2"/><circle fill="white" cx="75" cy="58" r="1.7"/><circle fill="white" cx="40" cy="74" r="1.4"/>
+    <circle fill="white" cx="15" cy="22" r="0.7"/><circle fill="white" cx="82" cy="20" r="0.8"/><circle fill="white" cx="88" cy="80" r="0.7"/><circle fill="white" cx="10" cy="82" r="0.6"/>
+  </svg>
+    <div class="hero-bg"></div>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;top:55%;left:2%;width:175px;height:100px;opacity:0.17" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="12" y1="22" x2="52" y2="78"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="52" y1="78" x2="95" y2="18"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="95" y1="18" x2="135" y2="72"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="135" y1="72" x2="165" y2="28"/>
+    <circle fill="white" cx="12" cy="22" r="2.1"/><circle fill="white" cx="52" cy="78" r="1.8"/>
+    <circle fill="white" cx="95" cy="18" r="2.4"/><circle fill="white" cx="135" cy="72" r="1.9"/>
+    <circle fill="white" cx="165" cy="28" r="2.0"/>
+    <circle fill="white" cx="32" cy="10" r="0.8"/><circle fill="white" cx="75" cy="88" r="0.7"/><circle fill="white" cx="152" cy="88" r="0.8"/><circle fill="white" cx="118" cy="8" r="0.7"/>
+  </svg>
+    <div class="hero-stars" id="heroStars"></div>
+
+    <div class="container">
+      <div class="hero-grid">
+
+        <div class="hero-content">
+          <div class="hero-ornament">
+            <span class="orn-dot"></span>
+            <span class="orn-line"></span>
+          </div>
+          <h1>
+            The Future<br>is <span style="color:var(--gold)">Bright</span>
+            <div style="font-size:clamp(1.6rem,3vw,2.6rem);margin-top:18px;font-weight:500;letter-spacing:0.01em;">with <span style="color:var(--gold)">Lumen Tuition</span></div>
+          </h1>
+          <p>Passionate, results-driven tutors delivering personalised learning to high school students throughout Queensland.</p>
+          <div class="hero-actions">
+            <a href="booking.html" class="btn btn-primary">Book a Session →</a>
+            <a href="contact.html" class="btn btn-ghost">Get in Touch</a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="compass-wrap">
+            <!-- Orbit rings -->
+            <div class="orbit-ring"><div class="orbit-dot"></div></div>
+            <div class="orbit-ring"></div>
+
+            <!-- Main compass SVG -->
+            <svg class="compass-svg-anim" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#F2C94C" stop-opacity="0.15"/>
+                  <stop offset="100%" stop-color="#F2C94C" stop-opacity="0"/>
+                </radialGradient>
+                <filter id="soft">
+                  <feGaussianBlur stdDeviation="2" result="blur"/>
+                  <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                </filter>
+              </defs>
+
+              <!-- Glow aura -->
+              <circle cx="200" cy="200" r="180" fill="url(#glow)"/>
+
+              <!-- Gold diagonal points -->
+              <path d="M200 200 L160 80 L178 160 Z" fill="#F2C94C" opacity=".85"/>
+              <path d="M200 200 L240 80 L222 160 Z" fill="#F2C94C" opacity=".85"/>
+              <path d="M200 200 L320 160 L240 178 Z" fill="#F2C94C" opacity=".85"/>
+              <path d="M200 200 L320 240 L240 222 Z" fill="#F2C94C" opacity=".85"/>
+              <path d="M200 200 L240 320 L222 240 Z" fill="#F2C94C" opacity=".85"/>
+              <path d="M200 200 L160 320 L178 240 Z" fill="#F2C94C" opacity=".85"/>
+              <path d="M200 200 L80 240 L160 222 Z" fill="#F2C94C" opacity=".85"/>
+              <path d="M200 200 L80 160 L160 178 Z" fill="#F2C94C" opacity=".85"/>
+
+              <!-- Navy cardinal points -->
+              <path d="M200 200 L178 160 L200 20 L222 160 Z" fill="#1E3A9F"/>
+              <path d="M200 200 L222 178 L380 200 L222 222 Z" fill="#1E3A9F"/>
+              <path d="M200 200 L222 240 L200 380 L178 240 Z" fill="#1E3A9F"/>
+              <path d="M200 200 L178 222 L20 200 L178 178 Z" fill="#1E3A9F"/>
+
+              <!-- Sheen overlay on navy -->
+              <path d="M200 200 L178 160 L200 20 L222 160 Z" fill="url(#sheen)" opacity=".3"/>
+
+              <!-- Center ring -->
+              <circle cx="200" cy="200" r="42" fill="white"/>
+              <circle cx="200" cy="200" r="34" fill="#F2C94C"/>
+              <circle cx="200" cy="200" r="20" fill="#D4A832" opacity=".4"/>
+              <circle cx="200" cy="200" r="16" fill="#F2C94C"/>
+
+            </svg>
+
+            <!-- Tutor avatars on orbit ring radius (290px from compass centre) -->
+            <div class="tutor-floaters">
+              <!-- 0°  top        --> <div class="tf" style="top:-83px;  left:207px; --fdur:9s;  --fdelay:-1s;  --fx:-7px; --fy:-12px;"><div class="tf-av">DN</div><div class="tf-name">D. Nash</div></div>
+              <!-- 60° upper-right --> <div class="tf" style="top:62px;   left:458px; --fdur:11s; --fdelay:-5s;  --fx:11px; --fy:-10px;"><div class="tf-av">TH</div><div class="tf-name">T. Hewett</div></div>
+              <!-- 120° lower-right --> <div class="tf" style="top:352px;  left:458px; --fdur:8s;  --fdelay:-3s;  --fx:10px; --fy:12px;"> <div class="tf-av">AA</div><div class="tf-name">A. Atzeni</div></div>
+              <!-- 180° bottom     --> <div class="tf" style="top:497px;  left:207px; --fdur:10s; --fdelay:-7s;  --fx:-6px; --fy:14px;"> <div class="tf-av">MM</div><div class="tf-name">M. Markovich</div></div>
+              <!-- 240° lower-left --> <div class="tf" style="top:352px;  left:-44px; --fdur:12s; --fdelay:-2s;  --fx:-11px;--fy:12px;"><div class="tf-av">TG</div><div class="tf-name">T. Gallus</div></div>
+              <!-- 300° upper-left --> <div class="tf" style="top:62px;   left:-44px; --fdur:7s;  --fdelay:-9s;  --fx:-10px;--fy:-12px;"><div class="tf-av">GB</div><div class="tf-name"> G. Buchanan</div></div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── STATS ─────────────────────────────────────────────── -->
+  <div id="stats">
+  <div class="section-stars" id="statsStars"></div>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;top:10%;right:3%;width:145px;height:115px;opacity:0.18" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="72" y1="12" x2="20" y2="95"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="72" y1="12" x2="125" y2="95"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="20" y1="95" x2="46" y2="55"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="125" y1="95" x2="100" y2="55"/>
+    <circle fill="white" cx="72" cy="12" r="2.5"/>
+    <circle fill="white" cx="20" cy="95" r="1.8"/>
+    <circle fill="white" cx="125" cy="95" r="2.0"/>
+    <circle fill="white" cx="46" cy="55" r="1.5"/>
+    <circle fill="white" cx="100" cy="55" r="1.7"/>
+    <circle fill="white" cx="8" cy="40" r="0.8"/><circle fill="white" cx="138" cy="35" r="0.7"/><circle fill="white" cx="72" cy="80" r="0.6"/><circle fill="white" cx="55" cy="10" r="0.8"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;bottom:5%;left:2%;width:170px;height:90px;opacity:0.17" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="10" y1="78" x2="45" y2="38"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="45" y1="38" x2="85" y2="16"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="85" y1="16" x2="128" y2="32"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="128" y1="32" x2="158" y2="68"/>
+    <circle fill="white" cx="10" cy="78" r="1.9"/><circle fill="white" cx="45" cy="38" r="1.6"/>
+    <circle fill="white" cx="85" cy="16" r="2.3"/><circle fill="white" cx="128" cy="32" r="1.7"/>
+    <circle fill="white" cx="158" cy="68" r="2.0"/>
+    <circle fill="white" cx="28" cy="18" r="0.8"/><circle fill="white" cx="110" cy="70" r="0.7"/><circle fill="white" cx="155" cy="20" r="0.9"/><circle fill="white" cx="5" cy="45" r="0.7"/>
+  </svg>
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <div class="stat-number">20</div>
+          <div class="stat-label">Subjects covered</div>
+        </div>
+        <div class="stat-item reveal reveal-delay-1">
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Students supported</div>
+        </div>
+        <div class="stat-item reveal reveal-delay-2">
+          <div class="stat-number">200+</div>
+          <div class="stat-label">Hours of experience</div>
+        </div>
+        <div class="stat-item reveal reveal-delay-3">
+          <div class="stat-number">1</div>
+          <div class="stat-label">Company</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── WHY LUMEN ─────────────────────────────────────────── -->
+  <section id="why">
+  <div class="section-stars" id="whyStars"></div>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;top:2%;right:2%;width:190px;height:100px;opacity:0.2" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="12" y1="74" x2="48" y2="28"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="48" y1="28" x2="84" y2="58"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="84" y1="58" x2="122" y2="20"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="122" y1="20" x2="158" y2="52"/>
+    <circle fill="white" cx="12" cy="74" r="2.2"/><circle fill="white" cx="48" cy="28" r="1.9"/><circle fill="white" cx="84" cy="58" r="1.5"/><circle fill="white" cx="122" cy="20" r="2.1"/><circle fill="white" cx="158" cy="52" r="1.8"/>
+    <circle fill="white" cx="172" cy="18" r="0.8"/><circle fill="white" cx="34" cy="8" r="0.7"/><circle fill="white" cx="108" cy="82" r="0.9"/><circle fill="white" cx="148" cy="84" r="0.6"/><circle fill="white" cx="68" cy="8" r="0.7"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;bottom:8%;left:2%;width:160px;height:110px;opacity:0.19" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="20" y1="80" x2="78" y2="52"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="78" y1="52" x2="138" y2="24"/>
+    <circle fill="white" cx="20" cy="80" r="2.3"/><circle fill="white" cx="78" cy="52" r="2.6"/><circle fill="white" cx="138" cy="24" r="2.1"/>
+    <circle fill="white" cx="48" cy="15" r="1.4"/><circle fill="white" cx="118" cy="78" r="1.2"/><circle fill="white" cx="8" cy="30" r="0.8"/><circle fill="white" cx="148" cy="70" r="0.9"/>
+    <circle fill="white" cx="62" cy="95" r="0.7"/><circle fill="white" cx="100" cy="10" r="0.8"/><circle fill="white" cx="30" cy="50" r="0.7"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;top:40%;right:3%;width:100px;height:95px;opacity:0.16" xmlns="http://www.w3.org/2000/svg">
+    <circle fill="white" cx="50" cy="20" r="2.4"/><circle fill="white" cx="32" cy="38" r="1.8"/><circle fill="white" cx="68" cy="35" r="2.0"/><circle fill="white" cx="24" cy="58" r="1.5"/><circle fill="white" cx="52" cy="52" r="2.2"/><circle fill="white" cx="75" cy="58" r="1.7"/><circle fill="white" cx="40" cy="74" r="1.4"/>
+    <circle fill="white" cx="15" cy="22" r="0.7"/><circle fill="white" cx="82" cy="20" r="0.8"/><circle fill="white" cx="88" cy="80" r="0.7"/><circle fill="white" cx="10" cy="82" r="0.6"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;bottom:20%;right:8%;width:88px;height:88px;opacity:0.17" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="44" y1="8" x2="44" y2="78"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="8" y1="44" x2="78" y2="44"/>
+    <circle fill="white" cx="44" cy="8" r="1.8"/><circle fill="white" cx="44" cy="78" r="1.5"/><circle fill="white" cx="8" cy="44" r="1.6"/><circle fill="white" cx="78" cy="44" r="1.9"/><circle fill="white" cx="44" cy="44" r="2.4"/>
+    <circle fill="white" cx="22" cy="18" r="0.7"/><circle fill="white" cx="66" cy="22" r="0.8"/><circle fill="white" cx="18" cy="65" r="0.6"/><circle fill="white" cx="70" cy="66" r="0.7"/>
+  </svg>
+    <div class="container">
+      <div class="why-grid">
+
+        <div class="why-visual reveal">
+          <div class="why-photo-wrap">
+            <div class="why-photo-inner">
+              <img src="desk.png" alt="Study desk with laptop and notebook">
+            </div>
+          </div>
+        </div>
+
+        <div class="why-content reveal reveal-delay-1">
+          <div class="tag">Why Lumen</div>
+          <h2>More than just a session.</h2>
+          <p>We don't just teach content — we build confidence, sharpen technique, and ignite a genuine love of learning in every student we work with.</p>
+
+          <div class="feature-list">
+            <div class="feature-item">
+              <div class="feature-icon">
+                <!-- target / personalised -->
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+                  <line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/>
+                  <line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/>
+                </svg>
+              </div>
+              <div class="feature-text">
+                <h4>Personalised to you</h4>
+                <p>Every session is tailored to your exact needs, learning style, and exam board — no one-size-fits-all approaches here.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <!-- trophy / expert tutors -->
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9H3a1 1 0 0 1-1-1V5h4"/><path d="M18 9h3a1 1 0 0 0 1-1V5h-4"/>
+                  <path d="M6 4h12v8a6 6 0 0 1-12 0V4z"/>
+                  <line x1="12" y1="18" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/>
+                </svg>
+              </div>
+              <div class="feature-text">
+                <h4>Expert-qualified tutors</h4>
+                <p>Our tutors are subject specialists — many with first-class degrees and teaching qualifications from leading universities.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <!-- calendar / flexible scheduling -->
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                  <line x1="8" y1="14" x2="8" y2="14" stroke-width="2.5"/><line x1="12" y1="14" x2="12" y2="14" stroke-width="2.5"/>
+                  <line x1="16" y1="14" x2="16" y2="14" stroke-width="2.5"/><line x1="8" y1="18" x2="8" y2="18" stroke-width="2.5"/>
+                  <line x1="12" y1="18" x2="12" y2="18" stroke-width="2.5"/>
+                </svg>
+              </div>
+              <div class="feature-text">
+                <h4>Flexible scheduling</h4>
+                <p>Morning, evening, weekends — sessions fit around your life, with easy rescheduling when plans change.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <!-- chart / progress tracking -->
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+                  <polyline points="16 7 22 7 22 13"/>
+                </svg>
+              </div>
+              <div class="feature-text">
+                <h4>Progress tracking</h4>
+                <p>Regular reports and progress checks keep students, parents, and tutors aligned on every milestone.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SUBJECTS ──────────────────────────────────────────── -->
+  <section id="subjects">
+  <div class="section-stars" id="subjectsStars"></div>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;top:55%;right:3%;width:110px;height:120px;opacity:0.17" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="55" y1="10" x2="88" y2="42"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="88" y1="42" x2="78" y2="80"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="78" y1="80" x2="42" y2="105"/>
+    <circle fill="white" cx="55" cy="10" r="2.2"/><circle fill="white" cx="88" cy="42" r="2.5"/>
+    <circle fill="white" cx="78" cy="80" r="1.8"/><circle fill="white" cx="42" cy="105" r="2.0"/>
+    <circle fill="white" cx="20" cy="32" r="0.8"/><circle fill="white" cx="100" cy="10" r="0.7"/><circle fill="white" cx="15" cy="90" r="0.9"/><circle fill="white" cx="95" cy="100" r="0.7"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;top:2%;right:2%;width:210px;height:150px;opacity:0.21" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="192" y1="14" x2="165" y2="34"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="165" y1="34" x2="136" y2="22"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="136" y1="22" x2="108" y2="42"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="108" y1="42" x2="102" y2="84"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="102" y1="84" x2="64" y2="88"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="64" y1="88" x2="60" y2="50"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="60" y1="50" x2="108" y2="42"/>
+    <circle fill="white" cx="192" cy="14" r="2"/><circle fill="white" cx="165" cy="34" r="1.3"/><circle fill="white" cx="136" cy="22" r="1.6"/><circle fill="white" cx="108" cy="42" r="2.4"/><circle fill="white" cx="102" cy="84" r="1.9"/><circle fill="white" cx="64" cy="88" r="1.6"/><circle fill="white" cx="60" cy="50" r="2.1"/>
+    <circle fill="white" cx="28" cy="14" r="0.8"/><circle fill="white" cx="170" cy="68" r="0.7"/><circle fill="white" cx="115" cy="8" r="0.9"/><circle fill="white" cx="32" cy="100" r="0.7"/><circle fill="white" cx="148" cy="120" r="0.8"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;bottom:6%;left:2%;width:130px;height:120px;opacity:0.19" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="65" y1="10" x2="8" y2="104"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="8" y1="104" x2="122" y2="104"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="122" y1="104" x2="65" y2="10"/>
+    <circle fill="white" cx="65" cy="10" r="2.5"/><circle fill="white" cx="8" cy="104" r="2.1"/><circle fill="white" cx="122" cy="104" r="2.3"/>
+    <circle fill="white" cx="38" cy="58" r="0.8"/><circle fill="white" cx="90" cy="52" r="0.9"/><circle fill="white" cx="65" cy="78" r="0.7"/><circle fill="white" cx="20" cy="24" r="0.7"/><circle fill="white" cx="108" cy="30" r="0.8"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;top:38%;left:3%;width:160px;height:110px;opacity:0.17" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="20" y1="80" x2="78" y2="52"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="78" y1="52" x2="138" y2="24"/>
+    <circle fill="white" cx="20" cy="80" r="2.3"/><circle fill="white" cx="78" cy="52" r="2.6"/><circle fill="white" cx="138" cy="24" r="2.1"/>
+    <circle fill="white" cx="48" cy="15" r="1.4"/><circle fill="white" cx="118" cy="78" r="1.2"/><circle fill="white" cx="8" cy="30" r="0.8"/><circle fill="white" cx="148" cy="70" r="0.9"/>
+    <circle fill="white" cx="62" cy="95" r="0.7"/><circle fill="white" cx="100" cy="10" r="0.8"/><circle fill="white" cx="30" cy="50" r="0.7"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;bottom:28%;right:4%;width:100px;height:95px;opacity:0.16" xmlns="http://www.w3.org/2000/svg">
+    <circle fill="white" cx="50" cy="20" r="2.4"/><circle fill="white" cx="32" cy="38" r="1.8"/><circle fill="white" cx="68" cy="35" r="2.0"/><circle fill="white" cx="24" cy="58" r="1.5"/><circle fill="white" cx="52" cy="52" r="2.2"/><circle fill="white" cx="75" cy="58" r="1.7"/><circle fill="white" cx="40" cy="74" r="1.4"/>
+    <circle fill="white" cx="15" cy="22" r="0.7"/><circle fill="white" cx="82" cy="20" r="0.8"/><circle fill="white" cx="88" cy="80" r="0.7"/><circle fill="white" cx="10" cy="82" r="0.6"/>
+  </svg>
+    <div class="container">
+      <div class="section-header">
+        <div class="tag" style="background:rgba(242,201,76,.15);color:var(--gold)">Subjects</div>
+        <h2 style="color:var(--white)">Subjects across all levels.</h2>
+        <p style="color:rgba(255,255,255,.45)">From year seven assignments to external exams, Lumen covers the full spectra.</p>
+      </div>
+
+      <!-- QCAA carousel -->
+      <div class="scroll-row">
+        <div class="scroll-row-header">
+          <span class="scroll-row-title">QCAA</span>
+          <span class="scroll-row-sub">Years 11–12</span>
+        </div>
+        <div class="subj-carousel-wrap">
+          <button class="subj-carousel-btn subj-carousel-btn--left" onclick="scrollCarousel(this,-1)" aria-label="Scroll left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="subj-scroll">
+            <!-- Physics -->
+            <div class="subj-card"><div class="subj-card-img" style="background:linear-gradient(145deg,#0D1B52,#0f2464)"><svg class="subj-card-icon" viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="20" rx="16" ry="7" stroke="rgba(255,255,255,.65)" stroke-width="1.5"/><ellipse cx="20" cy="20" rx="16" ry="7" stroke="rgba(255,255,255,.65)" stroke-width="1.5" transform="rotate(60 20 20)"/><ellipse cx="20" cy="20" rx="16" ry="7" stroke="rgba(255,255,255,.65)" stroke-width="1.5" transform="rotate(-60 20 20)"/><circle cx="20" cy="20" r="3.5" fill="#F2C94C"/></svg></div><div class="subj-card-body"><div class="subj-card-tag">Science</div><div class="subj-card-name">Physics</div><div class="subj-card-footer"><span class="subj-card-badge">Yrs 11–12</span><div class="subj-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div></div></div>
+            <!-- Chemistry -->
+            <div class="subj-card"><div class="subj-card-img" style="background:linear-gradient(145deg,#0D1B52,#0f2464)"><svg class="subj-card-icon" viewBox="0 0 40 40" fill="none"><line x1="14" y1="7" x2="26" y2="7" stroke="rgba(255,255,255,.7)" stroke-width="1.5" stroke-linecap="round"/><path d="M16 7 L16 19 L8 33 L32 33 L24 19 L24 7" stroke="rgba(255,255,255,.7)" stroke-width="1.5" stroke-linejoin="round"/><circle cx="14" cy="27" r="2" fill="#F2C94C" opacity=".8"/><circle cx="22" cy="29" r="1.5" fill="#F2C94C" opacity=".5"/><circle cx="18" cy="25" r="1" fill="#F2C94C" opacity=".35"/></svg></div><div class="subj-card-body"><div class="subj-card-tag">Science</div><div class="subj-card-name">Chemistry</div><div class="subj-card-footer"><span class="subj-card-badge">Yrs 11–12</span><div class="subj-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div></div></div>
+            <!-- Biology -->
+            <div class="subj-card"><div class="subj-card-img" style="background:linear-gradient(145deg,#0D1B52,#0f2464)"><svg class="subj-card-icon" viewBox="0 0 40 40" fill="none"><path d="M13 5 C13 5 27 11 27 20 C27 29 13 35 13 35" stroke="rgba(255,255,255,.7)" stroke-width="1.5" stroke-linecap="round"/><path d="M27 5 C27 5 13 11 13 20 C13 29 27 35 27 35" stroke="#F2C94C" stroke-width="1.5" stroke-linecap="round" opacity=".85"/><line x1="16" y1="12" x2="24" y2="12" stroke="rgba(255,255,255,.4)" stroke-width="1.2" stroke-linecap="round"/><line x1="14" y1="20" x2="26" y2="20" stroke="rgba(255,255,255,.4)" stroke-width="1.2" stroke-linecap="round"/><line x1="16" y1="28" x2="24" y2="28" stroke="rgba(255,255,255,.4)" stroke-width="1.2" stroke-linecap="round"/></svg></div><div class="subj-card-body"><div class="subj-card-tag">Science</div><div class="subj-card-name">Biology</div><div class="subj-card-footer"><span class="subj-card-badge">Yrs 11–12</span><div class="subj-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div></div></div>
+            <!-- Mathematical Methods -->
+            <div class="subj-card"><div class="subj-card-img" style="background:linear-gradient(145deg,#08113A,#13116a)"><svg class="subj-card-icon" viewBox="0 0 40 40" fill="none"><path d="M28 7 L12 7 L22 20 L12 33 L28 33" stroke="rgba(255,255,255,.8)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="7" r="1.8" fill="#F2C94C" opacity=".6"/><circle cx="9" cy="33" r="1.8" fill="#F2C94C" opacity=".6"/></svg></div><div class="subj-card-body"><div class="subj-card-tag">Mathematics</div><div class="subj-card-name">Mathematical Methods</div><div class="subj-card-footer"><span class="subj-card-badge">Yrs 11–12</span><div class="subj-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div></div></div>
+            <!-- Specialist Mathematics -->
+            <div class="subj-card"><div class="subj-card-img" style="background:linear-gradient(145deg,#08113A,#13116a)"><svg class="subj-card-icon" viewBox="0 0 40 40" fill="none"><line x1="9" y1="11" x2="31" y2="11" stroke="rgba(255,255,255,.75)" stroke-width="1.8" stroke-linecap="round"/><path d="M13 11 L13 31" stroke="rgba(255,255,255,.75)" stroke-width="1.8" stroke-linecap="round"/><path d="M27 11 L27 27 Q27 31 23 31" stroke="rgba(255,255,255,.75)" stroke-width="1.8" stroke-linecap="round"/><circle cx="20" cy="11" r="2.2" fill="#F2C94C"/></svg></div><div class="subj-card-body"><div class="subj-card-tag">Mathematics</div><div class="subj-card-name">Specialist Mathematics</div><div class="subj-card-footer"><span class="subj-card-badge">Yrs 11–12</span><div class="subj-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div></div></div>
+            <!-- English -->
+            <div class="subj-card"><div class="subj-card-img" style="background:linear-gradient(145deg,#0D1B52,#1a1252)"><svg class="subj-card-icon" viewBox="0 0 40 40" fill="none"><path d="M20 10 C20 10 10 12 8 14 L8 30 C10 28 20 28 20 32 C20 28 30 28 32 30 L32 14 C30 12 20 10 20 10 Z" stroke="rgba(255,255,255,.7)" stroke-width="1.4" stroke-linejoin="round" fill="rgba(255,255,255,.05)"/><line x1="20" y1="10" x2="20" y2="32" stroke="rgba(255,255,255,.35)" stroke-width="1"/><line x1="11" y1="18" x2="18" y2="18" stroke="rgba(255,255,255,.3)" stroke-width="1" stroke-linecap="round"/><line x1="11" y1="22" x2="18" y2="22" stroke="rgba(255,255,255,.3)" stroke-width="1" stroke-linecap="round"/><line x1="22" y1="18" x2="29" y2="18" stroke="rgba(255,255,255,.3)" stroke-width="1" stroke-linecap="round"/><line x1="22" y1="22" x2="29" y2="22" stroke="rgba(255,255,255,.3)" stroke-width="1" stroke-linecap="round"/><circle cx="28" cy="11" r="1.5" fill="#F2C94C" opacity=".8"/></svg></div><div class="subj-card-body"><div class="subj-card-tag">Humanities</div><div class="subj-card-name">English</div><div class="subj-card-footer"><span class="subj-card-badge">Yrs 11–12</span><div class="subj-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div></div></div>
+            <!-- Literature -->
+            <div class="subj-card"><div class="subj-card-img" style="background:linear-gradient(145deg,#0D1B52,#1a1252)"><svg class="subj-card-icon" viewBox="0 0 40 40" fill="none"><path d="M32 5 C32 5 8 13 12 35" stroke="rgba(255,255,255,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M32 5 C26 12 18 24 12 35" stroke="rgba(255,255,255,.3)" stroke-width="1" stroke-linecap="round"/><path d="M32 5 C30 17 22 27 12 35" stroke="rgba(255,255,255,.15)" stroke-width="1" stroke-linecap="round"/><path d="M10 35 L8 39 L14 37 Z" fill="#F2C94C" opacity=".9"/></svg></div><div class="subj-card-body"><div class="subj-card-tag">Humanities</div><div class="subj-card-name">Literature</div><div class="subj-card-footer"><span class="subj-card-badge">Yrs 11–12</span><div class="subj-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div></div></div>
+            <!-- Modern History -->
+            <div class="subj-card"><div class="subj-card-img" style="background:linear-gradient(145deg,#0D1B52,#1a1252)"><svg class="subj-card-icon" viewBox="0 0 40 40" fill="none"><rect x="11" y="6" width="18" height="2.5" rx="1" fill="rgba(255,255,255,.65)"/><rect x="11" y="31.5" width="18" height="2.5" rx="1" fill="rgba(255,255,255,.65)"/><path d="M12 8.5 L28 8.5 L20 20 L28 31.5 L12 31.5 L20 20 Z" stroke="rgba(255,255,255,.55)" stroke-width="1.3" stroke-linejoin="round" fill="rgba(255,255,255,.04)"/><path d="M20 22 L26 30 L14 30 Z" fill="#F2C94C" opacity=".65"/><circle cx="20" cy="20" r="1.3" fill="#F2C94C" opacity=".9"/></svg></div><div class="subj-card-body"><div class="subj-card-tag">Humanities</div><div class="subj-card-name">Modern History</div><div class="subj-card-footer"><span class="subj-card-badge">Yrs 11–12</span><div class="subj-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div></div></div>
+            <!-- Engineering -->
+            <div class="subj-card"><div class="subj-card-img" style="background:linear-gradient(145deg,#08113A,#0d2248)"><svg class="subj-card-icon" viewBox="0 0 40 40" fill="none"><path d="M20 4 L22.5 8 L27 6.5 L28 11 L32.5 13 L30 17 L33 21 L29 24 L30 29 L25 29 L22.5 33 L18 31.5 L13.5 33 L11 29 L6 28.5 L7 24 L4 21 L7 17 L4.5 13 L9 11 L10 6.5 L14.5 8 Z" stroke="rgba(255,255,255,.65)" stroke-width="1.4" stroke-linejoin="round" fill="rgba(255,255,255,.05)"/><circle cx="20" cy="20" r="6" fill="#08113A" stroke="rgba(255,255,255,.5)" stroke-width="1.2"/><circle cx="20" cy="20" r="2.5" fill="#F2C94C" opacity=".85"/></svg></div><div class="subj-card-body"><div class="subj-card-tag">Engineering</div><div class="subj-card-name">Engineering</div><div class="subj-card-footer"><span class="subj-card-badge">Yrs 11–12</span><div class="subj-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div></div></div>
+            <!-- Economics -->
+            <div class="subj-card"><div class="subj-card-img" style="background:linear-gradient(145deg,#0D1B52,#1a1252)"><svg class="subj-card-icon" viewBox="0 0 40 40" fill="none"><line x1="7" y1="33" x2="35" y2="33" stroke="rgba(255,255,255,.5)" stroke-width="1.5" stroke-linecap="round"/><line x1="7" y1="7" x2="7" y2="33" stroke="rgba(255,255,255,.5)" stroke-width="1.5" stroke-linecap="round"/><rect x="11" y="23" width="6" height="10" rx="1.5" fill="rgba(255,255,255,.35)"/><rect x="19" y="17" width="6" height="16" rx="1.5" fill="rgba(255,255,255,.5)"/><rect x="27" y="10" width="6" height="23" rx="1.5" fill="#F2C94C" opacity=".85"/></svg></div><div class="subj-card-body"><div class="subj-card-tag">Humanities</div><div class="subj-card-name">Economics</div><div class="subj-card-footer"><span class="subj-card-badge">Yrs 11–12</span><div class="subj-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div></div></div>
+            <!-- Legal Studies -->
+            <div class="subj-card"><div class="subj-card-img" style="background:linear-gradient(145deg,#0D1B52,#1a1252)"><svg class="subj-card-icon" viewBox="0 0 40 40" fill="none"><line x1="20" y1="6" x2="20" y2="34" stroke="rgba(255,255,255,.65)" stroke-width="1.5" stroke-linecap="round"/><line x1="13" y1="34" x2="27" y2="34" stroke="rgba(255,255,255,.65)" stroke-width="1.5" stroke-linecap="round"/><line x1="8" y1="12" x2="32" y2="12" stroke="rgba(255,255,255,.65)" stroke-width="1.5" stroke-linecap="round"/><circle cx="20" cy="6" r="2.5" fill="#F2C94C" opacity=".85"/><line x1="9" y1="12" x2="9" y2="21" stroke="rgba(255,255,255,.45)" stroke-width="1.2"/><path d="M5 21 Q9 25 13 21" stroke="rgba(255,255,255,.7)" stroke-width="1.5" stroke-linecap="round"/><line x1="31" y1="12" x2="31" y2="24" stroke="rgba(255,255,255,.45)" stroke-width="1.2"/><path d="M27 24 Q31 28 35 24" stroke="#F2C94C" stroke-width="1.5" stroke-linecap="round" opacity=".85"/></svg></div><div class="subj-card-body"><div class="subj-card-tag">Humanities</div><div class="subj-card-name">Legal Studies</div><div class="subj-card-footer"><span class="subj-card-badge">Yrs 11–12</span><div class="subj-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div></div></div>
+            <!-- French -->
+            <div class="subj-card"><div class="subj-card-img" style="background:linear-gradient(145deg,#1A2D7C,#0D1B52)"><svg class="subj-card-icon" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="4" r="1.5" fill="#F2C94C"/><line x1="20" y1="4" x2="20" y2="9" stroke="rgba(255,255,255,.75)" stroke-width="1.5" stroke-linecap="round"/><path d="M16 9 L24 9 L22 17 L18 17 Z" stroke="rgba(255,255,255,.7)" stroke-width="1.3" stroke-linejoin="round" fill="rgba(255,255,255,.06)"/><line x1="17" y1="17" x2="23" y2="17" stroke="rgba(255,255,255,.5)" stroke-width="1.2" stroke-linecap="round"/><path d="M17 17 L13 26 L27 26 L23 17 Z" stroke="rgba(255,255,255,.6)" stroke-width="1.3" stroke-linejoin="round" fill="rgba(255,255,255,.04)"/><line x1="12" y1="26" x2="28" y2="26" stroke="rgba(255,255,255,.5)" stroke-width="1.2" stroke-linecap="round"/><path d="M12 26 L8 36" stroke="rgba(255,255,255,.7)" stroke-width="1.5" stroke-linecap="round"/><path d="M28 26 L32 36" stroke="rgba(255,255,255,.7)" stroke-width="1.5" stroke-linecap="round"/><line x1="6" y1="36" x2="34" y2="36" stroke="rgba(255,255,255,.5)" stroke-width="1.3" stroke-linecap="round"/></svg></div><div class="subj-card-body"><div class="subj-card-tag">Languages</div><div class="subj-card-name">French</div><div class="subj-card-footer"><span class="subj-card-badge">Yrs 11–12</span><div class="subj-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div></div></div>
+          </div>
+          <button class="subj-carousel-btn subj-carousel-btn--right" onclick="scrollCarousel(this,1)" aria-label="Scroll right">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- General carousel -->
+      <div class="scroll-row">
+        <div class="scroll-row-header">
+          <span class="scroll-row-title">General</span>
+          <span class="scroll-row-sub">Years 7–10</span>
+        </div>
+        <div class="subj-carousel-wrap">
+          <button class="subj-carousel-btn subj-carousel-btn--left" onclick="scrollCarousel(this,-1)" aria-label="Scroll left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="subj-scroll">
+            <!-- General Sciences -->
+            <div class="subj-card"><div class="subj-card-img" style="background:linear-gradient(145deg,#0D1B52,#0f2464)"><svg class="subj-card-icon" viewBox="0 0 40 40" fill="none"><rect x="16" y="5" width="8" height="5" rx="2" stroke="rgba(255,255,255,.7)" stroke-width="1.4" fill="rgba(255,255,255,.07)"/><line x1="20" y1="10" x2="20" y2="19" stroke="rgba(255,255,255,.7)" stroke-width="2" stroke-linecap="round"/><path d="M20 17 L27 17 L27 27" stroke="rgba(255,255,255,.65)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="27" cy="28" r="3.5" stroke="#F2C94C" stroke-width="1.5" fill="rgba(242,201,76,.1)"/><rect x="19" y="29" width="11" height="2" rx="1" fill="rgba(255,255,255,.45)"/><line x1="14" y1="31" x2="14" y2="19" stroke="rgba(255,255,255,.5)" stroke-width="1.5" stroke-linecap="round"/><path d="M13 31 L26 31 L25 35 L14 35 Z" stroke="rgba(255,255,255,.5)" stroke-width="1.2" stroke-linejoin="round" fill="rgba(255,255,255,.04)"/></svg></div><div class="subj-card-body"><div class="subj-card-tag">Science</div><div class="subj-card-name">General Sciences</div><div class="subj-card-footer"><span class="subj-card-badge">Yrs 7–10</span><div class="subj-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div></div></div>
+            <!-- Advanced Mathematics -->
+            <div class="subj-card"><div class="subj-card-img" style="background:linear-gradient(145deg,#08113A,#13116a)"><svg class="subj-card-icon" viewBox="0 0 40 40" fill="none"><path d="M20 20 C20 20 16 14 11 14 C6.5 14 4 17 4 20 C4 23 6.5 26 11 26 C16 26 20 20 20 20 Z" stroke="rgba(255,255,255,.75)" stroke-width="1.8"/><path d="M20 20 C20 20 24 14 29 14 C33.5 14 36 17 36 20 C36 23 33.5 26 29 26 C24 26 20 20 20 20 Z" stroke="#F2C94C" stroke-width="1.8" opacity=".9"/></svg></div><div class="subj-card-body"><div class="subj-card-tag">Mathematics</div><div class="subj-card-name">Advanced Mathematics</div><div class="subj-card-footer"><span class="subj-card-badge">Yrs 7–10</span><div class="subj-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div></div></div>
+            <!-- General Mathematics -->
+            <div class="subj-card"><div class="subj-card-img" style="background:linear-gradient(145deg,#08113A,#13116a)"><svg class="subj-card-icon" viewBox="0 0 40 40" fill="none"><rect x="9" y="6" width="22" height="28" rx="3" stroke="rgba(255,255,255,.65)" stroke-width="1.5" fill="rgba(255,255,255,.04)"/><rect x="12" y="9" width="16" height="7" rx="1.5" fill="rgba(255,255,255,.15)"/><rect x="12" y="19" width="4.5" height="4" rx="1" fill="#F2C94C" opacity=".8"/><rect x="17.5" y="19" width="4.5" height="4" rx="1" fill="rgba(255,255,255,.4)"/><rect x="23.5" y="19" width="4.5" height="4" rx="1" fill="rgba(255,255,255,.4)"/><rect x="12" y="25" width="4.5" height="4" rx="1" fill="rgba(255,255,255,.4)"/><rect x="17.5" y="25" width="4.5" height="4" rx="1" fill="rgba(255,255,255,.4)"/><rect x="23.5" y="25" width="4.5" height="7" rx="1" fill="rgba(255,255,255,.2)"/></svg></div><div class="subj-card-body"><div class="subj-card-tag">Mathematics</div><div class="subj-card-name">General Mathematics</div><div class="subj-card-footer"><span class="subj-card-badge">Yrs 7–10</span><div class="subj-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div></div></div>
+            <!-- English -->
+            <div class="subj-card"><div class="subj-card-img" style="background:linear-gradient(145deg,#0D1B52,#1a1252)"><svg class="subj-card-icon" viewBox="0 0 40 40" fill="none"><path d="M28 6 L34 12 L13 33 L7 35 L9 29 Z" stroke="rgba(255,255,255,.7)" stroke-width="1.4" stroke-linejoin="round" fill="rgba(255,255,255,.06)"/><line x1="26" y1="8" x2="32" y2="14" stroke="rgba(255,255,255,.3)" stroke-width="1"/><line x1="9" y1="29" x2="13" y2="33" stroke="rgba(255,255,255,.3)" stroke-width="1"/><path d="M7 35 L9 29 L13 33 Z" fill="#F2C94C" opacity=".85"/></svg></div><div class="subj-card-body"><div class="subj-card-tag">Humanities</div><div class="subj-card-name">English</div><div class="subj-card-footer"><span class="subj-card-badge">Yrs 7–10</span><div class="subj-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div></div></div>
+            <!-- History -->
+            <div class="subj-card"><div class="subj-card-img" style="background:linear-gradient(145deg,#0D1B52,#1a1252)"><svg class="subj-card-icon" viewBox="0 0 40 40" fill="none"><path d="M28 8 C30 8 31 9 31 11 L31 29 C31 31 30 32 28 32 L14 32 C12 32 11 31 11 29 L11 11 C11 9 12 8 14 8 Z" stroke="rgba(255,255,255,.65)" stroke-width="1.4" fill="rgba(255,255,255,.05)"/><path d="M14 8 C12 8 11 7 11 5.5 C11 4 12 3 14 3 C16 3 17 4 17 5.5 C17 7 16 8 14 8 Z" stroke="rgba(255,255,255,.65)" stroke-width="1.4" fill="rgba(255,255,255,.08)"/><path d="M14 32 C12 32 11 33 11 34.5 C11 36 12 37 14 37 C16 37 17 36 17 34.5 C17 33 16 32 14 32 Z" stroke="rgba(255,255,255,.65)" stroke-width="1.4" fill="rgba(255,255,255,.08)"/><line x1="15" y1="13" x2="27" y2="13" stroke="rgba(255,255,255,.35)" stroke-width="1" stroke-linecap="round"/><line x1="15" y1="18" x2="27" y2="18" stroke="rgba(255,255,255,.35)" stroke-width="1" stroke-linecap="round"/><line x1="15" y1="23" x2="27" y2="23" stroke="rgba(255,255,255,.35)" stroke-width="1" stroke-linecap="round"/><line x1="15" y1="28" x2="22" y2="28" stroke="#F2C94C" stroke-width="1" stroke-linecap="round" opacity=".65"/></svg></div><div class="subj-card-body"><div class="subj-card-tag">Humanities</div><div class="subj-card-name">History</div><div class="subj-card-footer"><span class="subj-card-badge">Yrs 7–10</span><div class="subj-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div></div></div>
+            <!-- Economics -->
+            <div class="subj-card"><div class="subj-card-img" style="background:linear-gradient(145deg,#0D1B52,#1a1252)"><svg class="subj-card-icon" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="21" r="13" stroke="rgba(255,255,255,.4)" stroke-width="1.3" fill="rgba(255,255,255,.04)"/><path d="M20 21 L20 8 A13 13 0 0 1 31.3 27.5 Z" fill="#F2C94C" opacity=".8"/><path d="M20 21 L31.3 27.5 A13 13 0 0 1 8.7 27.5 Z" fill="rgba(255,255,255,.25)"/><path d="M20 21 L8.7 27.5 A13 13 0 0 1 20 8 Z" fill="rgba(255,255,255,.1)"/></svg></div><div class="subj-card-body"><div class="subj-card-tag">Humanities</div><div class="subj-card-name">Economics</div><div class="subj-card-footer"><span class="subj-card-badge">Yrs 7–10</span><div class="subj-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div></div></div>
+            <!-- Legal Studies -->
+            <div class="subj-card"><div class="subj-card-img" style="background:linear-gradient(145deg,#0D1B52,#1a1252)"><svg class="subj-card-icon" viewBox="0 0 40 40" fill="none"><rect x="18" y="5" width="14" height="8" rx="2.5" stroke="rgba(255,255,255,.7)" stroke-width="1.4" fill="rgba(255,255,255,.08)" transform="rotate(45 25 9)"/><line x1="22" y1="18" x2="11" y2="29" stroke="rgba(255,255,255,.7)" stroke-width="2.5" stroke-linecap="round"/><rect x="6" y="31" width="14" height="3.5" rx="1.5" fill="rgba(255,255,255,.5)"/><circle cx="22" cy="21" r="2" fill="#F2C94C" opacity=".8"/></svg></div><div class="subj-card-body"><div class="subj-card-tag">Humanities</div><div class="subj-card-name">Legal Studies</div><div class="subj-card-footer"><span class="subj-card-badge">Yrs 7–10</span><div class="subj-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div></div></div>
+            <!-- French -->
+            <div class="subj-card"><div class="subj-card-img" style="background:linear-gradient(145deg,#1A2D7C,#0D1B52)"><svg class="subj-card-icon" viewBox="0 0 40 40" fill="none"><path d="M20 7 C18 11 17 15 17 18 C17 21 20 22 20 22 C20 22 23 21 23 18 C23 15 22 11 20 7 Z" stroke="rgba(255,255,255,.7)" stroke-width="1.3" fill="rgba(255,255,255,.07)"/><line x1="20" y1="22" x2="20" y2="35" stroke="rgba(255,255,255,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M20 22 C17 20 13 20 11 22 C9 25 11 29 14 29 C17 29 20 26 20 26" stroke="rgba(255,255,255,.65)" stroke-width="1.3" fill="rgba(255,255,255,.06)" stroke-linejoin="round"/><path d="M20 22 C23 20 27 20 29 22 C31 25 29 29 26 29 C23 29 20 26 20 26" stroke="rgba(255,255,255,.65)" stroke-width="1.3" fill="rgba(255,255,255,.06)" stroke-linejoin="round"/><line x1="16" y1="26" x2="24" y2="26" stroke="rgba(255,255,255,.4)" stroke-width="1.2" stroke-linecap="round"/><circle cx="20" cy="22" r="2" fill="#F2C94C" opacity=".85"/></svg></div><div class="subj-card-body"><div class="subj-card-tag">Languages</div><div class="subj-card-name">French</div><div class="subj-card-footer"><span class="subj-card-badge">Yrs 7–10</span><div class="subj-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div></div></div>
+          </div>
+          <button class="subj-carousel-btn subj-carousel-btn--right" onclick="scrollCarousel(this,1)" aria-label="Scroll right">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TEAM ─────────────────────────────────────────────── -->
+  <section id="team">
+  <div class="section-stars" id="teamStars"></div>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;top:2%;left:2%;width:190px;height:100px;opacity:0.2" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="12" y1="74" x2="48" y2="28"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="48" y1="28" x2="84" y2="58"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="84" y1="58" x2="122" y2="20"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="122" y1="20" x2="158" y2="52"/>
+    <circle fill="white" cx="12" cy="74" r="2.2"/><circle fill="white" cx="48" cy="28" r="1.9"/><circle fill="white" cx="84" cy="58" r="1.5"/><circle fill="white" cx="122" cy="20" r="2.1"/><circle fill="white" cx="158" cy="52" r="1.8"/>
+    <circle fill="white" cx="172" cy="18" r="0.8"/><circle fill="white" cx="34" cy="8" r="0.7"/><circle fill="white" cx="108" cy="82" r="0.9"/><circle fill="white" cx="148" cy="84" r="0.6"/><circle fill="white" cx="68" cy="8" r="0.7"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;bottom:8%;right:2%;width:130px;height:120px;opacity:0.18" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="65" y1="10" x2="8" y2="104"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="8" y1="104" x2="122" y2="104"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="122" y1="104" x2="65" y2="10"/>
+    <circle fill="white" cx="65" cy="10" r="2.5"/><circle fill="white" cx="8" cy="104" r="2.1"/><circle fill="white" cx="122" cy="104" r="2.3"/>
+    <circle fill="white" cx="38" cy="58" r="0.8"/><circle fill="white" cx="90" cy="52" r="0.9"/><circle fill="white" cx="65" cy="78" r="0.7"/><circle fill="white" cx="20" cy="24" r="0.7"/><circle fill="white" cx="108" cy="30" r="0.8"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;top:42%;right:5%;width:88px;height:88px;opacity:0.17" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="44" y1="8" x2="44" y2="78"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="8" y1="44" x2="78" y2="44"/>
+    <circle fill="white" cx="44" cy="8" r="1.8"/><circle fill="white" cx="44" cy="78" r="1.5"/><circle fill="white" cx="8" cy="44" r="1.6"/><circle fill="white" cx="78" cy="44" r="1.9"/><circle fill="white" cx="44" cy="44" r="2.4"/>
+    <circle fill="white" cx="22" cy="18" r="0.7"/><circle fill="white" cx="66" cy="22" r="0.8"/><circle fill="white" cx="18" cy="65" r="0.6"/><circle fill="white" cx="70" cy="66" r="0.7"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;bottom:25%;left:4%;width:160px;height:110px;opacity:0.16" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="20" y1="80" x2="78" y2="52"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="78" y1="52" x2="138" y2="24"/>
+    <circle fill="white" cx="20" cy="80" r="2.3"/><circle fill="white" cx="78" cy="52" r="2.6"/><circle fill="white" cx="138" cy="24" r="2.1"/>
+    <circle fill="white" cx="48" cy="15" r="1.4"/><circle fill="white" cx="118" cy="78" r="1.2"/><circle fill="white" cx="8" cy="30" r="0.8"/><circle fill="white" cx="148" cy="70" r="0.9"/>
+    <circle fill="white" cx="62" cy="95" r="0.7"/><circle fill="white" cx="100" cy="10" r="0.8"/><circle fill="white" cx="30" cy="50" r="0.7"/>
+  </svg>
+    <div class="container">
+      <div class="section-header">
+        <div class="tag">Our Team</div>
+        <h2>Meet your tutors</h2>
+        <p>Every Lumen tutor has recent high school experience, with extensive subject, assignment and exam knowledge. </p>
+      </div>
+
+      <div class="team-grid">
+
+        <!-- Tutor 1 -->
+        <div class="tutor-card reveal" data-tutor="GB">
+          <div class="tutor-photo">
+            <!-- Replace src with tutor photo path when available -->
+            <!-- <img src="images/tutor-1.jpg" alt="Tutor name"> -->
+            <div class="tutor-photo-placeholder">
+              <div class="tutor-photo-initials">GB</div>
+              <span>Add photo</span>
+            </div>
+            <div class="tutor-photo-overlay"><span class="tutor-photo-overlay-text">View Profile →</span></div>
+          </div>
+          <div class="tutor-card-body">
+            <div class="tutor-card-header">
+              <div class="tutor-card-name">Giles Buchanan</div>
+              <span class="tutor-card-rate">$50 / hr</span>
+            </div>
+            <div class="tutor-card-role">Subjects | Year 12 Results </div>
+            <div class="tutor-card-subjects">
+              <span class="tutor-subj-tag">Mathematical Methods | 94%</span>
+              <span class="tutor-subj-tag">Chemistry | 98%</span>
+              <span class="tutor-subj-tag">Physics | 99%</span>
+              <span class="tutor-subj-tag">General English | 97%</span>
+              <span class="tutor-subj-tag">Economics | 85%</span>
+            </div>
+            <p class="tutor-card-desc"><em>Graduated from St Peter's Lutheran College in 2025, with a raw ATAR of 98.15</em></p>
+          </div>
+        </div>
+
+        <!-- Tutor 2 -->
+        <div class="tutor-card reveal reveal-delay-1" data-tutor="TH">
+          <div class="tutor-photo">
+            <div class="tutor-photo-placeholder">
+              <div class="tutor-photo-initials">TH</div>
+              <span>Add photo</span>
+            </div>
+            <div class="tutor-photo-overlay"><span class="tutor-photo-overlay-text">View Profile →</span></div>
+          </div>
+          <div class="tutor-card-body">
+            <div class="tutor-card-header">
+              <div class="tutor-card-name">Tyler Hewett</div>
+              <span class="tutor-card-rate">$80 / hr</span>
+            </div>
+            <div class="tutor-card-role">Subjects | Year 12 Results </div>
+            <div class="tutor-card-subjects">
+              <span class="tutor-subj-tag">Specialist Mathematics | 95%</span>
+              <span class="tutor-subj-tag">Physics | 99%</span>
+              <span class="tutor-subj-tag">Mathematical Methods | 97%</span>
+              <span class="tutor-subj-tag">Chemistry | 97%</span>
+              <span class="tutor-subj-tag">Biology | 99%</span>
+            </div>
+            <p class="tutor-card-desc"><em>Graduated from St Peter's Lutheran College in 2025, with a raw ATAR of 99.35</em></p>
+          </div>
+        </div>
+
+        <!-- Tutor 3 -->
+        <div class="tutor-card reveal reveal-delay-2" data-tutor="AA">
+          <div class="tutor-photo">
+            <div class="tutor-photo-placeholder">
+              <div class="tutor-photo-initials">AA</div>
+              <span>Add photo</span>
+            </div>
+            <div class="tutor-photo-overlay"><span class="tutor-photo-overlay-text">View Profile →</span></div>
+          </div>
+          <div class="tutor-card-body">
+            <div class="tutor-card-header">
+              <div class="tutor-card-name">Ari Atzeni</div>
+              <span class="tutor-card-rate">$50 / hr</span>
+            </div>
+            <div class="tutor-card-role">Subjects | Year 12 Results </div>
+            <div class="tutor-card-subjects">
+              <span class="tutor-subj-tag">Mathematical Methods | 95%</span>
+              <span class="tutor-subj-tag">Physics | 99%</span>
+              <span class="tutor-subj-tag">General English | 97%</span>
+              <span class="tutor-subj-tag">Engineering</span>
+              <span class="tutor-subj-tag">Economics</span>
+            </div>
+            <p class="tutor-card-desc"><em>Graduated from St Peter's Lutheran College in 2025, with a raw ATAR of 98.15</em></p>
+          </div>
+        </div>
+
+        <!-- Tutor 4 -->
+        <div class="tutor-card reveal" data-tutor="RP">
+          <div class="tutor-photo">
+            <div class="tutor-photo-placeholder">
+              <div class="tutor-photo-initials">MM</div>
+              <span>Add photo</span>
+            </div>
+            <div class="tutor-photo-overlay"><span class="tutor-photo-overlay-text">View Profile →</span></div>
+          </div>
+          <div class="tutor-card-body">
+            <div class="tutor-card-header">
+              <div class="tutor-card-name">Maya Markovich</div>
+              <span class="tutor-card-rate">$50 / hr</span>
+            </div>
+            <div class="tutor-card-role">Subjects | Year 12 Results </div>
+            <div class="tutor-card-subjects">
+              <span class="tutor-subj-tag">Literature</span>
+              <span class="tutor-subj-tag">Mathematical Methods</span>
+              <span class="tutor-subj-tag">Modern History</span>
+              <span class="tutor-subj-tag">French</span>
+              <span class="tutor-subj-tag">Economics</span>
+              <span class="tutor-subj-tag">Legal Studies</span>
+              <span class="tutor-subj-tag">General Mathematics</span>
+              <span class="tutor-subj-tag">History</span>
+            </div>
+            <p class="tutor-card-desc"><em>Graduated from St Peter's Lutheran College in 2025, with a raw ATAR of 97.5</em></p>
+          </div>
+        </div>
+
+        <!-- Tutor 5 -->
+        <div class="tutor-card reveal reveal-delay-1" data-tutor="OB">
+          <div class="tutor-photo">
+            <div class="tutor-photo-placeholder">
+              <div class="tutor-photo-initials">DN</div>
+              <span>Add photo</span>
+            </div>
+            <div class="tutor-photo-overlay"><span class="tutor-photo-overlay-text">View Profile →</span></div>
+          </div>
+          <div class="tutor-card-body">
+            <div class="tutor-card-header">
+              <div class="tutor-card-name">Dylan Nash</div>
+              <span class="tutor-card-rate">$50 / hr</span>
+            </div>
+            <div class="tutor-card-role">Subjects | Year 12 Results </div>
+            <div class="tutor-card-subjects">
+              <span class="tutor-subj-tag">Specialist Mathematics | 94%</span>
+              <span class="tutor-subj-tag">Physics | 97%</span>
+              <span class="tutor-subj-tag">Mathematical Methods | 95%</span>
+              <span class="tutor-subj-tag">Engineering | 95%</span>
+            </div>
+            <p class="tutor-card-desc"><em>Graduated from St Peter's Lutheran College in 2025, with a raw ATAR of 98.2</em></p>
+          </div>
+        </div>
+
+        <!-- Tutor 6 -->
+        <div class="tutor-card reveal reveal-delay-2" data-tutor="TA">
+          <div class="tutor-photo">
+            <div class="tutor-photo-placeholder">
+              <div class="tutor-photo-initials">KL</div>
+              <span>Add photo</span>
+            </div>
+            <div class="tutor-photo-overlay"><span class="tutor-photo-overlay-text">View Profile →</span></div>
+          </div>
+          <div class="tutor-card-body">
+            <div class="tutor-card-header">
+              <div class="tutor-card-name">Tom Gallus</div>
+              <span class="tutor-card-rate">$55 / hr</span>
+            </div>
+            <div class="tutor-card-role">Subjects | Results </div>
+            <div class="tutor-card-subjects">
+              <span class="tutor-subj-tag">Biology</span>
+              <span class="tutor-subj-tag">Chemistry</span>
+              <span class="tutor-subj-tag">Physics</span>
+              <span class="tutor-subj-tag">General Sciences</span>
+            </div>
+            <p class="tutor-card-desc"><em>Add a short description of this tutor's background, specialisms, and teaching style here.</em></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── HOW IT WORKS ──────────────────────────────────────── -->
+  <section id="how">
+  <div class="section-stars" id="howStars"></div>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;top:22%;right:4%;width:170px;height:90px;opacity:0.18" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="10" y1="78" x2="45" y2="38"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="45" y1="38" x2="85" y2="16"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="85" y1="16" x2="128" y2="32"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="128" y1="32" x2="158" y2="68"/>
+    <circle fill="white" cx="10" cy="78" r="1.9"/><circle fill="white" cx="45" cy="38" r="1.6"/>
+    <circle fill="white" cx="85" cy="16" r="2.3"/><circle fill="white" cx="128" cy="32" r="1.7"/>
+    <circle fill="white" cx="158" cy="68" r="2.0"/>
+    <circle fill="white" cx="28" cy="18" r="0.8"/><circle fill="white" cx="110" cy="70" r="0.7"/><circle fill="white" cx="155" cy="20" r="0.9"/><circle fill="white" cx="5" cy="45" r="0.7"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;bottom:20%;right:3%;width:175px;height:100px;opacity:0.17" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="12" y1="22" x2="52" y2="78"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="52" y1="78" x2="95" y2="18"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="95" y1="18" x2="135" y2="72"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="135" y1="72" x2="165" y2="28"/>
+    <circle fill="white" cx="12" cy="22" r="2.1"/><circle fill="white" cx="52" cy="78" r="1.8"/>
+    <circle fill="white" cx="95" cy="18" r="2.4"/><circle fill="white" cx="135" cy="72" r="1.9"/>
+    <circle fill="white" cx="165" cy="28" r="2.0"/>
+    <circle fill="white" cx="32" cy="10" r="0.8"/><circle fill="white" cx="75" cy="88" r="0.7"/><circle fill="white" cx="152" cy="88" r="0.8"/><circle fill="white" cx="118" cy="8" r="0.7"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;top:2%;right:2%;width:210px;height:150px;opacity:0.21" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="192" y1="14" x2="165" y2="34"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="165" y1="34" x2="136" y2="22"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="136" y1="22" x2="108" y2="42"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="108" y1="42" x2="102" y2="84"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="102" y1="84" x2="64" y2="88"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="64" y1="88" x2="60" y2="50"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="60" y1="50" x2="108" y2="42"/>
+    <circle fill="white" cx="192" cy="14" r="2"/><circle fill="white" cx="165" cy="34" r="1.3"/><circle fill="white" cx="136" cy="22" r="1.6"/><circle fill="white" cx="108" cy="42" r="2.4"/><circle fill="white" cx="102" cy="84" r="1.9"/><circle fill="white" cx="64" cy="88" r="1.6"/><circle fill="white" cx="60" cy="50" r="2.1"/>
+    <circle fill="white" cx="28" cy="14" r="0.8"/><circle fill="white" cx="170" cy="68" r="0.7"/><circle fill="white" cx="115" cy="8" r="0.9"/><circle fill="white" cx="32" cy="100" r="0.7"/><circle fill="white" cx="148" cy="120" r="0.8"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;bottom:10%;left:3%;width:100px;height:95px;opacity:0.18" xmlns="http://www.w3.org/2000/svg">
+    <circle fill="white" cx="50" cy="20" r="2.4"/><circle fill="white" cx="32" cy="38" r="1.8"/><circle fill="white" cx="68" cy="35" r="2.0"/><circle fill="white" cx="24" cy="58" r="1.5"/><circle fill="white" cx="52" cy="52" r="2.2"/><circle fill="white" cx="75" cy="58" r="1.7"/><circle fill="white" cx="40" cy="74" r="1.4"/>
+    <circle fill="white" cx="15" cy="22" r="0.7"/><circle fill="white" cx="82" cy="20" r="0.8"/><circle fill="white" cx="88" cy="80" r="0.7"/><circle fill="white" cx="10" cy="82" r="0.6"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;top:45%;left:2%;width:190px;height:100px;opacity:0.17" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="12" y1="74" x2="48" y2="28"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="48" y1="28" x2="84" y2="58"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="84" y1="58" x2="122" y2="20"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="122" y1="20" x2="158" y2="52"/>
+    <circle fill="white" cx="12" cy="74" r="2.2"/><circle fill="white" cx="48" cy="28" r="1.9"/><circle fill="white" cx="84" cy="58" r="1.5"/><circle fill="white" cx="122" cy="20" r="2.1"/><circle fill="white" cx="158" cy="52" r="1.8"/>
+    <circle fill="white" cx="172" cy="18" r="0.8"/><circle fill="white" cx="34" cy="8" r="0.7"/><circle fill="white" cx="108" cy="82" r="0.9"/><circle fill="white" cx="148" cy="84" r="0.6"/><circle fill="white" cx="68" cy="8" r="0.7"/>
+  </svg>
+    <div class="container">
+      <div class="section-header">
+        <div class="tag" style="background:rgba(242,201,76,.15);color:var(--gold)">How it Works</div>
+        <h2 style="color:#FFFFFF;">Simple process.<br>Extraordinary results.</h2>
+        <p>Getting started with Lumen is easy, with a wide range of services and subjects to choose from.</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card reveal">
+          <div class="step-num">01</div>
+          <h3>Set up a session</h3>
+          <p>Share your subject, current level, target grade, and any specific gaps. We listen carefully before anything else.</p>
+        </div>
+        <div class="step-card reveal reveal-delay-1">
+          <div class="step-num">02</div>
+          <h3>Meet your tutor</h3>
+          <p>We pair you with a specialist who fits your learning style. Your free introductory session lets you find your rhythm together.</p>
+        </div>
+        <div class="step-card reveal reveal-delay-2">
+          <div class="step-num">03</div>
+          <h3>Watch the results</h3>
+          <p>Lumen delivers through regular sessions, targeted practice, and constructive feedback, ensuring measurable progress and lasting success.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TESTIMONIALS ──────────────────────────────────────── -->
+  <section id="testimonials">
+  <div class="section-stars" id="testimonialsStars"></div>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;top:35%;right:4%;width:170px;height:90px;opacity:0.17" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="10" y1="78" x2="45" y2="38"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="45" y1="38" x2="85" y2="16"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="85" y1="16" x2="128" y2="32"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="128" y1="32" x2="158" y2="68"/>
+    <circle fill="white" cx="10" cy="78" r="1.9"/><circle fill="white" cx="45" cy="38" r="1.6"/>
+    <circle fill="white" cx="85" cy="16" r="2.3"/><circle fill="white" cx="128" cy="32" r="1.7"/>
+    <circle fill="white" cx="158" cy="68" r="2.0"/>
+    <circle fill="white" cx="28" cy="18" r="0.8"/><circle fill="white" cx="110" cy="70" r="0.7"/><circle fill="white" cx="155" cy="20" r="0.9"/><circle fill="white" cx="5" cy="45" r="0.7"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;top:3%;right:2%;width:160px;height:110px;opacity:0.2" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="20" y1="80" x2="78" y2="52"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="78" y1="52" x2="138" y2="24"/>
+    <circle fill="white" cx="20" cy="80" r="2.3"/><circle fill="white" cx="78" cy="52" r="2.6"/><circle fill="white" cx="138" cy="24" r="2.1"/>
+    <circle fill="white" cx="48" cy="15" r="1.4"/><circle fill="white" cx="118" cy="78" r="1.2"/><circle fill="white" cx="8" cy="30" r="0.8"/><circle fill="white" cx="148" cy="70" r="0.9"/>
+    <circle fill="white" cx="62" cy="95" r="0.7"/><circle fill="white" cx="100" cy="10" r="0.8"/><circle fill="white" cx="30" cy="50" r="0.7"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;bottom:8%;left:3%;width:130px;height:120px;opacity:0.18" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="65" y1="10" x2="8" y2="104"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="8" y1="104" x2="122" y2="104"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="122" y1="104" x2="65" y2="10"/>
+    <circle fill="white" cx="65" cy="10" r="2.5"/><circle fill="white" cx="8" cy="104" r="2.1"/><circle fill="white" cx="122" cy="104" r="2.3"/>
+    <circle fill="white" cx="38" cy="58" r="0.8"/><circle fill="white" cx="90" cy="52" r="0.9"/><circle fill="white" cx="65" cy="78" r="0.7"/><circle fill="white" cx="20" cy="24" r="0.7"/><circle fill="white" cx="108" cy="30" r="0.8"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;top:42%;right:5%;width:88px;height:88px;opacity:0.17" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="44" y1="8" x2="44" y2="78"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="8" y1="44" x2="78" y2="44"/>
+    <circle fill="white" cx="44" cy="8" r="1.8"/><circle fill="white" cx="44" cy="78" r="1.5"/><circle fill="white" cx="8" cy="44" r="1.6"/><circle fill="white" cx="78" cy="44" r="1.9"/><circle fill="white" cx="44" cy="44" r="2.4"/>
+    <circle fill="white" cx="22" cy="18" r="0.7"/><circle fill="white" cx="66" cy="22" r="0.8"/><circle fill="white" cx="18" cy="65" r="0.6"/><circle fill="white" cx="70" cy="66" r="0.7"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;bottom:30%;right:3%;width:100px;height:95px;opacity:0.15" xmlns="http://www.w3.org/2000/svg">
+    <circle fill="white" cx="50" cy="20" r="2.4"/><circle fill="white" cx="32" cy="38" r="1.8"/><circle fill="white" cx="68" cy="35" r="2.0"/><circle fill="white" cx="24" cy="58" r="1.5"/><circle fill="white" cx="52" cy="52" r="2.2"/><circle fill="white" cx="75" cy="58" r="1.7"/><circle fill="white" cx="40" cy="74" r="1.4"/>
+    <circle fill="white" cx="15" cy="22" r="0.7"/><circle fill="white" cx="82" cy="20" r="0.8"/><circle fill="white" cx="88" cy="80" r="0.7"/><circle fill="white" cx="10" cy="82" r="0.6"/>
+  </svg>
+    <div class="container">
+      <div class="section-header">
+        <div class="tag">Student Results</div>
+        <h2>Real students.<br>Real breakthroughs.</h2>
+        <p>See what the families who have worked with us have to say about their experience.</p>
+      </div>
+
+      <div class="stagger-outer">
+        <div class="stagger-wrap" id="testiCarousel"></div>
+        <div class="stagger-nav">
+          <button class="stagger-btn" id="testiPrev" aria-label="Previous">&#8592;</button>
+          <button class="stagger-btn" id="testiNext" aria-label="Next">&#8594;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ───────────────────────────────────────────────── -->
+  <section id="cta">
+  <div class="section-stars" id="ctaStars"></div>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;top:18%;right:5%;width:110px;height:120px;opacity:0.19" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="55" y1="10" x2="88" y2="42"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="88" y1="42" x2="78" y2="80"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="78" y1="80" x2="42" y2="105"/>
+    <circle fill="white" cx="55" cy="10" r="2.2"/><circle fill="white" cx="88" cy="42" r="2.5"/>
+    <circle fill="white" cx="78" cy="80" r="1.8"/><circle fill="white" cx="42" cy="105" r="2.0"/>
+    <circle fill="white" cx="20" cy="32" r="0.8"/><circle fill="white" cx="100" cy="10" r="0.7"/><circle fill="white" cx="15" cy="90" r="0.9"/><circle fill="white" cx="95" cy="100" r="0.7"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;bottom:12%;left:4%;width:145px;height:115px;opacity:0.18" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="72" y1="12" x2="20" y2="95"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="72" y1="12" x2="125" y2="95"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="20" y1="95" x2="46" y2="55"/>
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="125" y1="95" x2="100" y2="55"/>
+    <circle fill="white" cx="72" cy="12" r="2.5"/>
+    <circle fill="white" cx="20" cy="95" r="1.8"/>
+    <circle fill="white" cx="125" cy="95" r="2.0"/>
+    <circle fill="white" cx="46" cy="55" r="1.5"/>
+    <circle fill="white" cx="100" cy="55" r="1.7"/>
+    <circle fill="white" cx="8" cy="40" r="0.8"/><circle fill="white" cx="138" cy="35" r="0.7"/><circle fill="white" cx="72" cy="80" r="0.6"/><circle fill="white" cx="55" cy="10" r="0.8"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;top:3%;left:2%;width:190px;height:100px;opacity:0.2" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="12" y1="74" x2="48" y2="28"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="48" y1="28" x2="84" y2="58"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="84" y1="58" x2="122" y2="20"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="122" y1="20" x2="158" y2="52"/>
+    <circle fill="white" cx="12" cy="74" r="2.2"/><circle fill="white" cx="48" cy="28" r="1.9"/><circle fill="white" cx="84" cy="58" r="1.5"/><circle fill="white" cx="122" cy="20" r="2.1"/><circle fill="white" cx="158" cy="52" r="1.8"/>
+    <circle fill="white" cx="172" cy="18" r="0.8"/><circle fill="white" cx="34" cy="8" r="0.7"/><circle fill="white" cx="108" cy="82" r="0.9"/><circle fill="white" cx="148" cy="84" r="0.6"/><circle fill="white" cx="68" cy="8" r="0.7"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;bottom:8%;right:2%;width:160px;height:110px;opacity:0.19" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="20" y1="80" x2="78" y2="52"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="78" y1="52" x2="138" y2="24"/>
+    <circle fill="white" cx="20" cy="80" r="2.3"/><circle fill="white" cx="78" cy="52" r="2.6"/><circle fill="white" cx="138" cy="24" r="2.1"/>
+    <circle fill="white" cx="48" cy="15" r="1.4"/><circle fill="white" cx="118" cy="78" r="1.2"/><circle fill="white" cx="8" cy="30" r="0.8"/><circle fill="white" cx="148" cy="70" r="0.9"/>
+    <circle fill="white" cx="62" cy="95" r="0.7"/><circle fill="white" cx="100" cy="10" r="0.8"/><circle fill="white" cx="30" cy="50" r="0.7"/>
+  </svg>
+  <svg class="deco-stars" aria-hidden="true" style="position:absolute;top:40%;right:6%;width:88px;height:88px;opacity:0.17" xmlns="http://www.w3.org/2000/svg">
+    <line stroke="white" stroke-width="0.5" opacity="0.5" x1="44" y1="8" x2="44" y2="78"/><line stroke="white" stroke-width="0.5" opacity="0.5" x1="8" y1="44" x2="78" y2="44"/>
+    <circle fill="white" cx="44" cy="8" r="1.8"/><circle fill="white" cx="44" cy="78" r="1.5"/><circle fill="white" cx="8" cy="44" r="1.6"/><circle fill="white" cx="78" cy="44" r="1.9"/><circle fill="white" cx="44" cy="44" r="2.4"/>
+    <circle fill="white" cx="22" cy="18" r="0.7"/><circle fill="white" cx="66" cy="22" r="0.8"/><circle fill="white" cx="18" cy="65" r="0.6"/><circle fill="white" cx="70" cy="66" r="0.7"/>
+  </svg>
+    <div class="cta-bg"></div>
+    <div class="container">
+      <div class="cta-inner">
+        <div>
+          <h2>Ready to il<span style="color:var(--gold)">lumen</span>ate your potential?</h2>
+          <p>Book an introductory session today, with zero commitments, and free cancellation</p>
+        </div>
+        <div class="cta-actions">
+          <a href="booking.html" class="btn btn-primary" style="font-size:1.05rem;padding:18px 36px;">Book your first session →</a>
+          <span class="cta-note"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="nav-logo">
+            <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 50 L28 14 L38 38 Z" fill="#F2C94C" opacity=".85"/>
+              <path d="M50 50 L72 14 L62 38 Z" fill="#F2C94C" opacity=".85"/>
+              <path d="M50 50 L86 28 L62 38 Z" fill="#F2C94C" opacity=".85"/>
+              <path d="M50 50 L86 72 L62 62 Z" fill="#F2C94C" opacity=".85"/>
+              <path d="M50 50 L72 86 L62 62 Z" fill="#F2C94C" opacity=".85"/>
+              <path d="M50 50 L28 86 L38 62 Z" fill="#F2C94C" opacity=".85"/>
+              <path d="M50 50 L14 72 L38 62 Z" fill="#F2C94C" opacity=".85"/>
+              <path d="M50 50 L14 28 L38 38 Z" fill="#F2C94C" opacity=".85"/>
+              <path d="M50 50 L38 38 L50 2 L62 38 Z" fill="#1A2D7C"/>
+              <path d="M50 50 L62 38 L98 50 L62 62 Z" fill="#1A2D7C"/>
+              <path d="M50 50 L62 62 L50 98 L38 62 Z" fill="#1A2D7C"/>
+              <path d="M50 50 L38 62 L2 50 L38 38 Z" fill="#1A2D7C"/>
+              <circle cx="50" cy="50" r="14" fill="white"/>
+              <circle cx="50" cy="50" r="10" fill="#F2C94C"/>
+            </svg>
+            Lumen Tuition
+          </a>
+          <p>Shining bright since 2026.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Our tutors</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#subjects">Subjects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Privacy policy</a></li>
+            <li><a href="#">Terms of service</a></li>
+            <li><a href="#">Safeguarding</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Lumen Tuition. All rights reserved.</p>
+        <p style="color:rgba(255,255,255,.2);">Registered in Australia</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Star field
+    (function() {
+      const container = document.getElementById('heroStars');
+      const count = 120;
+      for (let i = 0; i < count; i++) {
+        const s = document.createElement('div');
+        s.className = 'star';
+        const size = Math.random() * 2.2 + 0.6;
+        const isGold = Math.random() < 0.08;
+        const dur  = (Math.random() * 4 + 2).toFixed(2);
+        const delay = (Math.random() * 6).toFixed(2);
+        const minOp = (Math.random() * 0.15 + 0.05).toFixed(2);
+        const maxOp = (Math.random() * 0.55 + 0.35).toFixed(2);
+        const scale = (Math.random() * 0.5 + 1.1).toFixed(2);
+        s.style.cssText = `
+          width:${size}px; height:${size}px;
+          left:${(Math.random()*100).toFixed(2)}%;
+          top:${(Math.random()*100).toFixed(2)}%;
+          background:${isGold ? '#F2C94C' : 'white'};
+          --dur:${dur}s; --delay:-${delay}s;
+          --min-op:${minOp}; --max-op:${maxOp}; --scale:${scale};
+        `;
+        container.appendChild(s);
+      }
+    })();
+
+    // Star fields for dark sections
+    (function() {
+      const sections = [
+        { id: 'stats',        count: 50,  goldChance: 0.07 },
+        { id: 'why',          count: 90,  goldChance: 0.06 },
+        { id: 'subjects',     count: 95,  goldChance: 0.05 },
+        { id: 'team',         count: 85,  goldChance: 0.06 },
+        { id: 'how',          count: 80,  goldChance: 0.05 },
+        { id: 'testimonials', count: 85,  goldChance: 0.06 },
+        { id: 'cta',          count: 60,  goldChance: 0.07 },
+      ];
+      sections.forEach(({ id, count, goldChance }) => {
+        const container = document.getElementById(id + 'Stars');
+        if (!container) return;
+        for (let i = 0; i < count; i++) {
+          const s = document.createElement('div');
+          s.className = 'star';
+          const size   = (Math.random() * 1.8 + 0.5).toFixed(2);
+          const isGold = Math.random() < goldChance;
+          const dur    = (Math.random() * 5 + 2.5).toFixed(2);
+          const delay  = (Math.random() * 8).toFixed(2);
+          const minOp  = (Math.random() * 0.1 + 0.04).toFixed(2);
+          const maxOp  = (Math.random() * 0.4 + 0.2).toFixed(2);
+          const scale  = (Math.random() * 0.4 + 1.1).toFixed(2);
+          s.style.cssText = `width:${size}px;height:${size}px;left:${(Math.random()*100).toFixed(1)}%;top:${(Math.random()*100).toFixed(1)}%;background:${isGold ? '#F2C94C' : 'white'};--dur:${dur}s;--delay:-${delay}s;--min-op:${minOp};--max-op:${maxOp};--scale:${scale};`;
+          container.appendChild(s);
+        }
+      });
+    })();
+
+    // Shooting stars
+    function launchShootingStar() {
+      const container = document.getElementById('heroStars');
+      const hero      = document.getElementById('hero');
+      const w = hero.offsetWidth;
+      const h = hero.offsetHeight;
+
+      // Random start — keep toward upper-centre so stars cross visible space
+      const sx = (Math.random() * 85 + 5) / 100 * w;
+      const sy = (Math.random() * 65 + 5) / 100 * h;
+
+      // Wide angle range: -80° (steep upward-right) to +80° (steep downward-right)
+      // Negative = tilts upward, positive = tilts downward, in CSS rotate() terms
+      const angle = Math.random() * 160 - 80;
+      const rad   = angle * Math.PI / 180;
+      const cosA  = Math.cos(rad);
+      const sinA  = Math.sin(rad);
+
+      // Distance to each edge in the direction of travel
+      const dists = [];
+      if (cosA >  0.005) dists.push((w - sx) / cosA);
+      if (cosA < -0.005) dists.push(sx / -cosA);
+      if (sinA >  0.005) dists.push((h - sy) / sinA);
+      if (sinA < -0.005) dists.push(sy / -sinA);
+      // Use the farthest reachable edge (longest path that still exits)
+      const dist = dists.length ? Math.max(...dists) : Math.hypot(w, h);
+
+      const length = Math.random() * 130 + 60;
+      const dur    = (Math.random() * 1.4 + 0.5).toFixed(2);
+
+      const s = document.createElement('div');
+      s.className = 'shooting-star';
+      s.style.cssText = `
+        width:${length}px;
+        left:${(sx/w*100).toFixed(2)}%;
+        top:${(sy/h*100).toFixed(2)}%;
+        --angle:${angle.toFixed(1)}deg;
+        --dist:${Math.ceil(dist)}px;
+        --dur:${dur}s;
+      `;
+      container.appendChild(s);
+      setTimeout(() => s.remove(), parseFloat(dur) * 1000 + 200);
+      setTimeout(launchShootingStar, Math.random() * 3500 + 1500);
+    }
+    setTimeout(launchShootingStar, Math.random() * 1500 + 500);
+
+    // Nav scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+
+    function scrollCarousel(btn, dir) {
+      const wrap = btn.closest('.subj-carousel-wrap');
+      const scroll = wrap.querySelector('.subj-scroll');
+      scroll.scrollBy({ left: dir * scroll.clientWidth * 0.8, behavior: 'smooth' });
+    }
+
+    /* ── Subject modal ── */
+    const TUTORS = {
+      GB: 'Giles Buchanan',
+      TH: 'Tyler Hewett',
+      AA: 'Ari Atzeni',
+      RP: 'Maya Markovich',
+      OB: 'Dylan Nash',
+      TA: 'Tom Gallus'
+    };
+
+    const SUBJECT_DATA = {
+      'Physics':                { level: 'QCAA · Years 11–12', desc: 'Covering mechanics, electromagnetism, thermodynamics, and modern physics with a focus on QCAA internal and external assessment.', tutors: ['GB','TH','AA','OB','TA'] },
+      'Chemistry':              { level: 'QCAA · Years 11–12', desc: 'From chemical bonding to organic chemistry and quantitative analysis — building deep understanding for QCAA exams.', tutors: ['GB','TH','OB','TA'] },
+      'Biology':                { level: 'QCAA · Years 11–12', desc: 'Cells, genetics, evolution, and ecosystems — taught with an emphasis on QCAA exam technique and internal assessment.', tutors: ['TH','TA'] },
+      'Mathematical Methods':   { level: 'QCAA · Years 11–12', desc: 'Functions, calculus, statistics, and probability — essential for STEM pathways and covered in full QCAA depth.', tutors: ['GB','TH','AA','RP','OB'] },
+      'Specialist Mathematics': { level: 'QCAA · Years 11–12', desc: 'The most rigorous QCAA maths course: vectors, complex numbers, proof, and advanced calculus for high-achieving students.', tutors: ['TH','OB'] },
+      'English':                { level: 'QCAA · Years 11–12', desc: 'Analytical and persuasive writing, close reading, and exam essay technique aligned with QCAA assessment criteria.', tutors: ['GB','AA'] },
+      'Literature':             { level: 'QCAA · Years 11–12', desc: 'Textual analysis, literary theory, and extended essay writing — for students pursuing the highest level of English study.', tutors: ['RP'] },
+      'Modern History':         { level: 'QCAA · Years 11–12', desc: 'Source analysis, historiography, and essay writing across 20th-century conflicts and turning points in the QCAA curriculum.', tutors: ['RP'] },
+      'Engineering':            { level: 'QCAA · Years 11–12', desc: 'Design, systems thinking, and applied problem-solving across the QCAA Engineering subject with a project-based approach.', tutors: ['AA','OB'] },
+      'Economics':              { level: 'QCAA · Years 11–12', desc: 'Micro and macroeconomics, market structures, and policy analysis — developed for QCAA extended response and exam preparation.', tutors: ['GB','AA','RP'] },
+      'Legal Studies':          { level: 'QCAA · Years 11–12', desc: 'Criminal and civil law, the Australian legal system, and persuasive legal writing for QCAA students.', tutors: ['RP'] },
+      'French':                 { level: 'QCAA · Years 11–12', desc: 'Oral, written, and listening skills in French across all QCAA assessment modes — from grammar foundations to fluency.', tutors: ['RP'] },
+      'General Sciences':       { level: 'General · Years 7–10', desc: 'An engaging overview of biology, chemistry, and physics concepts for junior students building foundational science literacy.', tutors: ['GB','TH','AA','OB','TA'] },
+      'Advanced Mathematics':   { level: 'General · Years 7–10', desc: 'Extension topics beyond the standard curriculum for high-achieving junior students looking to develop strong mathematical ability.', tutors: ['GB','TH','AA','OB'] },
+      'General Mathematics':    { level: 'General · Years 7–10', desc: 'Core number, algebra, geometry, and statistics skills for Years 7–10 students — practical, clear, and confidence-building.', tutors: ['GB','TH','AA','RP','OB'] },
+      'General English':        { level: 'General · Years 7–10', desc: 'Writing, comprehension, and oral skills for junior students — covering narrative, persuasive, and analytical text types.', tutors: ['GB','TH','AA','OB'] },
+      'History':                { level: 'General · Years 7–10', desc: 'Source skills, essay writing, and historical thinking for Years 7–10 students across a range of periods and topics.', tutors: ['RP'] },
+      'General Economics':      { level: 'General · Years 7–10', desc: 'An introduction to economic concepts — supply and demand, money, markets, and global trade — for junior students.', tutors: ['GB','AA','RP'] },
+      'General Legal Studies':  { level: 'General · Years 7–10', desc: 'An accessible introduction to how law works in Australia, covering rights, courts, and justice for younger students.', tutors: ['RP'] },
+      'General French':         { level: 'General · Years 7–10', desc: 'Core vocabulary, grammar, and conversational French for junior students — building a solid foundation for senior study.', tutors: ['RP'] }
+    };
+
+    function openSubjModal(card) {
+      const overlay = document.getElementById('subjModal');
+      if (!overlay) return;
+      const rawName = card.querySelector('.subj-card-name').textContent.trim();
+      const badge   = card.querySelector('.subj-card-badge') ? card.querySelector('.subj-card-badge').textContent.trim() : '';
+      const isGeneral = badge.toLowerCase().includes('7');
+      const key = isGeneral && rawName !== 'General Sciences' && rawName !== 'Advanced Mathematics' && rawName !== 'General Mathematics' && rawName !== 'General English' && rawName !== 'History'
+        ? (rawName === 'Economics' ? 'General Economics' : rawName === 'Legal Studies' ? 'General Legal Studies' : rawName === 'French' ? 'General French' : rawName)
+        : rawName;
+      const data = SUBJECT_DATA[key] || { level: badge, desc: 'Description coming soon.', tutors: [] };
+
+      const iconEl = card.querySelector('.subj-card-icon');
+      overlay.querySelector('.subj-modal-icon').style.background = card.querySelector('.subj-card-img').style.background;
+      overlay.querySelector('.subj-modal-icon').innerHTML = iconEl ? iconEl.outerHTML : '';
+      overlay.querySelector('.subj-modal-name').textContent  = rawName;
+      overlay.querySelector('.subj-modal-level').textContent = data.level;
+      overlay.querySelector('.subj-modal-desc').textContent  = data.desc;
+      overlay.querySelector('.subj-modal-tutor-list').innerHTML = data.tutors.map(ini =>
+        `<div class="subj-modal-tutor"><div class="subj-modal-tutor-ini">${ini}</div><span class="subj-modal-tutor-name">${TUTORS[ini] || ini}</span></div>`
+      ).join('');
+
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSubjModal() {
+      const overlay = document.getElementById('subjModal');
+      if (overlay) overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('click', e => { if (e.target === document.getElementById('subjModal')) closeSubjModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSubjModal(); closeTutorModal(); } });
+
+    // ── Stagger testimonial carousel ──
+    (function() {
+      const DATA = [
+        { text: "My daughter went from a C to an A in QCAA Maths in under a year. Her tutor had a gift for making abstract concepts feel completely natural. We can't recommend Lumen enough.", by: "Sarah R.", role: "Parent — Mathematical Methods", ini: "SR" },
+        { text: "I'd completely lost confidence in Chemistry after a bad result. Within six sessions I actually started enjoying it. Got an A in my final exam — something I never would have believed possible.", by: "Jamie K.", role: "Student — QCAA Chemistry", ini: "JK" },
+        { text: "Brilliant service from start to finish. The tutor matching was spot-on and my son's English grade jumped two full bands before his end-of-year exams.", by: "Marcus P.", role: "Parent — General English", ini: "MP" },
+        { text: "The structured approach to essay writing completely changed how I perform in assessments. I went from barely passing to consistently achieving As in Literature.", by: "Priya L.", role: "Student — QCAA Literature", ini: "PL" },
+        { text: "We tried two other tutoring services before Lumen. Nothing compares. The tutors are young, relatable, and genuinely passionate about their subjects.", by: "Claire H.", role: "Parent — Physics & Maths", ini: "CH" },
+        { text: "My Physics result went from a 65 to a 92 over two terms. Every session was focused, efficient, and tailored exactly to where I was falling short.", by: "Ethan W.", role: "Student — QCAA Physics", ini: "EW" },
+        { text: "As a parent I was sceptical, but the progress was undeniable. Lumen's tutors treat students as individuals, not just another booking on the calendar.", by: "Diane F.", role: "Parent — Specialist Mathematics", ini: "DF" },
+        { text: "I dreaded Economics until I started with Lumen. Now it's one of my strongest subjects. My internal assessment received full marks for the first time.", by: "Chloe A.", role: "Student — QCAA Economics", ini: "CA" },
+        { text: "The booking process is seamless, the tutors show up fully prepared, and the results speak for themselves. Couldn't recommend Lumen more highly.", by: "Tom B.", role: "Parent — General Sciences", ini: "TB" },
+        { text: "I got a 99% in Biology for my final external. I genuinely don't think that would have been possible without the support I received from Lumen.", by: "Nadia S.", role: "Student — QCAA Biology", ini: "NS" },
+        { text: "My son struggled with Specialist Maths for most of Year 11. After four months with Lumen he was not only keeping up but genuinely ahead of his class.", by: "Rob M.", role: "Parent — Specialist Mathematics", ini: "RM" },
+        { text: "The tutors remember exactly where you left off each week and build on it. It feels like a proper learning journey, not just random exam drills.", by: "Lena T.", role: "Student — Mathematical Methods", ini: "LT" },
+      ];
+
+      let offset = 0;
+      const VISIBLE = 2;
+      const wrap = document.getElementById('testiCarousel');
+      if (!wrap) return;
+
+      function getCardWidth() { return window.innerWidth >= 768 ? 380 : 240; }
+      function getStep() { return window.innerWidth >= 768 ? 290 : 185; }
+      const CARD_H = 230;
+      const SCALES = [1, 0.88, 0.74];
+      const OPACITIES = [1, 0.72, 0.38];
+
+      const cards = DATA.map((t, i) => {
+        const el = document.createElement('div');
+        el.className = 'stagger-card';
+        el.innerHTML = `
+          <div class="stagger-stars">★★★★★</div>
+          <p class="stagger-text">"${t.text}"</p>
+          <div class="stagger-author">
+            <div class="stagger-ini">${t.ini}</div>
+            <div>
+              <div class="stagger-name">${t.by}</div>
+              <div class="stagger-role">${t.role}</div>
+            </div>
+          </div>`;
+        el.addEventListener('click', () => { const p = getPos(i); if (p !== 0) navigate(p > 0 ? 1 : -1); });
+        wrap.appendChild(el);
+        return el;
+      });
+
+      function getPos(i) {
+        const n = DATA.length;
+        let p = ((i - offset) % n + n) % n;
+        if (p > n / 2) p -= n;
+        return p;
+      }
+
+      function update() {
+        const w = getCardWidth();
+        const step = getStep();
+        cards.forEach((card, i) => {
+          const pos = getPos(i);
+          const abs = Math.abs(pos);
+          const isCenter = pos === 0;
+          const hidden = abs > VISIBLE;
+          const scale = SCALES[Math.min(abs, 2)];
+          const opacity = hidden ? 0 : OPACITIES[Math.min(abs, 2)];
+          card.style.opacity = opacity;
+          card.style.pointerEvents = hidden ? 'none' : (isCenter ? 'none' : 'auto');
+          card.style.width = w + 'px';
+          card.style.height = CARD_H + 'px';
+          card.style.zIndex = isCenter ? 10 : Math.max(1, VISIBLE + 2 - abs);
+          const tx = step * pos;
+          card.style.transform = `translate(-50%,-50%) translateX(${tx}px) scale(${scale})`;
+          card.classList.toggle('stagger-center', isCenter);
+        });
+      }
+
+      function navigate(steps) {
+        offset = ((offset + steps) % DATA.length + DATA.length) % DATA.length;
+        update();
+      }
+
+      document.getElementById('testiPrev').addEventListener('click', () => navigate(-1));
+      document.getElementById('testiNext').addEventListener('click', () => navigate(1));
+      window.addEventListener('resize', update);
+      update();
+    })();
+
+    document.getElementById('subjects').addEventListener('click', e => {
+      const card = e.target.closest('.subj-card');
+      if (card) openSubjModal(card);
+    });
+
+    // ── Tutor modal ──
+    const TUTOR_PROFILES = {
+      GB: {
+        name: 'Giles Buchanan', rate: 50, color: '#F2C94C', email: 'giles@lumentuition.com.au',
+        quote: 'Giles has an incredible ability to break down complex problems into steps that actually make sense. My Methods grade went from a C to an A in one term.', quoteBy: '— Year 12 student',
+        bio: 'Specialist in QCAA Mathematical Methods and Sciences. Graduated from St Peter\'s Lutheran College in 2025 with a raw ATAR of 98.15, achieving outstanding results across Mathematics, Sciences, and Humanities.',
+        school: "St Peter's Lutheran College", atar: '98.15', year: '2025',
+        subjects: [['Mathematical Methods','94'],['Chemistry','98'],['Physics','99'],['General English','97'],['Economics','85']],
+        subjects_taught: ['Mathematical Methods','Chemistry','Physics','General English','Economics','General Sciences','Advanced Mathematics','General Mathematics'],
+        interests: ['Rock Climbing','Chess','Film Photography'],
+      },
+      TH: {
+        name: 'Tyler Hewett', rate: 80, color: '#6EC6F0', email: 'tyler@lumentuition.com.au',
+        quote: 'Tyler made Physics click for me in a way no teacher ever had. His explanations are clear, patient, and always connected to what actually comes up in the exam.', quoteBy: '— Year 12 student',
+        bio: 'Science specialist making complex concepts accessible and engaging for every student. Graduated from St Peter\'s Lutheran College in 2025 with one of the highest ATARs in Queensland at 99.35.',
+        school: "St Peter's Lutheran College", atar: '99.35', year: '2025',
+        subjects: [['Specialist Mathematics','95'],['Mathematical Methods','97'],['Physics','99'],['Chemistry','97'],['Biology','99']],
+        subjects_taught: ['Specialist Mathematics','Mathematical Methods','Physics','Chemistry','Biology','General Sciences','Advanced Mathematics','General Mathematics'],
+        interests: ['Distance Running','Astrophysics','Jazz Piano'],
+      },
+      AA: {
+        name: 'Ari Atzeni', rate: 50, color: '#A78BFA', email: 'ari@lumentuition.com.au',
+        quote: 'Ari helped me completely restructure how I approach essay writing. My English mark jumped significantly and I actually enjoy the subject now.', quoteBy: '— Year 11 student',
+        bio: 'Expert in essay technique, textual analysis, and exam preparation across both General and QCAA subjects. Graduated from St Peter\'s Lutheran College in 2025 with a raw ATAR of 98.15.',
+        school: "St Peter's Lutheran College", atar: '98.15', year: '2025',
+        subjects: [['Mathematical Methods','95'],['Physics','99'],['General English','97'],['Engineering',null],['Economics',null]],
+        subjects_taught: ['Mathematical Methods','Physics','Engineering','Economics','General English','General Sciences','Advanced Mathematics','General Mathematics'],
+        interests: ['Architecture','Hiking','Graphic Design'],
+      },
+      RP: {
+        name: 'Maya Markovich', rate: 50, color: '#F9A8D4', email: 'maya@lumentuition.com.au',
+        quote: 'Maya gave me the tools to actually analyse texts independently. Her feedback on my practice essays was more useful than anything I received at school.', quoteBy: '— Year 12 student',
+        bio: 'Humanities specialist with a strong track record across QCAA essay-based subjects and senior mathematics. Graduated from St Peter\'s Lutheran College in 2025 with a raw ATAR of 97.5.',
+        school: "St Peter's Lutheran College", atar: '97.5', year: '2025',
+        subjects: [['Literature',null],['Mathematical Methods',null],['Modern History',null],['French',null],['Economics',null],['Legal Studies',null]],
+        subjects_taught: ['Literature','Modern History','French','Economics','Legal Studies','Mathematical Methods','General Mathematics','History','General Economics'],
+        interests: ['Contemporary Dance','Travel Writing','Tennis'],
+      },
+      OB: {
+        name: 'Dylan Nash', rate: 50, color: '#6EE7B7', email: 'dylan@lumentuition.com.au',
+        quote: 'Dylan has a real knack for spotting exactly where your understanding breaks down. He fixed gaps in my Specialist Maths knowledge I didn\'t even know I had.', quoteBy: '— Year 12 student',
+        bio: 'Engineering and Mathematics tutor with a focus on building deep conceptual understanding across Years 7–12. Graduated from St Peter\'s Lutheran College in 2025 with a raw ATAR of 98.2.',
+        school: "St Peter's Lutheran College", atar: '98.2', year: '2025',
+        subjects: [['Specialist Mathematics','94'],['Mathematical Methods','95'],['Physics','97'],['Engineering','95']],
+        subjects_taught: ['Specialist Mathematics','Mathematical Methods','Physics','Engineering','General Sciences','Advanced Mathematics','General Mathematics','General English'],
+        interests: ['Surfing','Robotics','Acoustic Guitar'],
+      },
+      TA: {
+        name: 'Tom Gallus', rate: 55, color: '#FCA5A5', email: 'tom@lumentuition.com.au',
+        quote: 'Tom is incredibly patient and thorough. He explained Biology concepts in a way that genuinely stuck, and my confidence going into exams completely changed.', quoteBy: '— Year 11 student',
+        bio: 'Science tutor with clear, patient teaching methods and a strong focus on QCAA exam technique and internal assessment. Specialises in Biology, Chemistry, Physics, and General Sciences.',
+        school: null, atar: null, year: null,
+        subjects: [['Biology',null],['Chemistry',null],['Physics',null],['General Sciences',null]],
+        subjects_taught: ['Biology','Chemistry','Physics','General Sciences'],
+        interests: ['Scuba Diving','Cycling','Botanical Illustration'],
+      },
+    };
+
+    const ALL_DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+    function openTutorModal(ini) {
+      const p = TUTOR_PROFILES[ini];
+      if (!p) return;
+      const overlay = document.getElementById('tutorModal');
+      const av = overlay.querySelector('#tmAvatar');
+      av.textContent = ini;
+      av.style.background = p.color;
+      overlay.querySelector('#tmName').textContent = p.name;
+      overlay.querySelector('#tmContact').textContent = `Contact: ${p.email}`;
+      overlay.querySelector('#tmQuote').textContent = `"${p.quote}"`;
+      overlay.querySelector('#tmQuoteAttr').textContent = p.quoteBy;
+      overlay.querySelector('#tmRate').textContent = `$${p.rate} / hr`;
+      overlay.querySelector('#tmBio').textContent = p.bio;
+      const edu = overlay.querySelector('#tmEdu');
+      if (p.school) {
+        edu.innerHTML = `<div class="tutor-modal-edu-name">${p.school}</div>${p.atar ? `<div class="tutor-modal-edu-detail">Class of ${p.year} &nbsp;·&nbsp; ATAR ${p.atar}</div>` : ''}`;
+      } else {
+        edu.innerHTML = `<div class="tutor-modal-edu-detail" style="color:rgba(255,255,255,.4)">Details coming soon</div>`;
+      }
+      overlay.querySelector('#tmInterests').innerHTML = p.interests.map(i => `<span class="tutor-modal-interest-tag">${i}</span>`).join('');
+      overlay.querySelector('#tmSubjectsTaught').innerHTML = p.subjects_taught.map(s => `<span class="tutor-modal-subj-tag">${s}</span>`).join('');
+      overlay.querySelector('#tmDays').innerHTML = ALL_DAYS.map(d => `<span class="tutor-modal-day">${d}</span>`).join('');
+      overlay.querySelector('#tmSubjects').innerHTML = p.subjects.map(([name, score]) =>
+        `<div class="tutor-modal-subj-row"><span class="tutor-modal-subj-name">${name}</span>${score ? `<span class="tutor-modal-subj-score">${score}%</span>` : ''}</div>`
+      ).join('');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeTutorModal() {
+      const overlay = document.getElementById('tutorModal');
+      if (overlay) overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('click', e => { if (e.target === document.getElementById('tutorModal')) closeTutorModal(); });
+
+    document.getElementById('team').addEventListener('click', e => {
+      const card = e.target.closest('.tutor-card');
+      if (card && card.dataset.tutor) openTutorModal(card.dataset.tutor);
+    });
+  </script>
+
+  <!-- Subject modal -->
+  <!-- ── Tutor modal ── -->
+  <div id="tutorModal" class="tutor-modal-overlay" role="dialog" aria-modal="true">
+    <div class="tutor-modal">
+      <button class="tutor-modal-close" onclick="closeTutorModal()" aria-label="Close">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/></svg>
+      </button>
+      <div class="tutor-modal-header">
+        <div class="tutor-modal-header-left">
+          <div class="tutor-modal-avatar" id="tmAvatar"></div>
+          <div class="tutor-modal-header-info">
+            <div class="tutor-modal-name" id="tmName"></div>
+            <div class="tutor-modal-contact" id="tmContact"></div>
+            <div class="tutor-modal-rate-pill" id="tmRate"></div>
+          </div>
+        </div>
+        <div class="tutor-modal-header-quote">
+          <div class="tutor-modal-quote-text" id="tmQuote"></div>
+          <div class="tutor-modal-quote-attr" id="tmQuoteAttr"></div>
+        </div>
+        <div class="tutor-modal-header-right">
+          <a href="booking.html" class="tutor-modal-book">Book a Session →</a>
+        </div>
+      </div>
+      <div class="tutor-modal-body">
+        <div class="tutor-modal-col tutor-modal-col-left">
+          <div class="tutor-modal-section">
+            <div class="tutor-modal-section-label">About</div>
+            <p class="tutor-modal-bio" id="tmBio"></p>
+          </div>
+          <div class="tutor-modal-section">
+            <div class="tutor-modal-section-label">Interests</div>
+            <div class="tutor-modal-interest-tags" id="tmInterests"></div>
+          </div>
+        </div>
+        <div class="tutor-modal-col tutor-modal-col-mid">
+          <div class="tutor-modal-section">
+            <div class="tutor-modal-section-label">Year 12 Results</div>
+            <div class="tutor-modal-subj-list" id="tmSubjects"></div>
+          </div>
+        </div>
+        <div class="tutor-modal-col tutor-modal-col-right">
+          <div class="tutor-modal-section">
+            <div class="tutor-modal-section-label">Subjects Taught</div>
+            <div class="tutor-modal-subj-tags" id="tmSubjectsTaught"></div>
+          </div>
+          <div class="tutor-modal-section">
+            <div class="tutor-modal-section-label">Education</div>
+            <div id="tmEdu"></div>
+          </div>
+          <div class="tutor-modal-section">
+            <div class="tutor-modal-section-label">Availability</div>
+            <div class="tutor-modal-days-grid" id="tmDays"></div>
+            <div class="tutor-modal-hours">8:00 AM – 7:00 PM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="subjModal" class="subj-modal-overlay" role="dialog" aria-modal="true">
+    <div class="subj-modal">
+      <div class="subj-modal-header">
+        <div class="subj-modal-icon"></div>
+        <div>
+          <div class="subj-modal-name"></div>
+          <div class="subj-modal-level"></div>
+        </div>
+        <button class="subj-modal-close" onclick="closeSubjModal()" aria-label="Close">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/></svg>
+        </button>
+      </div>
+      <div class="subj-modal-body">
+        <p class="subj-modal-desc"></p>
+        <div class="subj-modal-tutors-label">Tutors</div>
+        <div class="subj-modal-tutor-list"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book a Session — Lumen Tuition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Cormorant+SC:wght@500;600;700&family=Raleway:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:      #0D1B52;
+      --navy-deep: #08113A;
+      --navy-mid:  #1A2D7C;
+      --gold:      #F2C94C;
+      --gold-lt:   #FDE99A;
+      --gold-dk:   #D4A832;
+      --cream:     #F7F6F1;
+      --cream-alt: #EDEEF9;
+      --white:     #FFFFFF;
+      --text:      #0B1020;
+      --text-mid:  #46506E;
+      --text-lt:   #8B93B0;
+      --r-sm: 8px; --r-md: 16px; --r-lg: 28px;
+      --sh:  0 4px 32px rgba(13,27,82,.08);
+      --sh-lg: 0 16px 64px rgba(13,27,82,.14);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lora', serif; background: var(--cream); color: var(--text); line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    h1,h2,h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; line-height: 1.1; }
+    h4 { font-family: 'Raleway', sans-serif; font-weight: 700; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* NAV */
+    nav { background: var(--navy-deep); padding: 18px 0; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { display: flex; align-items: center; gap: 12px; font-family: 'Cormorant SC', serif; font-weight: 600; font-size: 1.3rem; color: var(--white); }
+    .nav-back { font-family: 'Raleway', sans-serif; font-size: .82rem; font-weight: 600; color: rgba(255,255,255,.5); letter-spacing: .04em; transition: color .2s; }
+    .nav-back:hover { color: var(--gold); }
+
+    /* HERO */
+    .hero { background: var(--navy-deep); padding: 56px 0 72px; text-align: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 100% at 50% 100%, rgba(26,45,124,.6) 0%, transparent 70%); }
+    .hero h1 { font-size: clamp(2.4rem, 5vw, 3.8rem); color: var(--white); position: relative; z-index: 2; margin-bottom: 10px; }
+    .hero p { color: rgba(255,255,255,.5); font-size: 1rem; position: relative; z-index: 2; }
+
+    /* STEP INDICATOR */
+    .step-bar { background: var(--white); box-shadow: 0 2px 24px rgba(13,27,82,.06); position: sticky; top: 0; z-index: 50; }
+    .step-list { display: flex; max-width: 560px; margin: 0 auto; padding: 0 24px; }
+    .step-pill { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 14px 8px; }
+    .step-dot { width: 28px; height: 28px; border-radius: 50%; background: var(--cream-alt); border: 2px solid transparent; display: flex; align-items: center; justify-content: center; font-family: 'Raleway', sans-serif; font-weight: 700; font-size: .78rem; color: var(--text-lt); margin-bottom: 5px; transition: all .25s; }
+    .step-lbl { font-family: 'Raleway', sans-serif; font-size: .62rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--text-lt); transition: color .25s; }
+    .step-pill.active .step-dot { background: var(--navy); color: var(--gold); border-color: var(--navy); }
+    .step-pill.active .step-lbl { color: var(--navy); }
+    .step-pill.done .step-dot { background: var(--gold); color: var(--navy-deep); border-color: var(--gold); }
+    .step-pill.done .step-lbl { color: var(--gold-dk); }
+
+    /* PANELS */
+    .booking-body { padding: 56px 0 100px; }
+    .step-panel { display: none; animation: fadeUp .3s ease; }
+    .step-panel.active { display: block; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+
+    .panel-hd { margin-bottom: 36px; }
+    .panel-hd .tag { display: inline-block; font-family: 'Raleway', sans-serif; font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; background: var(--gold-lt); color: var(--navy); margin-bottom: 12px; }
+    .panel-hd h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); margin-bottom: 8px; }
+    .panel-hd p { color: var(--text-mid); font-size: .95rem; }
+
+    /* BUTTONS */
+    .btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Raleway', sans-serif; font-weight: 600; font-size: .9rem; letter-spacing: .04em; border-radius: 100px; padding: 13px 28px; border: none; cursor: pointer; transition: transform .2s, box-shadow .2s, background .2s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:disabled { opacity: .35; pointer-events: none; }
+    .btn-primary { background: var(--gold); color: var(--navy-deep); box-shadow: 0 6px 24px rgba(242,201,76,.3); }
+    .btn-primary:hover { background: var(--gold-lt); box-shadow: 0 10px 32px rgba(242,201,76,.45); }
+    .btn-ghost { background: var(--white); color: var(--navy); border: 2px solid var(--cream-alt); }
+    .btn-ghost:hover { border-color: var(--navy); }
+
+    .actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--cream-alt); }
+    .actions-left { margin-right: auto; }
+
+    /* ── STEP 1 TUTORS ── */
+    .sel-note { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; font-family: 'Raleway', sans-serif; font-size: .82rem; color: var(--text-mid); }
+    .sel-count { background: var(--navy); color: var(--gold); font-family: 'Raleway', sans-serif; font-size: .72rem; font-weight: 700; padding: 3px 11px; border-radius: 100px; }
+    .tutor-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+
+    .tcard { background: var(--white); border-radius: var(--r-lg); padding: 26px; box-shadow: var(--sh); border: 2px solid transparent; cursor: pointer; transition: border-color .2s, transform .2s, box-shadow .2s; position: relative; user-select: none; }
+    .tcard:hover { transform: translateY(-3px); box-shadow: var(--sh-lg); }
+    .tcard.selected { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(242,201,76,.14), var(--sh-lg); }
+    .tcard .chk { position: absolute; top: 16px; right: 16px; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--cream-alt); display: flex; align-items: center; justify-content: center; font-size: .7rem; color: transparent; transition: all .2s; background: var(--white); }
+    .tcard.selected .chk { background: var(--gold); border-color: var(--gold); color: var(--navy-deep); }
+    .tavatar { width: 52px; height: 52px; border-radius: 50%; background: var(--navy); display: flex; align-items: center; justify-content: center; font-family: 'Raleway', sans-serif; font-weight: 700; font-size: .9rem; color: var(--gold); margin-bottom: 14px; }
+    .tcard h3 { font-size: 1.1rem; margin-bottom: 3px; }
+    .tcard .tprice { font-family: 'Raleway', sans-serif; font-size: .78rem; font-weight: 600; color: var(--text-mid); margin-bottom: 8px; }
+    .trating { display: flex; align-items: center; gap: 6px; font-family: 'Raleway', sans-serif; font-size: .78rem; color: var(--text-mid); margin-bottom: 12px; }
+    .trating .stars { color: var(--gold); }
+    .tsubs { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
+    .stag { font-family: 'Raleway', sans-serif; font-size: .62rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; padding: 3px 8px; border-radius: 100px; background: var(--cream-alt); color: var(--navy-mid); }
+    .tbio { font-size: .86rem; color: var(--text-mid); line-height: 1.6; }
+
+    /* ── STEP 2 CALENDAR ── */
+    .ttabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+    .ttab { display: flex; align-items: center; gap: 8px; font-family: 'Raleway', sans-serif; font-size: .78rem; font-weight: 600; padding: 8px 16px; border-radius: 100px; border: 2px solid var(--cream-alt); background: var(--white); cursor: pointer; transition: all .2s; }
+    .ttab .tab-av { width: 20px; height: 20px; border-radius: 50%; background: var(--navy); color: var(--gold); font-size: .58rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+    .ttab.active { border-color: var(--navy); background: var(--navy); color: var(--white); }
+    .ttab.active .tab-av { background: var(--gold); color: var(--navy-deep); }
+
+    .s2grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+
+    .cal-card { background: var(--white); border-radius: var(--r-lg); padding: 26px; box-shadow: var(--sh); }
+    .cal-hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .cal-hd h3 { font-size: 1.15rem; }
+    .cal-nav { background: none; border: none; cursor: pointer; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--navy); font-size: .95rem; transition: background .2s; }
+    .cal-nav:hover { background: var(--cream-alt); }
+    .cal-nav:disabled { opacity: .25; pointer-events: none; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; }
+    .cal-dow { text-align: center; font-family: 'Raleway', sans-serif; font-size: .6rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--text-lt); padding: 5px 0 8px; }
+    .cal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-family: 'Raleway', sans-serif; font-size: .82rem; font-weight: 500; cursor: pointer; transition: all .15s; border: 2px solid transparent; }
+    .cal-day:hover:not(.disabled):not(.unavail) { background: var(--cream-alt); border-color: var(--navy); }
+    .cal-day.today { border-color: rgba(242,201,76,.5); }
+    .cal-day.selected { background: var(--navy); color: var(--white) !important; border-color: var(--navy); }
+    .cal-day.disabled, .cal-day.unavail { color: var(--text-lt); opacity: .35; cursor: default; }
+    .cal-day.unavail { text-decoration: line-through; }
+    .cal-day.empty { cursor: default; }
+
+    .times-card { background: var(--white); border-radius: var(--r-lg); padding: 26px; box-shadow: var(--sh); }
+    .times-card h4 { margin-bottom: 18px; }
+    .times-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .tslot { padding: 11px 8px; border-radius: var(--r-sm); border: 2px solid var(--cream-alt); background: var(--white); font-family: 'Raleway', sans-serif; font-size: .82rem; font-weight: 600; text-align: center; cursor: pointer; transition: all .15s; }
+    .tslot:hover:not(.booked) { border-color: var(--navy); background: var(--cream-alt); }
+    .tslot.selected { background: var(--navy); color: var(--gold); border-color: var(--navy); }
+    .tslot.booked { opacity: .28; cursor: default; text-decoration: line-through; }
+    .t-placeholder { grid-column: 1/-1; text-align: center; padding: 36px 16px; color: var(--text-lt); font-size: .88rem; }
+
+    /* ── STEP 3 FORM ── */
+    .sum-bar { background: var(--navy); border-radius: var(--r-md); padding: 14px 22px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-bottom: 32px; }
+    .sum-item { font-family: 'Raleway', sans-serif; font-size: .78rem; font-weight: 500; color: rgba(255,255,255,.55); }
+    .sum-item strong { color: var(--white); font-weight: 600; }
+    .sum-sep { color: rgba(255,255,255,.2); }
+
+    .fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .fg { display: flex; flex-direction: column; gap: 7px; }
+    .fg.full { grid-column: 1/-1; }
+    .fg label { font-family: 'Raleway', sans-serif; font-size: .68rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--text-mid); }
+    .fg input, .fg select, .fg textarea { font-family: 'Lora', serif; font-size: .92rem; padding: 12px 15px; border: 2px solid var(--cream-alt); border-radius: var(--r-sm); background: var(--white); color: var(--text); transition: border-color .2s, box-shadow .2s; outline: none; width: 100%; }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(13,27,82,.07); }
+    .fg textarea { resize: vertical; min-height: 90px; }
+
+    .stype-opts { display: flex; gap: 12px; }
+    .stype-btn { flex: 1; padding: 13px; border: 2px solid var(--cream-alt); border-radius: var(--r-md); background: var(--white); cursor: pointer; text-align: center; transition: all .2s; }
+    .stype-btn.active { border-color: var(--navy); background: var(--cream-alt); }
+    .stype-btn .si { font-size: 1.3rem; margin-bottom: 4px; }
+    .stype-btn .sl { font-family: 'Raleway', sans-serif; font-size: .72rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--navy); }
+
+    /* ── STEP 4 CONFIRM ── */
+    .conf-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; align-items: start; }
+    .conf-card { background: var(--white); border-radius: var(--r-lg); padding: 32px; box-shadow: var(--sh); }
+    .conf-card h3 { font-size: 1.5rem; margin-bottom: 22px; padding-bottom: 16px; border-bottom: 1px solid var(--cream-alt); }
+    .conf-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--cream-alt); gap: 16px; }
+    .conf-row:last-of-type { border-bottom: none; padding-bottom: 0; }
+    .cr-lbl { font-family: 'Raleway', sans-serif; font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-lt); flex-shrink: 0; }
+    .cr-val { font-size: .92rem; text-align: right; line-height: 1.5; }
+
+    .price-card { background: var(--navy); border-radius: var(--r-lg); padding: 28px; }
+    .price-card h4 { color: rgba(255,255,255,.45); margin-bottom: 18px; }
+    .price-row { display: flex; justify-content: space-between; font-size: .88rem; color: rgba(255,255,255,.55); padding: 7px 0; }
+    .price-row.total { border-top: 1px solid rgba(255,255,255,.1); margin-top: 8px; padding-top: 14px; font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--white); }
+    .price-row.total span:last-child { color: var(--gold); }
+    .price-note { margin-top: 12px; font-size: .76rem; color: rgba(255,255,255,.3); line-height: 1.55; }
+    .btn-confirm { width: 100%; justify-content: center; margin-top: 18px; padding: 15px; font-size: .95rem; }
+
+    /* SUCCESS */
+    .success { text-align: center; padding: 80px 24px; }
+    .success-icon { width: 76px; height: 76px; border-radius: 50%; background: var(--gold); color: var(--navy-deep); font-size: 1.8rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 26px; animation: pop .4s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes pop { from { transform:scale(0); opacity:0; } to { transform:scale(1); opacity:1; } }
+    .success h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 12px; }
+    .success p { color: var(--text-mid); max-width: 420px; margin: 0 auto 24px; }
+    .success-ref { display: inline-block; font-family: 'Raleway', sans-serif; font-size: .78rem; font-weight: 700; letter-spacing: .1em; padding: 8px 20px; border-radius: 100px; background: var(--cream-alt); color: var(--navy); margin-bottom: 32px; }
+
+    /* ── SERVICE CARDS ── */
+
+    /* ── GROUP SIZE ROW ── */
+    .group-size-row {
+      display: none;
+      margin-top: 24px;
+      background: var(--cream);
+      border-radius: var(--r-md);
+      padding: 18px 24px;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .group-size-row.visible { display: flex; }
+    .group-size-label { font-family: 'Raleway', sans-serif; font-weight: 600; font-size: .88rem; color: var(--navy); }
+    .group-size-row select {
+      font-family: 'Raleway', sans-serif; font-size: .88rem; font-weight: 500;
+      border: 1.5px solid rgba(13,27,82,.15); border-radius: 8px;
+      padding: 8px 14px; color: var(--navy); background: var(--white);
+      cursor: pointer; outline: none;
+    }
+    .group-size-row select:focus { border-color: var(--gold); }
+    .group-size-note { font-size: .78rem; color: var(--text-mid); margin-left: auto; }
+    .svc-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .svc-card { background: var(--white); border-radius: var(--r-lg); padding: 36px 24px 32px; box-shadow: var(--sh); border: 2px solid transparent; cursor: pointer; transition: all .2s; text-align: center; }
+    .svc-card:hover { transform: translateY(-3px); box-shadow: var(--sh-lg); border-color: rgba(13,27,82,.12); }
+    .svc-card.selected { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(242,201,76,.14), var(--sh-lg); }
+    .svc-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--cream-alt); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; }
+    .svc-icon svg { width: 24px; height: 24px; stroke: var(--navy); }
+    .svc-card.selected .svc-icon { background: var(--gold); }
+    .svc-card.selected .svc-icon svg { stroke: var(--navy-deep); }
+    .svc-name { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 600; margin-bottom: 6px; color: var(--navy); }
+    .svc-price { font-family: 'Raleway', sans-serif; font-size: .78rem; font-weight: 700; color: var(--gold-dark); letter-spacing: .04em; margin-bottom: 10px; }
+    .svc-desc { font-size: .84rem; color: var(--text-mid); line-height: 1.6; }
+    .step-pill.skipped .step-dot { background: var(--cream-alt); color: var(--text-lt); opacity: .4; }
+    .step-pill.skipped .step-lbl { color: var(--text-lt); opacity: .4; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .tutor-grid { grid-template-columns: repeat(2,1fr); }
+      .s2grid, .conf-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 580px) {
+      .tutor-grid { grid-template-columns: 1fr; }
+      .fgrid { grid-template-columns: 1fr; }
+      .fg.full { grid-column: 1; }
+      .step-lbl { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg width="32" height="32" viewBox="0 0 100 100" fill="none">
+        <path d="M50 50 L28 14 L38 38 Z" fill="#F2C94C" opacity=".9"/>
+        <path d="M50 50 L72 14 L62 38 Z" fill="#F2C94C" opacity=".9"/>
+        <path d="M50 50 L86 28 L62 38 Z" fill="#F2C94C" opacity=".9"/>
+        <path d="M50 50 L86 72 L62 62 Z" fill="#F2C94C" opacity=".9"/>
+        <path d="M50 50 L72 86 L62 62 Z" fill="#F2C94C" opacity=".9"/>
+        <path d="M50 50 L28 86 L38 62 Z" fill="#F2C94C" opacity=".9"/>
+        <path d="M50 50 L14 72 L38 62 Z" fill="#F2C94C" opacity=".9"/>
+        <path d="M50 50 L14 28 L38 38 Z" fill="#F2C94C" opacity=".9"/>
+        <path d="M50 50 L38 38 L50 2 L62 38 Z" fill="#1A2D7C"/>
+        <path d="M50 50 L62 38 L98 50 L62 62 Z" fill="#1A2D7C"/>
+        <path d="M50 50 L62 62 L50 98 L38 62 Z" fill="#1A2D7C"/>
+        <path d="M50 50 L38 62 L2 50 L38 38 Z" fill="#1A2D7C"/>
+        <circle cx="50" cy="50" r="14" fill="white"/>
+        <circle cx="50" cy="50" r="10" fill="#F2C94C"/>
+      </svg>
+      Lumen Tuition
+    </a>
+    <a href="index.html" class="nav-back">← Back to site</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Book a Session</h1>
+  <p>Choose your tutor, pick a time, and we'll take care of the rest.</p>
+</div>
+
+<div class="step-bar">
+  <div class="step-list" id="stepList">
+    <div class="step-pill active" data-s="1"><div class="step-dot">1</div><div class="step-lbl">Service</div></div>
+    <div class="step-pill" data-s="2"><div class="step-dot">2</div><div class="step-lbl">Tutors</div></div>
+    <div class="step-pill" data-s="3"><div class="step-dot">3</div><div class="step-lbl">Date & Time</div></div>
+    <div class="step-pill" data-s="4"><div class="step-dot">4</div><div class="step-lbl">Details</div></div>
+    <div class="step-pill" data-s="5"><div class="step-dot">5</div><div class="step-lbl">Confirm</div></div>
+  </div>
+</div>
+
+<div class="booking-body">
+  <div class="container">
+
+    <!-- STEP 1 — SERVICE -->
+    <div class="step-panel active" id="p1">
+      <div class="panel-hd">
+        <div class="tag">Step 1 of 5</div>
+        <h2>Choose a service</h2>
+        <p>What kind of support are you looking for?</p>
+      </div>
+      <div class="svc-grid">
+        <div class="svc-card" id="svc-1on1" onclick="pickService('1on1')">
+          <div class="svc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          </div>
+          <div class="svc-name">1-on-1 Session</div>
+          <div class="svc-price">From $50 / hr</div>
+          <p class="svc-desc">A dedicated hour with your tutor, focused entirely on your goals and learning pace.</p>
+        </div>
+        <div class="svc-card" id="svc-group" onclick="pickService('group')">
+          <div class="svc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="8" r="3"/><path d="M2 20c0-3.3 3.1-6 7-6"/><path d="M22 20c0-3.3-3.1-6-7-6"/><path d="M9 14c0 0 1 .5 3 .5s3-.5 3-.5"/></svg>
+          </div>
+          <div class="svc-name">Group Session</div>
+          <div class="svc-price">From $80 / hr</div>
+          <p class="svc-desc">Share a session with up to 5 students. Great for study groups and peer learning.</p>
+        </div>
+        <div class="svc-card" id="svc-marking" onclick="pickService('marking')">
+          <div class="svc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+          </div>
+          <div class="svc-name">Assignment Marking</div>
+          <div class="svc-price">$40 flat rate</div>
+          <p class="svc-desc">Submit your work and receive detailed written feedback and a grade from your tutor.</p>
+        </div>
+      </div>
+
+      <div class="group-size-row" id="groupSizeRow">
+        <span class="group-size-label">Number of students</span>
+        <select id="groupSizeSelect" onchange="pickGroupSize(+this.value)">
+          <option value="">Select…</option>
+          <option value="2">2 students</option>
+          <option value="3">3 students</option>
+          <option value="4">4 students</option>
+          <option value="5">5 students</option>
+        </select>
+        <span class="group-size-note">Rate = (tutor rate − $10) × students</span>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="btn1Next" disabled onclick="nextStep()">Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2 — TUTORS -->
+    <div class="step-panel" id="p2">
+      <div class="panel-hd">
+        <div class="tag">Step 2 of 5</div>
+        <h2>Select your tutor</h2>
+        <p>Choose one or more tutors to compare availability.</p>
+      </div>
+      <div class="sel-note">
+        <div class="sel-count" id="selCount">0 selected</div>
+        <span>— select at least one to continue (max 3)</span>
+      </div>
+      <div class="tutor-grid" id="tutorGrid"></div>
+      <div class="actions">
+        <button class="btn btn-ghost actions-left" onclick="prevStep()">← Back</button>
+        <button class="btn btn-primary" id="btn2Next" disabled onclick="nextStep()">Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 — DATE & TIME (skipped for Assignment Marking) -->
+    <div class="step-panel" id="p3">
+      <div class="panel-hd">
+        <div class="tag">Step 3 of 5</div>
+        <h2>Choose a date & time</h2>
+        <p>Pick an available slot with your chosen tutor.</p>
+      </div>
+      <div class="ttabs" id="tutorTabs"></div>
+      <div class="s2grid">
+        <div class="cal-card">
+          <div class="cal-hd">
+            <button class="cal-nav" id="calPrev" onclick="shiftMonth(-1)">&#8592;</button>
+            <h3 id="calTitle"></h3>
+            <button class="cal-nav" id="calNext" onclick="shiftMonth(1)">&#8594;</button>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+        </div>
+        <div class="times-card">
+          <h4>Available Times</h4>
+          <div class="times-grid" id="timesGrid">
+            <div class="t-placeholder">Select a date to see available times</div>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-ghost actions-left" onclick="prevStep()">← Back</button>
+        <button class="btn btn-primary" id="btn3Next" disabled onclick="nextStep()">Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4 — DETAILS -->
+    <div class="step-panel" id="p4">
+      <div class="panel-hd">
+        <div class="tag">Step 4 of 5</div>
+        <h2>Your details</h2>
+        <p>A few things to help us prepare for your session.</p>
+      </div>
+      <div class="sum-bar" id="sumBar"></div>
+      <div class="fgrid">
+        <div class="fg"><label>First Name *</label><input type="text" id="fFirst" placeholder="Emma" /></div>
+        <div class="fg"><label>Last Name *</label><input type="text" id="fLast" placeholder="Thompson" /></div>
+        <div class="fg"><label>Email Address *</label><input type="email" id="fEmail" placeholder="you@example.com" /></div>
+        <div class="fg"><label>Phone Number</label><input type="tel" id="fPhone" placeholder="+61 4XX XXX XXX" /></div>
+        <div class="fg"><label>Subject *</label><select id="fSubject"><option value="">Select subject…</option></select></div>
+        <div class="fg"><label>Level *</label>
+          <select id="fLevel">
+            <option value="">Select level…</option>
+            <option>General (Years 7–10)</option>
+            <option>QCAA (Years 11–12)</option>
+          </select>
+        </div>
+        <div class="fg full" id="stypeRow">
+          <label>Delivery</label>
+          <div class="stype-opts">
+            <div class="stype-btn active" onclick="pickType(this,'online')"><div class="si">💻</div><div class="sl">Online</div></div>
+            <div class="stype-btn" onclick="pickType(this,'in-person')"><div class="si">🏠</div><div class="sl">In-Person</div></div>
+          </div>
+        </div>
+        <div class="fg full"><label>Additional Notes</label><textarea id="fNotes" placeholder="e.g. Struggling with integration by parts — want to focus on exam technique…"></textarea></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-ghost actions-left" onclick="prevStep()">← Back</button>
+        <button class="btn btn-primary" onclick="nextStep()">Review Booking →</button>
+      </div>
+    </div>
+
+    <!-- STEP 5 — CONFIRM -->
+    <div class="step-panel" id="p5">
+      <div class="panel-hd">
+        <div class="tag">Step 5 of 5</div>
+        <h2>Review & confirm</h2>
+        <p>Check everything looks right before confirming.</p>
+      </div>
+      <div class="conf-grid" id="confGrid"></div>
+      <div class="actions">
+        <button class="btn btn-ghost actions-left" onclick="prevStep()">← Back</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const TUTORS = [
+  { id:1, ini:'GB', name:'Giles Buchanan',
+    subjects:['Mathematical Methods','Chemistry','Physics','General English','General Mathematics','Economics'],
+    subjectsQCAA:['Mathematical Methods','Chemistry','Physics','English','Economics'],
+    subjectsGeneral:['Advanced Mathematics','General Mathematics','General English','General Sciences','Economics'],
+    levels:['General','QCAA'], rating:4.9, reviews:47, price:50, days:[1,2,3,4,5,6,7], bio:'Specialist in QCAA Mathematical Methods and Sciences with 8 years of tutoring experience across Years 7–12.' },
+  { id:2, ini:'TH', name:'Tyler Hewett',
+    subjects:['Specialist Mathematics','Physics','Mathematical Methods','Chemistry','Biology','General Sciences'],
+    subjectsQCAA:['Specialist Mathematics','Physics','Mathematical Methods','Chemistry','Biology'],
+    subjectsGeneral:['Advanced Mathematics','General Mathematics','General English','General Sciences'],
+    levels:['General','QCAA'], rating:4.8, reviews:32, price:50, days:[1,2,3,4,5,6,7], bio:'Science specialist with a first-class degree in Biochemistry. Makes complex concepts accessible and engaging for every student.' },
+  { id:3, ini:'AA', name:'Ari Atzeni',
+    subjects:['Mathematical Methods','Physics','General English','Engineering','Economics'],
+    subjectsQCAA:['Mathematical Methods','Physics','English','Engineering','Economics'],
+    subjectsGeneral:['Advanced Mathematics','General Mathematics','General English','General Sciences','Economics'],
+    levels:['General','QCAA'], rating:5.0, reviews:28, price:50, days:[1,2,3,4,5,6,7], bio:'Expert in essay technique, textual analysis and exam preparation across both General and QCAA English.' },
+  { id:4, ini:'RP', name:'Maya Markovich',
+    subjects:['Literature','Mathematical Methods','Modern History','French','Economics','Legal Studies','General Mathematics','History'],
+    subjectsQCAA:['Literature','Mathematical Methods','Modern History','French','Economics','Legal Studies'],
+    subjectsGeneral:['General Mathematics','History','French','Economics','Legal Studies'],
+    levels:['General','QCAA'], rating:4.9, reviews:21, price:50, days:[1,2,3,4,5,6,7], bio:'Humanities specialist with a strong track record across QCAA essay-based subjects and General Mathematics.' },
+  { id:5, ini:'OB', name:'Dylan Nash',
+    subjects:['Specialist Mathematics','Physics','Mathematical Methods','Engineering','Chemistry','Advanced Mathematics','General Mathematics'],
+    subjectsQCAA:['Specialist Mathematics','Physics','Mathematical Methods','Engineering','Chemistry'],
+    subjectsGeneral:['Advanced Mathematics','General Mathematics','General English','General Sciences'],
+    levels:['General','QCAA'], rating:4.7, reviews:19, price:50, days:[1,2,3,4,5,6,7], bio:'Engineering and Mathematics tutor with a focus on building deep conceptual understanding across Years 7–12.' },
+  { id:6, ini:'TA', name:'Tom Gallus',
+    subjects:['Biology','Chemistry','Physics','General Sciences'],
+    subjectsQCAA:['Biology','Chemistry','Physics'],
+    subjectsGeneral:['General Sciences'],
+    levels:['General','QCAA'], rating:4.8, reviews:35, price:55, days:[1,2,3,4,5,6,7], bio:'Science tutor with clear, patient teaching methods and a strong focus on QCAA exam technique and internal assessment.' },
+];
+
+const SLOTS = ['8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM','7:00 PM'];
+
+const SERVICE_NAMES = { '1on1': '1-on-1 Session', 'group': 'Group Session', 'marking': 'Assignment Marking' };
+
+const S = { step:1, service:null, groupSize:null, sel:[], active:null, cy:new Date().getFullYear(), cm:new Date().getMonth(), date:null, time:null, stype:'online' };
+
+function tutor(id) { return TUTORS.find(t => t.id === id); }
+function fakeBooked() { return []; }
+function fmtDate(d) { return d.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long',year:'numeric'}); }
+
+// ── NAVIGATION ──
+function nextStep() {
+  let n = S.step + 1;
+  if (n === 3 && S.service === 'marking') n = 4;
+  goTo(n);
+}
+function prevStep() {
+  let n = S.step - 1;
+  if (n === 3 && S.service === 'marking') n = 2;
+  goTo(n);
+}
+
+function goTo(n) {
+  if (n === 5) {
+    if (!validate4()) return;
+    buildConfirm();
+  }
+  document.getElementById(`p${S.step}`).classList.remove('active');
+  S.step = n;
+  document.getElementById(`p${n}`).classList.add('active');
+  syncIndicator();
+  window.scrollTo({top:0,behavior:'smooth'});
+  if (n === 3) renderStep3();
+  if (n === 4) renderStep4();
+}
+
+function syncIndicator() {
+  document.querySelectorAll('.step-pill').forEach(p => {
+    const s = +p.dataset.s;
+    p.classList.remove('active','done','skipped');
+    const dot = p.querySelector('.step-dot');
+    if (s === 3 && S.service === 'marking') {
+      p.classList.add('skipped'); dot.textContent = '–';
+    } else if (s === S.step) {
+      p.classList.add('active'); dot.textContent = s;
+    } else if (s < S.step) {
+      p.classList.add('done'); dot.textContent = '✓';
+    } else {
+      dot.textContent = s;
+    }
+  });
+}
+
+// ── STEP 1 — SERVICE ──
+function pickService(svc) {
+  S.service = svc;
+  S.groupSize = null;
+  document.querySelectorAll('.svc-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById(`svc-${svc}`).classList.add('selected');
+  const row = document.getElementById('groupSizeRow');
+  const sel = document.getElementById('groupSizeSelect');
+  if (svc === 'group') {
+    row.classList.add('visible');
+    sel.value = '';
+    document.getElementById('btn1Next').disabled = true;
+  } else {
+    row.classList.remove('visible');
+    document.getElementById('btn1Next').disabled = false;
+  }
+}
+function pickGroupSize(n) {
+  S.groupSize = n || null;
+  document.getElementById('btn1Next').disabled = !S.groupSize;
+}
+function groupPrice(basePrice) {
+  if (S.service === 'group' && S.groupSize) return (basePrice - 10) * S.groupSize;
+  return basePrice;
+}
+
+// ── STEP 2 — TUTORS ──
+function buildTutorGrid() {
+  document.getElementById('tutorGrid').innerHTML = TUTORS.map(t => `
+    <div class="tcard" id="tc${t.id}" onclick="toggleTutor(${t.id})">
+      <div class="chk">✓</div>
+      <div class="tavatar">${t.ini}</div>
+      <h3>${t.name}</h3>
+      <div class="tprice">${S.service==='group'&&S.groupSize ? `$${groupPrice(t.price)} / hr <span style="opacity:.6;font-size:.75em">(${S.groupSize} students)</span>` : `$${t.price} / hour`}</div>
+      <div class="trating"><span class="stars">${'★'.repeat(Math.floor(t.rating))}</span><span>${t.rating} (${t.reviews})</span></div>
+      <div class="tsubs">${t.subjects.map(s=>`<span class="stag">${s}</span>`).join('')}</div>
+      <p class="tbio">${t.bio}</p>
+    </div>`).join('');
+}
+
+function toggleTutor(id) {
+  const i = S.sel.indexOf(id);
+  if (i === -1) { if (S.sel.length >= 3) return; S.sel.push(id); }
+  else S.sel.splice(i,1);
+  if (S.sel.length && !S.sel.includes(S.active)) S.active = S.sel[0];
+  if (!S.sel.length) S.active = null;
+  document.getElementById('selCount').textContent = S.sel.length ? `${S.sel.length} selected` : '0 selected';
+  document.getElementById('btn2Next').disabled = !S.sel.length;
+  TUTORS.forEach(t => document.getElementById(`tc${t.id}`).classList.toggle('selected', S.sel.includes(t.id)));
+}
+
+// ── STEP 3 — DATE & TIME ──
+function renderStep3() {
+  renderTabs(); drawCal(); renderTimes();
+}
+
+function renderTabs() {
+  const wrap = document.getElementById('tutorTabs');
+  if (S.sel.length <= 1) { wrap.innerHTML=''; return; }
+  wrap.innerHTML = S.sel.map(id => {
+    const t = tutor(id);
+    return `<div class="ttab ${id===S.active?'active':''}" onclick="setActive(${id})"><div class="tab-av">${t.ini}</div>${t.name.split(' ')[0]} ${t.name.split(' ').slice(-1)}</div>`;
+  }).join('');
+}
+
+function setActive(id) {
+  S.active = id; S.date = null; S.time = null;
+  renderTabs(); drawCal(); renderTimes();
+  document.getElementById('btn3Next').disabled = true;
+}
+
+function drawCal() {
+  const t = tutor(S.active);
+  const today = new Date(); today.setHours(0,0,0,0);
+  const first = new Date(S.cy, S.cm, 1);
+  const daysInMonth = new Date(S.cy, S.cm+1, 0).getDate();
+  const offset = (first.getDay() + 6) % 7;
+  document.getElementById('calTitle').textContent = first.toLocaleDateString('en-AU',{month:'long',year:'numeric'});
+  const nowFirst = new Date(); nowFirst.setDate(1); nowFirst.setHours(0,0,0,0);
+  document.getElementById('calPrev').disabled = first <= nowFirst;
+  const dows = ['Mo','Tu','We','Th','Fr','Sa','Su'];
+  let html = dows.map(d=>`<div class="cal-dow">${d}</div>`).join('');
+  for (let i=0;i<offset;i++) html += `<div class="cal-day empty"></div>`;
+  for (let d=1;d<=daysInMonth;d++) {
+    const dt = new Date(S.cy,S.cm,d);
+    const past = dt < today;
+    const unavail = !t.days.includes(dt.getDay());
+    const isToday = dt.getTime()===today.getTime();
+    const sel = S.date && S.date.getTime()===dt.getTime();
+    let cls = 'cal-day';
+    if (past) cls+=' disabled'; else if (unavail) cls+=' unavail';
+    if (isToday) cls+=' today';
+    if (sel) cls+=' selected';
+    const click = !past&&!unavail ? `onclick="pickDate(${S.cy},${S.cm},${d})"` : '';
+    html += `<div class="${cls}" ${click}>${d}</div>`;
+  }
+  document.getElementById('calGrid').innerHTML = html;
+}
+
+function shiftMonth(dir) {
+  S.cm += dir;
+  if (S.cm > 11) { S.cm=0; S.cy++; }
+  if (S.cm < 0)  { S.cm=11; S.cy--; }
+  drawCal();
+}
+
+function pickDate(y,m,d) {
+  S.date = new Date(y,m,d); S.time = null;
+  drawCal(); renderTimes();
+  document.getElementById('btn3Next').disabled = true;
+}
+
+function renderTimes() {
+  const grid = document.getElementById('timesGrid');
+  if (!S.date) { grid.innerHTML='<div class="t-placeholder">Select a date to see available times</div>'; return; }
+  const booked = fakeBooked(S.active, S.date);
+  grid.innerHTML = SLOTS.map(slot => {
+    const b = booked.includes(slot);
+    const sel = slot===S.time;
+    return `<div class="tslot${b?' booked':''}${sel?' selected':''}" ${!b?`onclick="pickTime('${slot}')"`:''}>${slot}</div>`;
+  }).join('');
+}
+
+function pickTime(slot) {
+  S.time = slot; renderTimes();
+  document.getElementById('btn3Next').disabled = false;
+}
+
+// ── STEP 4 — DETAILS ──
+function renderStep4() {
+  const t = tutor(S.active);
+  let sumHTML = `<div class="sum-item">Service: <strong>${SERVICE_NAMES[S.service]}</strong></div>
+    <span class="sum-sep">·</span>
+    <div class="sum-item">Tutor: <strong>${t.name}</strong></div>`;
+  if (S.service !== 'marking') {
+    sumHTML += `<span class="sum-sep">·</span>
+    <div class="sum-item">Date: <strong>${fmtDate(S.date)}</strong></div>
+    <span class="sum-sep">·</span>
+    <div class="sum-item">Time: <strong>${S.time}</strong></div>`;
+  }
+  document.getElementById('sumBar').innerHTML = sumHTML;
+  document.getElementById('stypeRow').style.display = S.service === 'marking' ? 'none' : '';
+  populateSubjects();
+  document.getElementById('fLevel').onchange = populateSubjects;
+}
+
+function populateSubjects() {
+  const t = tutor(S.active);
+  const levelVal = document.getElementById('fLevel').value;
+  const isQCAA = levelVal.includes('QCAA');
+  const isGeneral = levelVal.includes('General');
+  let list;
+  if (isQCAA) list = t.subjectsQCAA || t.subjects;
+  else if (isGeneral) list = t.subjectsGeneral || t.subjects;
+  else list = t.subjects;
+  const sel = document.getElementById('fSubject');
+  sel.innerHTML = '<option value="">Select subject…</option>' + list.map(s=>`<option>${s}</option>`).join('');
+}
+
+function pickType(el, type) {
+  document.querySelectorAll('.stype-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active'); S.stype = type;
+}
+
+function validate4() {
+  const v = id => document.getElementById(id).value.trim();
+  if (!v('fFirst')||!v('fLast')||!v('fEmail')||!v('fSubject')||!v('fLevel')) {
+    alert('Please fill in all required fields.'); return false;
+  }
+  return true;
+}
+
+// ── STEP 5 — CONFIRM ──
+function buildConfirm() {
+  const t = tutor(S.active);
+  const first = document.getElementById('fFirst').value.trim();
+  const last  = document.getElementById('fLast').value.trim();
+  const email = document.getElementById('fEmail').value.trim();
+  const phone = document.getElementById('fPhone').value.trim();
+  const subj  = document.getElementById('fSubject').value;
+  const level = document.getElementById('fLevel').value;
+  const notes = document.getElementById('fNotes').value.trim();
+  const isMarking = S.service === 'marking';
+
+  const scheduleRows = isMarking
+    ? `<div class="conf-row"><span class="cr-lbl">Turnaround</span><span class="cr-val">Arranged directly with your tutor</span></div>`
+    : `<div class="conf-row"><span class="cr-lbl">Date</span><span class="cr-val">${fmtDate(S.date)}</span></div>
+       <div class="conf-row"><span class="cr-lbl">Time</span><span class="cr-val">${S.time} (1 hour)</span></div>
+       <div class="conf-row"><span class="cr-lbl">Format</span><span class="cr-val">${S.stype==='online'?'💻 Online':'🏠 In-Person'}</span></div>`;
+
+  const isGroup = S.service === 'group' && S.groupSize;
+  const sessionPrice = isGroup ? groupPrice(t.price) : t.price;
+  const priceLabel = isMarking ? '1× assignment marking' : isGroup ? `1× group session (${S.groupSize} students, 1 hr)` : '1× session (1 hr)';
+
+  document.getElementById('confGrid').innerHTML = `
+    <div class="conf-card">
+      <h3>Booking Summary</h3>
+      <div class="conf-row"><span class="cr-lbl">Service</span><span class="cr-val">${SERVICE_NAMES[S.service]}${isGroup ? ` · ${S.groupSize} students` : ''}</span></div>
+      <div class="conf-row"><span class="cr-lbl">Tutor</span><span class="cr-val">${t.name}</span></div>
+      <div class="conf-row"><span class="cr-lbl">Subject</span><span class="cr-val">${subj} · ${level}</span></div>
+      ${scheduleRows}
+      <div class="conf-row"><span class="cr-lbl">Student</span><span class="cr-val">${first} ${last}<br><span style="color:var(--text-mid);font-size:.84rem">${email}${phone?' · '+phone:''}</span></span></div>
+      ${notes?`<div class="conf-row"><span class="cr-lbl">Notes</span><span class="cr-val">${notes}</span></div>`:''}
+    </div>
+    <div>
+      <div class="price-card">
+        <h4>Price</h4>
+        <div class="price-row"><span>${priceLabel}</span><span>$${sessionPrice}.00</span></div>
+        ${isGroup ? `<div class="price-row"><span>Per student</span><span>$${Math.round(sessionPrice/S.groupSize)}.00</span></div>` : ''}
+        <div class="price-row"><span>Booking fee</span><span>Free</span></div>
+        <div class="price-row total"><span>Total</span><span>$${sessionPrice}.00</span></div>
+        <p class="price-note">Payment is arranged directly with your tutor. No charge is taken online.</p>
+        <button class="btn btn-primary btn-confirm" onclick="confirmBooking()">Confirm Booking →</button>
+      </div>
+    </div>`;
+}
+
+function confirmBooking() {
+  const ref = 'LT-' + Math.random().toString(36).substr(2,6).toUpperCase();
+  const t = tutor(S.active);
+  const email = document.getElementById('fEmail').value.trim();
+  const isMarking = S.service === 'marking';
+  const successMsg = isMarking
+    ? `Your assignment has been submitted to <strong>${t.name}</strong> for marking. They'll be in touch shortly.`
+    : `Your session with <strong>${t.name}</strong> on <strong>${fmtDate(S.date)}</strong> at <strong>${S.time}</strong> is confirmed.`;
+  document.getElementById('p5').innerHTML = `
+    <div class="success">
+      <div class="success-icon">✓</div>
+      <h2>${isMarking ? 'Assignment submitted!' : "You're booked in!"}</h2>
+      <p>${successMsg}</p>
+      <div class="success-ref">Reference: ${ref}</div>
+      <p style="font-size:.85rem;color:var(--text-lt);margin-bottom:28px">A confirmation will be sent to ${email}</p>
+      <a href="index.html" class="btn btn-primary">← Back to Lumen Tuition</a>
+    </div>`;
+  document.querySelectorAll('.step-pill').forEach(p => {
+    p.classList.remove('active','skipped'); p.classList.add('done');
+    p.querySelector('.step-dot').textContent = '✓';
+  });
+}
+
+buildTutorGrid();
+</script>
+</body>
+</html>

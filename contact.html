@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us — Lumen Tuition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Cormorant+SC:wght@500;600;700&family=Raleway:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:      #0D1B52;
+      --navy-deep: #08113A;
+      --navy-mid:  #1A2D7C;
+      --gold:      #F2C94C;
+      --gold-lt:   #FDE99A;
+      --gold-dk:   #D4A832;
+      --cream:     #F7F6F1;
+      --cream-alt: #EDEEF9;
+      --white:     #FFFFFF;
+      --text:      #0B1020;
+      --text-mid:  #46506E;
+      --text-lt:   #8B93B0;
+      --r-sm: 8px; --r-md: 16px; --r-lg: 28px;
+      --sh:  0 4px 32px rgba(13,27,82,.08);
+      --sh-lg: 0 16px 64px rgba(13,27,82,.14);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lora', serif; background: var(--cream); color: var(--text); line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    h1,h2,h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; line-height: 1.1; }
+    h4 { font-family: 'Raleway', sans-serif; font-weight: 700; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── NAV ── */
+    nav { background: var(--navy-deep); padding: 18px 0; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { display: flex; align-items: center; gap: 12px; font-family: 'Cormorant SC', serif; font-weight: 600; font-size: 1.3rem; color: var(--white); }
+    .nav-back { font-family: 'Raleway', sans-serif; font-size: .82rem; font-weight: 600; color: rgba(255,255,255,.5); letter-spacing: .04em; transition: color .2s; }
+    .nav-back:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero { background: var(--navy-deep); padding: 56px 0 72px; text-align: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 100% at 50% 100%, rgba(26,45,124,.6) 0%, transparent 70%); }
+    .hero h1 { font-size: clamp(2.4rem, 5vw, 3.8rem); color: var(--white); position: relative; z-index: 2; margin-bottom: 10px; }
+    .hero p { color: rgba(255,255,255,.5); font-size: 1rem; position: relative; z-index: 2; }
+
+    /* ── BODY ── */
+    .contact-body { padding: 64px 0 100px; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 380px; gap: 48px; align-items: start; }
+
+    /* ── FORM CARD ── */
+    .form-card { background: var(--white); border-radius: var(--r-lg); padding: 48px; box-shadow: var(--sh); }
+    .form-card h2 { font-size: 1.9rem; margin-bottom: 6px; }
+    .form-card > p { color: var(--text-mid); font-size: .93rem; margin-bottom: 36px; }
+
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 22px; }
+    .field label { font-family: 'Raleway', sans-serif; font-size: .74rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--navy); }
+    .field input,
+    .field select,
+    .field textarea {
+      font-family: 'Lora', serif; font-size: .93rem; color: var(--text);
+      background: var(--cream); border: 1.5px solid rgba(13,27,82,.1);
+      border-radius: var(--r-sm); padding: 13px 16px; outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(242,201,76,.15); }
+    .field textarea { resize: vertical; min-height: 130px; }
+    .field select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2346506E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+
+    .submit-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 8px; }
+    .submit-note { font-family: 'Raleway', sans-serif; font-size: .78rem; color: var(--text-lt); }
+
+    .btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Raleway', sans-serif; font-weight: 600; font-size: .9rem; letter-spacing: .04em; border-radius: 100px; padding: 13px 32px; border: none; cursor: pointer; transition: transform .2s, box-shadow .2s, background .2s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--gold); color: var(--navy-deep); box-shadow: 0 6px 24px rgba(242,201,76,.3); }
+    .btn-primary:hover { background: var(--gold-lt); box-shadow: 0 10px 32px rgba(242,201,76,.45); }
+
+    /* ── SUCCESS STATE ── */
+    .success-msg { display: none; text-align: center; padding: 48px 24px; }
+    .success-msg.show { display: block; }
+    .success-icon { width: 64px; height: 64px; border-radius: 50%; background: rgba(242,201,76,.15); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+    .success-msg h3 { font-size: 1.7rem; margin-bottom: 10px; }
+    .success-msg p { color: var(--text-mid); font-size: .93rem; }
+
+    /* ── SIDEBAR ── */
+    .sidebar { display: flex; flex-direction: column; gap: 20px; }
+    .info-card { background: var(--navy-deep); border-radius: var(--r-lg); padding: 36px; color: var(--white); }
+    .info-card h3 { font-size: 1.35rem; color: var(--white); margin-bottom: 20px; }
+    .info-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 22px; }
+    .info-item:last-child { margin-bottom: 0; }
+    .info-icon { width: 38px; height: 38px; border-radius: 10px; background: rgba(242,201,76,.12); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .info-icon svg { stroke: var(--gold); }
+    .info-label { font-family: 'Raleway', sans-serif; font-size: .7rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 3px; }
+    .info-value { font-size: .93rem; color: rgba(255,255,255,.85); line-height: 1.5; }
+
+    .faq-card { background: var(--white); border-radius: var(--r-lg); padding: 32px; box-shadow: var(--sh); }
+    .faq-card h4 { margin-bottom: 18px; color: var(--navy); }
+    .faq-item { border-top: 1px solid var(--cream-alt); padding: 14px 0; }
+    .faq-item:first-of-type { border-top: none; padding-top: 0; }
+    .faq-q { font-family: 'Raleway', sans-serif; font-size: .83rem; font-weight: 600; color: var(--navy); margin-bottom: 5px; }
+    .faq-a { font-size: .83rem; color: var(--text-mid); line-height: 1.6; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .sidebar { order: -1; }
+    }
+    @media (max-width: 560px) {
+      .field-row { grid-template-columns: 1fr; }
+      .form-card { padding: 28px 20px; }
+      .submit-row { flex-direction: column; align-items: stretch; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg width="26" height="26" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 50 L28 14 L38 38 Z" fill="#F2C94C" opacity=".85"/>
+          <path d="M50 50 L72 14 L62 38 Z" fill="#F2C94C" opacity=".85"/>
+          <path d="M50 50 L86 28 L62 38 Z" fill="#F2C94C" opacity=".85"/>
+          <path d="M50 50 L86 72 L62 62 Z" fill="#F2C94C" opacity=".85"/>
+          <path d="M50 50 L72 86 L62 62 Z" fill="#F2C94C" opacity=".85"/>
+          <path d="M50 50 L28 86 L38 62 Z" fill="#F2C94C" opacity=".85"/>
+          <path d="M50 50 L14 72 L38 62 Z" fill="#F2C94C" opacity=".85"/>
+          <path d="M50 50 L14 28 L38 38 Z" fill="#F2C94C" opacity=".85"/>
+          <path d="M50 50 L38 38 L50 2 L62 38 Z" fill="#1A2D7C"/>
+          <path d="M50 50 L62 38 L98 50 L62 62 Z" fill="#1A2D7C"/>
+          <path d="M50 50 L62 62 L50 98 L38 62 Z" fill="#1A2D7C"/>
+          <path d="M50 50 L38 62 L2 50 L38 38 Z" fill="#1A2D7C"/>
+          <circle cx="50" cy="50" r="14" fill="white"/>
+          <circle cx="50" cy="50" r="10" fill="#F2C94C"/>
+        </svg>
+        Lumen Tuition
+      </a>
+      <a href="index.html" class="nav-back">← Back to home</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>Get in Touch</h1>
+    <p>Questions, enquiries, or just want to learn more — we'd love to hear from you.</p>
+  </div>
+
+  <!-- BODY -->
+  <div class="contact-body">
+    <div class="container">
+      <div class="contact-grid">
+
+        <!-- FORM -->
+        <div class="form-card">
+          <div id="formWrap">
+            <h2>Send us a message</h2>
+            <p>Fill in the form below and we'll get back to you within one business day.</p>
+
+            <form id="contactForm" onsubmit="handleSubmit(event)" novalidate>
+              <div class="field-row">
+                <div class="field">
+                  <label for="fFirst">First name</label>
+                  <input type="text" id="fFirst" placeholder="Giles" required />
+                </div>
+                <div class="field">
+                  <label for="fLast">Last name</label>
+                  <input type="text" id="fLast" placeholder="Buchanan" required />
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="fEmail">Email address</label>
+                  <input type="email" id="fEmail" placeholder="you@example.com" required />
+                </div>
+                <div class="field">
+                  <label for="fPhone">Phone <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-lt)">(optional)</span></label>
+                  <input type="tel" id="fPhone" placeholder="04xx xxx xxx" />
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="fTopic">Topic</label>
+                <select id="fTopic" required>
+                  <option value="">Select a topic…</option>
+                  <option>General enquiry</option>
+                  <option>Booking a session</option>
+                  <option>Subjects &amp; tutors</option>
+                  <option>Pricing &amp; packages</option>
+                  <option>Assignment marking</option>
+                  <option>Group sessions</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="fMsg">Message</label>
+                <textarea id="fMsg" placeholder="Tell us a bit about what you're looking for…" required></textarea>
+              </div>
+
+              <div class="submit-row">
+                <span class="submit-note">We typically reply within 24 hours.</span>
+                <button type="submit" class="btn btn-primary">Send message →</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="success-msg" id="successMsg">
+            <div class="success-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F2C94C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <h3>Message sent!</h3>
+            <p>Thanks for reaching out. We'll be in touch within one business day.</p>
+          </div>
+        </div>
+
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+
+          <div class="info-card">
+            <h3>Contact details</h3>
+
+            <div class="info-item">
+              <div class="info-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </div>
+              <div>
+                <div class="info-label">Email</div>
+                <div class="info-value">hello@lumenuition.com.au</div>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="info-label">Phone</div>
+                <div class="info-value">+61 4xx xxx xxx</div>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
+              <div>
+                <div class="info-label">Response time</div>
+                <div class="info-value">Within one business day</div>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+                </svg>
+              </div>
+              <div>
+                <div class="info-label">Location</div>
+                <div class="info-value">Brisbane, Queensland<br>Online sessions available Australia-wide</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-card">
+            <h4>Quick answers</h4>
+            <div class="faq-item">
+              <div class="faq-q">How soon can I book a session?</div>
+              <div class="faq-a">Most tutors have availability within 48 hours. Use our booking page to find a slot instantly.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">Do you offer a trial session?</div>
+              <div class="faq-a">Yes — your first session comes with free cancellation and no commitment required.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">Can I request a specific tutor?</div>
+              <div class="faq-a">Absolutely. Select your preferred tutor directly on our booking page.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      const first = document.getElementById('fFirst').value.trim();
+      const email = document.getElementById('fEmail').value.trim();
+      const topic = document.getElementById('fTopic').value;
+      const msg   = document.getElementById('fMsg').value.trim();
+      if (!first || !email || !topic || !msg) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+      document.getElementById('formWrap').style.display = 'none';
+      document.getElementById('successMsg').classList.add('show');
+    }
+  </script>
+
+</body>
+</html>
