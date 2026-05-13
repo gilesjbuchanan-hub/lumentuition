@@ -215,6 +215,28 @@
     .step-pill.skipped .step-dot { background: var(--cream-alt); color: var(--text-lt); opacity: .4; }
     .step-pill.skipped .step-lbl { color: var(--text-lt); opacity: .4; }
 
+    /* Level picker */
+    .lvl-row { display: flex; gap: 10px; margin-top: 16px; }
+    .lvl-btn { flex: 1; padding: 14px 10px; border: 2px solid var(--cream-alt); border-radius: var(--r-md); background: var(--white); cursor: pointer; text-align: center; transition: border-color .2s, background .2s, color .2s; font-family: 'Raleway', sans-serif; }
+    .lvl-btn:hover { border-color: var(--navy); }
+    .lvl-btn.active { border-color: var(--navy); background: var(--navy); color: var(--white); }
+
+    /* Duration picker */
+    .dur-section-hd { display: none; font-family: 'Raleway', sans-serif; font-size: .68rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--text-mid); margin-top: 28px; margin-bottom: 10px; }
+    .dur-section-hd.visible { display: block; }
+    .dur-row { display: none; gap: 10px; }
+    .dur-row.visible { display: flex; }
+    .dur-btn { flex: 1; padding: 14px 10px; border: 2px solid var(--cream-alt); border-radius: var(--r-md); background: var(--white); cursor: pointer; text-align: center; transition: border-color .2s, background .2s, color .2s; font-family: 'Raleway', sans-serif; }
+    .dur-btn:hover { border-color: var(--navy); }
+    .dur-btn.active { border-color: var(--navy); background: var(--navy); color: var(--white); }
+    .dur-label { font-weight: 700; font-size: .95rem; display: block; }
+    .dur-sub { font-size: .7rem; opacity: .55; margin-top: 3px; display: block; }
+
+    /* Inline field errors */
+    .field-err { font-family: 'Raleway', sans-serif; font-size: .72rem; color: #C53030; margin-top: 4px; display: none; }
+    .fg.invalid input, .fg.invalid select, .fg.invalid textarea { border-color: #FC8181 !important; box-shadow: 0 0 0 3px rgba(252,129,129,.15) !important; }
+    .fg.invalid .field-err { display: block; }
+
     /* RESPONSIVE */
     @media (max-width: 900px) {
       .tutor-grid { grid-template-columns: repeat(2,1fr); }
@@ -307,6 +329,18 @@
         </div>
       </div>
 
+      <div class="dur-section-hd visible" style="display:block;margin-top:28px">Study Level</div>
+      <div class="lvl-row">
+        <button class="lvl-btn" data-lvl="General" onclick="pickLevel('General')">
+          <span class="dur-label">General</span>
+          <span class="dur-sub">Years 7–10</span>
+        </button>
+        <button class="lvl-btn" data-lvl="QCAA" onclick="pickLevel('QCAA')">
+          <span class="dur-label">QCAA</span>
+          <span class="dur-sub">Years 11–12</span>
+        </button>
+      </div>
+
       <div class="group-size-row" id="groupSizeRow">
         <span class="group-size-label">Number of students</span>
         <select id="groupSizeSelect" onchange="pickGroupSize(+this.value)">
@@ -317,6 +351,21 @@
           <option value="5">5 students</option>
         </select>
         <span class="group-size-note">Rate = (tutor rate − $10) × students</span>
+      </div>
+      <div class="dur-section-hd" id="durSectionHd">Session Duration</div>
+      <div class="dur-row" id="durRow">
+        <button class="dur-btn active" data-dur="1" onclick="pickDuration(1)">
+          <span class="dur-label">1 Hour</span>
+          <span class="dur-sub">Standard session</span>
+        </button>
+        <button class="dur-btn" data-dur="1.5" onclick="pickDuration(1.5)">
+          <span class="dur-label">1.5 Hours</span>
+          <span class="dur-sub">Extended session</span>
+        </button>
+        <button class="dur-btn" data-dur="2" onclick="pickDuration(2)">
+          <span class="dur-label">2 Hours</span>
+          <span class="dur-sub">In-depth session</span>
+        </button>
       </div>
       <div class="actions">
         <button class="btn btn-primary" id="btn1Next" disabled onclick="nextStep()">Continue →</button>
@@ -380,17 +429,22 @@
       </div>
       <div class="sum-bar" id="sumBar"></div>
       <div class="fgrid">
-        <div class="fg"><label>First Name *</label><input type="text" id="fFirst" placeholder="Emma" /></div>
-        <div class="fg"><label>Last Name *</label><input type="text" id="fLast" placeholder="Thompson" /></div>
-        <div class="fg"><label>Email Address *</label><input type="email" id="fEmail" placeholder="you@example.com" /></div>
+        <div class="fg"><label>First Name *</label><input type="text" id="fFirst" placeholder="Emma" /><span class="field-err">This field is required</span></div>
+        <div class="fg"><label>Last Name *</label><input type="text" id="fLast" placeholder="Thompson" /><span class="field-err">This field is required</span></div>
+        <div class="fg"><label>Email Address *</label><input type="email" id="fEmail" placeholder="you@example.com" /><span class="field-err">Please enter your email</span></div>
         <div class="fg"><label>Phone Number</label><input type="tel" id="fPhone" placeholder="+61 4XX XXX XXX" /></div>
-        <div class="fg"><label>Subject *</label><select id="fSubject"><option value="">Select subject…</option></select></div>
-        <div class="fg"><label>Level *</label>
-          <select id="fLevel">
-            <option value="">Select level…</option>
-            <option>General (Years 7–10)</option>
-            <option>QCAA (Years 11–12)</option>
+        <div class="fg full"><label>Subject *</label><select id="fSubject"><option value="">Select subject…</option></select><span class="field-err">Please select a subject</span></div>
+        <div class="fg"><label>Year Level *</label>
+          <select id="fYear">
+            <option value="">Select year…</option>
+            <option>Year 7</option>
+            <option>Year 8</option>
+            <option>Year 9</option>
+            <option>Year 10</option>
+            <option>Year 11</option>
+            <option>Year 12</option>
           </select>
+          <span class="field-err">Please select a year level</span>
         </div>
         <div class="fg full" id="stypeRow">
           <label>Delivery</label>
@@ -450,18 +504,18 @@ const TUTORS = [
     subjectsQCAA:['Specialist Mathematics','Physics','Mathematical Methods','Engineering','Chemistry'],
     subjectsGeneral:['Advanced Mathematics','General Mathematics','General English','General Sciences'],
     levels:['General','QCAA'], rating:4.7, reviews:19, price:50, days:[1,2,3,4,5,6,7], bio:'Engineering and Mathematics tutor with a focus on building deep conceptual understanding across Years 7–12.' },
-  { id:6, ini:'TA', name:'Tom Gallus',
-    subjects:['Biology','Chemistry','Physics','General Sciences'],
-    subjectsQCAA:['Biology','Chemistry','Physics'],
-    subjectsGeneral:['General Sciences'],
-    levels:['General','QCAA'], rating:4.8, reviews:35, price:55, days:[1,2,3,4,5,6,7], bio:'Science tutor with clear, patient teaching methods and a strong focus on QCAA exam technique and internal assessment.' },
+  { id:6, ini:'AN', name:'Aryan Narayanan',
+    subjects:['Digital Solutions','Economics','Engineering','Physics','General Mathematics','General Sciences'],
+    subjectsQCAA:['Digital Solutions','Economics','Engineering','Physics'],
+    subjectsGeneral:['General Mathematics','General Sciences','Economics'],
+    levels:['General','QCAA'], rating:4.8, reviews:35, price:55, days:[1,2,3,4,5,6,7], bio:'QCAA specialist across Engineering, Physics, Economics, and Digital Solutions. Graduated from St Peter\'s Lutheran College in 2025 with a raw ATAR of 97.9.' },
 ];
 
 const SLOTS = ['8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM','7:00 PM'];
 
 const SERVICE_NAMES = { '1on1': '1-on-1 Session', 'group': 'Group Session', 'marking': 'Assignment Marking' };
 
-const S = { step:1, service:null, groupSize:null, sel:[], active:null, cy:new Date().getFullYear(), cm:new Date().getMonth(), date:null, time:null, stype:'online' };
+const S = { step:1, service:null, level:null, groupSize:null, duration:1, sel:[], active:null, cy:new Date().getFullYear(), cm:new Date().getMonth(), date:null, time:null, stype:'online' };
 
 function tutor(id) { return TUTORS.find(t => t.id === id); }
 function fakeBooked() { return []; }
@@ -489,6 +543,7 @@ function goTo(n) {
   document.getElementById(`p${n}`).classList.add('active');
   syncIndicator();
   window.scrollTo({top:0,behavior:'smooth'});
+  if (n === 2) buildTutorGrid();
   if (n === 3) renderStep3();
   if (n === 4) renderStep4();
 }
@@ -511,6 +566,11 @@ function syncIndicator() {
 }
 
 // ── STEP 1 — SERVICE ──
+function checkStep1Ready() {
+  const ok = S.service !== null && S.level !== null && (S.service !== 'group' || S.groupSize !== null);
+  document.getElementById('btn1Next').disabled = !ok;
+}
+
 function pickService(svc) {
   S.service = svc;
   S.groupSize = null;
@@ -518,18 +578,30 @@ function pickService(svc) {
   document.getElementById(`svc-${svc}`).classList.add('selected');
   const row = document.getElementById('groupSizeRow');
   const sel = document.getElementById('groupSizeSelect');
-  if (svc === 'group') {
-    row.classList.add('visible');
-    sel.value = '';
-    document.getElementById('btn1Next').disabled = true;
-  } else {
-    row.classList.remove('visible');
-    document.getElementById('btn1Next').disabled = false;
-  }
+  const durRow = document.getElementById('durRow');
+  const durHd = document.getElementById('durSectionHd');
+  if (svc === 'group') { row.classList.add('visible'); sel.value = ''; }
+  else row.classList.remove('visible');
+  if (svc === 'marking') { durRow.classList.remove('visible'); durHd.classList.remove('visible'); }
+  else { durRow.classList.add('visible'); durHd.classList.add('visible'); }
+  checkStep1Ready();
+}
+
+function pickLevel(lvl) {
+  S.level = lvl;
+  document.querySelectorAll('.lvl-btn').forEach(b => b.classList.toggle('active', b.dataset.lvl === lvl));
+  checkStep1Ready();
+}
+
+function pickDuration(hrs) {
+  S.duration = hrs;
+  document.querySelectorAll('.dur-btn').forEach(b => {
+    b.classList.toggle('active', parseFloat(b.dataset.dur) === hrs);
+  });
 }
 function pickGroupSize(n) {
   S.groupSize = n || null;
-  document.getElementById('btn1Next').disabled = !S.groupSize;
+  checkStep1Ready();
 }
 function groupPrice(basePrice) {
   if (S.service === 'group' && S.groupSize) return (basePrice - 10) * S.groupSize;
@@ -545,7 +617,7 @@ function buildTutorGrid() {
       <h3>${t.name}</h3>
       <div class="tprice">${S.service==='group'&&S.groupSize ? `$${groupPrice(t.price)} / hr <span style="opacity:.6;font-size:.75em">(${S.groupSize} students)</span>` : `$${t.price} / hour`}</div>
       <div class="trating"><span class="stars">${'★'.repeat(Math.floor(t.rating))}</span><span>${t.rating} (${t.reviews})</span></div>
-      <div class="tsubs">${t.subjects.map(s=>`<span class="stag">${s}</span>`).join('')}</div>
+      <div class="tsubs">${(S.level==='QCAA' ? t.subjectsQCAA : S.level==='General' ? t.subjectsGeneral : t.subjects).map(s=>`<span class="stag">${s}</span>`).join('')}</div>
       <p class="tbio">${t.bio}</p>
     </div>`).join('');
 }
@@ -645,26 +717,24 @@ function renderStep4() {
     <span class="sum-sep">·</span>
     <div class="sum-item">Tutor: <strong>${t.name}</strong></div>`;
   if (S.service !== 'marking') {
+    const durStr = S.duration === 1 ? '1 hr' : `${S.duration} hrs`;
     sumHTML += `<span class="sum-sep">·</span>
     <div class="sum-item">Date: <strong>${fmtDate(S.date)}</strong></div>
     <span class="sum-sep">·</span>
-    <div class="sum-item">Time: <strong>${S.time}</strong></div>`;
+    <div class="sum-item">Time: <strong>${S.time}</strong></div>
+    <span class="sum-sep">·</span>
+    <div class="sum-item">Duration: <strong>${durStr}</strong></div>`;
   }
   document.getElementById('sumBar').innerHTML = sumHTML;
   document.getElementById('stypeRow').style.display = S.service === 'marking' ? 'none' : '';
   populateSubjects();
-  document.getElementById('fLevel').onchange = populateSubjects;
 }
 
 function populateSubjects() {
   const t = tutor(S.active);
-  const levelVal = document.getElementById('fLevel').value;
-  const isQCAA = levelVal.includes('QCAA');
-  const isGeneral = levelVal.includes('General');
-  let list;
-  if (isQCAA) list = t.subjectsQCAA || t.subjects;
-  else if (isGeneral) list = t.subjectsGeneral || t.subjects;
-  else list = t.subjects;
+  const list = S.level === 'QCAA' ? (t.subjectsQCAA || t.subjects)
+             : S.level === 'General' ? (t.subjectsGeneral || t.subjects)
+             : t.subjects;
   const sel = document.getElementById('fSubject');
   sel.innerHTML = '<option value="">Select subject…</option>' + list.map(s=>`<option>${s}</option>`).join('');
 }
@@ -675,11 +745,19 @@ function pickType(el, type) {
 }
 
 function validate4() {
-  const v = id => document.getElementById(id).value.trim();
-  if (!v('fFirst')||!v('fLast')||!v('fEmail')||!v('fSubject')||!v('fLevel')) {
-    alert('Please fill in all required fields.'); return false;
+  let ok = true;
+  ['fFirst','fLast','fEmail','fSubject','fYear'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const fg = el.closest('.fg');
+    if (!el.value.trim()) { fg.classList.add('invalid'); ok = false; }
+    else fg.classList.remove('invalid');
+  });
+  if (!ok) {
+    const first = document.querySelector('#p4 .fg.invalid input, #p4 .fg.invalid select');
+    if (first) { first.focus(); first.scrollIntoView({ behavior:'smooth', block:'center' }); }
   }
-  return true;
+  return ok;
 }
 
 // ── STEP 5 — CONFIRM ──
@@ -690,26 +768,29 @@ function buildConfirm() {
   const email = document.getElementById('fEmail').value.trim();
   const phone = document.getElementById('fPhone').value.trim();
   const subj  = document.getElementById('fSubject').value;
-  const level = document.getElementById('fLevel').value;
+  const level = S.level === 'QCAA' ? 'QCAA (Years 11–12)' : 'General (Years 7–10)';
+  const year  = document.getElementById('fYear').value;
   const notes = document.getElementById('fNotes').value.trim();
   const isMarking = S.service === 'marking';
+  const durStr = S.duration === 1 ? '1 hr' : `${S.duration} hrs`;
 
   const scheduleRows = isMarking
     ? `<div class="conf-row"><span class="cr-lbl">Turnaround</span><span class="cr-val">Arranged directly with your tutor</span></div>`
     : `<div class="conf-row"><span class="cr-lbl">Date</span><span class="cr-val">${fmtDate(S.date)}</span></div>
-       <div class="conf-row"><span class="cr-lbl">Time</span><span class="cr-val">${S.time} (1 hour)</span></div>
+       <div class="conf-row"><span class="cr-lbl">Time</span><span class="cr-val">${S.time} (${durStr})</span></div>
        <div class="conf-row"><span class="cr-lbl">Format</span><span class="cr-val">${S.stype==='online'?'💻 Online':'🏠 In-Person'}</span></div>`;
 
   const isGroup = S.service === 'group' && S.groupSize;
-  const sessionPrice = isGroup ? groupPrice(t.price) : t.price;
-  const priceLabel = isMarking ? '1× assignment marking' : isGroup ? `1× group session (${S.groupSize} students, 1 hr)` : '1× session (1 hr)';
+  const hourlyPrice = isGroup ? groupPrice(t.price) : t.price;
+  const sessionPrice = isMarking ? 40 : Math.round(hourlyPrice * S.duration);
+  const priceLabel = isMarking ? '1× assignment marking' : isGroup ? `1× group session (${S.groupSize} students, ${durStr})` : `1× session (${durStr})`;
 
   document.getElementById('confGrid').innerHTML = `
     <div class="conf-card">
       <h3>Booking Summary</h3>
       <div class="conf-row"><span class="cr-lbl">Service</span><span class="cr-val">${SERVICE_NAMES[S.service]}${isGroup ? ` · ${S.groupSize} students` : ''}</span></div>
       <div class="conf-row"><span class="cr-lbl">Tutor</span><span class="cr-val">${t.name}</span></div>
-      <div class="conf-row"><span class="cr-lbl">Subject</span><span class="cr-val">${subj} · ${level}</span></div>
+      <div class="conf-row"><span class="cr-lbl">Subject</span><span class="cr-val">${subj}${year ? ' · ' + year : ''} · ${level}</span></div>
       ${scheduleRows}
       <div class="conf-row"><span class="cr-lbl">Student</span><span class="cr-val">${first} ${last}<br><span style="color:var(--text-mid);font-size:.84rem">${email}${phone?' · '+phone:''}</span></span></div>
       ${notes?`<div class="conf-row"><span class="cr-lbl">Notes</span><span class="cr-val">${notes}</span></div>`:''}
@@ -718,7 +799,7 @@ function buildConfirm() {
       <div class="price-card">
         <h4>Price</h4>
         <div class="price-row"><span>${priceLabel}</span><span>$${sessionPrice}.00</span></div>
-        ${isGroup ? `<div class="price-row"><span>Per student</span><span>$${Math.round(sessionPrice/S.groupSize)}.00</span></div>` : ''}
+        ${isGroup ? `<div class="price-row"><span>Per student</span><span>$${Math.round((t.price - 10) * S.duration)}.00</span></div>` : ''}
         <div class="price-row"><span>Booking fee</span><span>Free</span></div>
         <div class="price-row total"><span>Total</span><span>$${sessionPrice}.00</span></div>
         <p class="price-note">Payment is arranged directly with your tutor. No charge is taken online.</p>
@@ -751,6 +832,18 @@ function confirmBooking() {
 }
 
 buildTutorGrid();
+
+['fFirst','fLast','fEmail','fSubject','fYear'].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const clear = () => { if (el.value.trim()) el.closest('.fg').classList.remove('invalid'); };
+  el.addEventListener('blur', () => {
+    if (!el.value.trim()) el.closest('.fg').classList.add('invalid');
+    else el.closest('.fg').classList.remove('invalid');
+  });
+  el.addEventListener('input', clear);
+  el.addEventListener('change', clear);
+});
 </script>
 </body>
 </html>

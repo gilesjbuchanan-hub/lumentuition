@@ -1029,13 +1029,26 @@
     /* ─── SCROLL ANIMATIONS ──────────────────────────────────── */
     .reveal {
       opacity: 0;
-      transform: translateY(28px);
-      transition: opacity .6s ease, transform .6s ease;
+      transform: translateY(32px);
+      transition: opacity .7s cubic-bezier(0.16,1,0.3,1), transform .7s cubic-bezier(0.16,1,0.3,1);
+      transition-delay: var(--rd, 0ms);
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: .1s; }
-    .reveal-delay-2 { transition-delay: .2s; }
-    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-left  { transform: translateX(-32px); }
+    .reveal-right { transform: translateX(32px); }
+    .reveal-left.visible, .reveal-right.visible { transform: translateX(0); }
+    .reveal-delay-1 { --rd: .1s; }
+    .reveal-delay-2 { --rd: .2s; }
+    .reveal-delay-3 { --rd: .3s; }
+    .reveal-delay-4 { --rd: .4s; }
+    .reveal-delay-5 { --rd: .5s; }
+
+    /* Hero load animations */
+    @keyframes heroUp { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:translateY(0); } }
+    .hero-content .hero-ornament { animation: heroUp .7s cubic-bezier(0.16,1,0.3,1) .05s both; }
+    .hero-content h1             { animation: heroUp .8s cubic-bezier(0.16,1,0.3,1) .18s both; }
+    .hero-content p              { animation: heroUp .7s cubic-bezier(0.16,1,0.3,1) .32s both; }
+    .hero-content .hero-actions  { animation: heroUp .7s cubic-bezier(0.16,1,0.3,1) .46s both; }
 
     /* ─── RESPONSIVE ─────────────────────────────────────────── */
     @media (max-width: 1024px) {
@@ -1107,14 +1120,20 @@
     .tutor-modal-section:last-child{margin-bottom:0;}
     .tutor-modal-section-label{font-family:'Raleway',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-bottom:10px;}
     .tutor-modal-bio{font-family:'Lora',serif;font-size:.95rem;color:rgba(255,255,255,.8);line-height:1.78;}
-    .tutor-modal-interest-tags{display:flex;flex-wrap:wrap;gap:7px;}
-    .tutor-modal-interest-tag{font-family:'Raleway',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.05em;padding:5px 13px;border-radius:100px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.65);}
+    .tutor-modal-interest-tags{display:flex;flex-direction:column;gap:4px;}
+    .tutor-modal-interest-tag{font-family:'Raleway',sans-serif;font-size:.78rem;color:rgba(255,255,255,.65);padding-left:12px;position:relative;}
+    .tutor-modal-interest-tag::before{content:'·';position:absolute;left:0;color:var(--gold);}
     .tutor-modal-subj-list{display:flex;flex-direction:column;gap:7px;}
     .tutor-modal-subj-row{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:9px;}
     .tutor-modal-subj-name{font-family:'Raleway',sans-serif;font-size:.8rem;font-weight:600;color:rgba(255,255,255,.82);}
     .tutor-modal-subj-score{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--gold);}
     .tutor-modal-subj-tags{display:flex;flex-wrap:wrap;gap:6px;}
     .tutor-modal-subj-tag{font-family:'Raleway',sans-serif;font-size:.69rem;font-weight:600;letter-spacing:.04em;padding:4px 11px;border-radius:100px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.6);}
+    .tutor-subj-filter{display:flex;gap:4px;}
+    .tutor-subj-filter-btn{font-family:'Raleway',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:100px;border:1px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.4);cursor:pointer;transition:background .2s,color .2s,border-color .2s;}
+    .tutor-subj-filter-btn.active,.tutor-subj-filter-btn:hover{background:var(--gold);border-color:var(--gold);color:var(--navy-deep);}
+    .tutor-subj-filter-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+    .tutor-subj-filter-header .tutor-modal-section-label{margin-bottom:0;}
     .tutor-modal-edu-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--white);margin-bottom:4px;}
     .tutor-modal-edu-detail{font-family:'Raleway',sans-serif;font-size:.78rem;color:rgba(255,255,255,.45);}
     .tutor-modal-days-grid{display:flex;flex-wrap:nowrap;gap:5px;margin-bottom:8px;}
@@ -1264,7 +1283,7 @@
               <!-- 60° upper-right --> <div class="tf" style="top:62px;   left:458px; --fdur:11s; --fdelay:-5s;  --fx:11px; --fy:-10px;"><div class="tf-av">TH</div><div class="tf-name">T. Hewett</div></div>
               <!-- 120° lower-right --> <div class="tf" style="top:352px;  left:458px; --fdur:8s;  --fdelay:-3s;  --fx:10px; --fy:12px;"> <div class="tf-av">AA</div><div class="tf-name">A. Atzeni</div></div>
               <!-- 180° bottom     --> <div class="tf" style="top:497px;  left:207px; --fdur:10s; --fdelay:-7s;  --fx:-6px; --fy:14px;"> <div class="tf-av">MM</div><div class="tf-name">M. Markovich</div></div>
-              <!-- 240° lower-left --> <div class="tf" style="top:352px;  left:-44px; --fdur:12s; --fdelay:-2s;  --fx:-11px;--fy:12px;"><div class="tf-av">TG</div><div class="tf-name">T. Gallus</div></div>
+              <!-- 240° lower-left --> <div class="tf" style="top:352px;  left:-44px; --fdur:12s; --fdelay:-2s;  --fx:-11px;--fy:12px;"><div class="tf-av">AN</div><div class="tf-name">A. Narayanan</div></div>
               <!-- 300° upper-left --> <div class="tf" style="top:62px;   left:-44px; --fdur:7s;  --fdelay:-9s;  --fx:-10px;--fy:-12px;"><div class="tf-av">GB</div><div class="tf-name"> G. Buchanan</div></div>
             </div>
 
@@ -1358,11 +1377,11 @@
 
         <div class="why-content reveal reveal-delay-1">
           <div class="tag">Why Lumen</div>
-          <h2>More than just a session.</h2>
-          <p>We don't just teach content — we build confidence, sharpen technique, and ignite a genuine love of learning in every student we work with.</p>
+          <h2>We care. A lot.</h2>
+          <p>As recent high school graduates, we at Lumen understand the stress and pressure that high school can cause, and the importance of a tutor in alleviating that. . We try hard to make sure it doesn't. Every student we work with gets real attention — not a script, not a formula, just someone genuinely invested in helping them get there.</p>
 
           <div class="feature-list">
-            <div class="feature-item">
+            <div class="feature-item reveal" style="--rd:.1s">
               <div class="feature-icon">
                 <!-- target / personalised -->
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
@@ -1372,11 +1391,11 @@
                 </svg>
               </div>
               <div class="feature-text">
-                <h4>Personalised to you</h4>
-                <p>Every session is tailored to your exact needs, learning style, and exam board — no one-size-fits-all approaches here.</p>
+                <h4>Built around you, not a syllabus</h4>
+                <p>We figure out how you actually learn, what's clicking and what isn't, and work from there. No cookie-cutter lesson plans.</p>
               </div>
             </div>
-            <div class="feature-item">
+            <div class="feature-item reveal" style="--rd:.22s">
               <div class="feature-icon">
                 <!-- trophy / expert tutors -->
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
@@ -1386,11 +1405,11 @@
                 </svg>
               </div>
               <div class="feature-text">
-                <h4>Expert-qualified tutors</h4>
-                <p>Our tutors are subject specialists — many with first-class degrees and teaching qualifications from leading universities.</p>
+                <h4>Tutors who know their stuff</h4>
+                <p>Everyone at Lumen has been where you are. We're not just qualified — we remember what it felt like to find it hard.</p>
               </div>
             </div>
-            <div class="feature-item">
+            <div class="feature-item reveal" style="--rd:.34s">
               <div class="feature-icon">
                 <!-- calendar / flexible scheduling -->
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
@@ -1402,11 +1421,11 @@
                 </svg>
               </div>
               <div class="feature-text">
-                <h4>Flexible scheduling</h4>
-                <p>Morning, evening, weekends — sessions fit around your life, with easy rescheduling when plans change.</p>
+                <h4>Fits around real life</h4>
+                <p>Afternoons, evenings, weekends — whenever works. And if something comes up, just let us know. We're pretty easy about it.</p>
               </div>
             </div>
-            <div class="feature-item">
+            <div class="feature-item reveal" style="--rd:.46s">
               <div class="feature-icon">
                 <!-- chart / progress tracking -->
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
@@ -1415,8 +1434,8 @@
                 </svg>
               </div>
               <div class="feature-text">
-                <h4>Progress tracking</h4>
-                <p>Regular reports and progress checks keep students, parents, and tutors aligned on every milestone.</p>
+                <h4>You'll always know how it's going</h4>
+                <p>No vague reassurances. We keep students and parents in the loop so there are no surprises come exam time.</p>
               </div>
             </div>
           </div>
@@ -1458,7 +1477,7 @@
     <circle fill="white" cx="15" cy="22" r="0.7"/><circle fill="white" cx="82" cy="20" r="0.8"/><circle fill="white" cx="88" cy="80" r="0.7"/><circle fill="white" cx="10" cy="82" r="0.6"/>
   </svg>
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <div class="tag" style="background:rgba(242,201,76,.15);color:var(--gold)">Subjects</div>
         <h2 style="color:var(--white)">Subjects across all levels.</h2>
         <p style="color:rgba(255,255,255,.45)">From year seven assignments to external exams, Lumen covers the full spectra.</p>
@@ -1567,7 +1586,7 @@
     <circle fill="white" cx="62" cy="95" r="0.7"/><circle fill="white" cx="100" cy="10" r="0.8"/><circle fill="white" cx="30" cy="50" r="0.7"/>
   </svg>
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <div class="tag">Our Team</div>
         <h2>Meet your tutors</h2>
         <p>Every Lumen tutor has recent high school experience, with extensive subject, assignment and exam knowledge. </p>
@@ -1677,8 +1696,6 @@
               <span class="tutor-subj-tag">French</span>
               <span class="tutor-subj-tag">Economics</span>
               <span class="tutor-subj-tag">Legal Studies</span>
-              <span class="tutor-subj-tag">General Mathematics</span>
-              <span class="tutor-subj-tag">History</span>
             </div>
             <p class="tutor-card-desc"><em>Graduated from St Peter's Lutheran College in 2025, with a raw ATAR of 97.5</em></p>
           </div>
@@ -1720,17 +1737,17 @@
           </div>
           <div class="tutor-card-body">
             <div class="tutor-card-header">
-              <div class="tutor-card-name">Tom Gallus</div>
-              <span class="tutor-card-rate">$55 / hr</span>
+              <div class="tutor-card-name">Aryan Narayanan</div>
+              <span class="tutor-card-rate">from $50 / hr</span>
             </div>
             <div class="tutor-card-role">Subjects | Results </div>
             <div class="tutor-card-subjects">
-              <span class="tutor-subj-tag">Biology</span>
-              <span class="tutor-subj-tag">Chemistry</span>
-              <span class="tutor-subj-tag">Physics</span>
-              <span class="tutor-subj-tag">General Sciences</span>
+              <span class="tutor-subj-tag">Digital Solutions | 97%</span>
+              <span class="tutor-subj-tag">Economics | 93%</span>
+              <span class="tutor-subj-tag">Engineering | 94%</span>
+              <span class="tutor-subj-tag">Physics | 92%</span>
             </div>
-            <p class="tutor-card-desc"><em>Add a short description of this tutor's background, specialisms, and teaching style here.</em></p>
+            <p class="tutor-card-desc"><em>Graduated from St Peter's Lutheran College in 2025, with a raw ATAR of 97.9</em></p>
           </div>
         </div>
 
@@ -1776,7 +1793,7 @@
     <circle fill="white" cx="172" cy="18" r="0.8"/><circle fill="white" cx="34" cy="8" r="0.7"/><circle fill="white" cx="108" cy="82" r="0.9"/><circle fill="white" cx="148" cy="84" r="0.6"/><circle fill="white" cx="68" cy="8" r="0.7"/>
   </svg>
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <div class="tag" style="background:rgba(242,201,76,.15);color:var(--gold)">How it Works</div>
         <h2 style="color:#FFFFFF;">Simple process.<br>Extraordinary results.</h2>
         <p>Getting started with Lumen is easy, with a wide range of services and subjects to choose from.</p>
@@ -1836,7 +1853,7 @@
     <circle fill="white" cx="15" cy="22" r="0.7"/><circle fill="white" cx="82" cy="20" r="0.8"/><circle fill="white" cx="88" cy="80" r="0.7"/><circle fill="white" cx="10" cy="82" r="0.6"/>
   </svg>
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <div class="tag">Student Results</div>
         <h2>Real students.<br>Real breakthroughs.</h2>
         <p>See what the families who have worked with us have to say about their experience.</p>
@@ -1893,7 +1910,7 @@
   </svg>
     <div class="cta-bg"></div>
     <div class="container">
-      <div class="cta-inner">
+      <div class="cta-inner reveal">
         <div>
           <h2>Ready to il<span style="color:var(--gold)">lumen</span>ate your potential?</h2>
           <p>Book an introductory session today, with zero commitments, and free cancellation</p>
@@ -2093,7 +2110,7 @@
       AA: 'Ari Atzeni',
       RP: 'Maya Markovich',
       OB: 'Dylan Nash',
-      TA: 'Tom Gallus'
+      TA: 'Aryan Narayanan'
     };
 
     const SUBJECT_DATA = {
@@ -2261,6 +2278,7 @@
         school: "St Peter's Lutheran College", atar: '99.35', year: '2025',
         subjects: [['Specialist Mathematics','95'],['Mathematical Methods','97'],['Physics','99'],['Chemistry','97'],['Biology','99']],
         subjects_taught: ['Specialist Mathematics','Mathematical Methods','Physics','Chemistry','Biology','General Sciences','Advanced Mathematics','General Mathematics'],
+        university: { name: 'University of Queensland', detail: 'Bach. of Adv. finance & economics · 1st year' },
         interests: ['Distance Running','Astrophysics','Jazz Piano'],
       },
       AA: {
@@ -2270,6 +2288,7 @@
         school: "St Peter's Lutheran College", atar: '98.15', year: '2025',
         subjects: [['Mathematical Methods','95'],['Physics','99'],['General English','97'],['Engineering',null],['Economics',null]],
         subjects_taught: ['Mathematical Methods','Physics','Engineering','Economics','General English','General Sciences','Advanced Mathematics','General Mathematics'],
+        university: { name: 'University of Queensland', detail: 'Bach. of adv. business · 1st year' },
         interests: ['Architecture','Hiking','Graphic Design'],
       },
       RP: {
@@ -2279,6 +2298,7 @@
         school: "St Peter's Lutheran College", atar: '97.5', year: '2025',
         subjects: [['Literature',null],['Mathematical Methods',null],['Modern History',null],['French',null],['Economics',null],['Legal Studies',null]],
         subjects_taught: ['Literature','Modern History','French','Economics','Legal Studies','Mathematical Methods','General Mathematics','History','General Economics'],
+        university: { name: 'University of Queensland', detail: 'Bach. of Laws · 1st year' },
         interests: ['Contemporary Dance','Travel Writing','Tennis'],
       },
       OB: {
@@ -2288,20 +2308,33 @@
         school: "St Peter's Lutheran College", atar: '98.2', year: '2025',
         subjects: [['Specialist Mathematics','94'],['Mathematical Methods','95'],['Physics','97'],['Engineering','95']],
         subjects_taught: ['Specialist Mathematics','Mathematical Methods','Physics','Engineering','General Sciences','Advanced Mathematics','General Mathematics','General English'],
+        university: { name: 'University of Queensland', detail: 'Bach. of Engineering · 1st year' },
         interests: ['Surfing','Robotics','Acoustic Guitar'],
       },
       TA: {
-        name: 'Tom Gallus', rate: 55, color: '#FCA5A5', email: 'tom@lumentuition.com.au',
-        quote: 'Tom is incredibly patient and thorough. He explained Biology concepts in a way that genuinely stuck, and my confidence going into exams completely changed.', quoteBy: '— Year 11 student',
-        bio: 'Science tutor with clear, patient teaching methods and a strong focus on QCAA exam technique and internal assessment. Specialises in Biology, Chemistry, Physics, and General Sciences.',
-        school: null, atar: null, year: null,
-        subjects: [['Biology',null],['Chemistry',null],['Physics',null],['General Sciences',null]],
-        subjects_taught: ['Biology','Chemistry','Physics','General Sciences'],
+        name: 'Aryan Narayanan', rate: 55, color: '#FCA5A5', email: 'aryan@lumentuition.com.au',
+        quote: 'Aryan is incredibly patient and thorough. He explained Biology concepts in a way that genuinely stuck, and my confidence going into exams completely changed.', quoteBy: '— Year 11 student',
+        bio: 'QCAA specialist across Engineering, Physics, Economics, and Digital Solutions. Graduated from St Peter\'s Lutheran College in 2025 with a raw ATAR of 97.9.',
+        school: "St Peter's Lutheran College", atar: '97.9', year: '2025',
+        subjects: [['Digital Solutions','97'],['Economics','93'],['Engineering','94'],['Physics','92']],
+        subjects_taught: ['Digital Solutions','Economics','Engineering','Physics','General Mathematics','General Sciences'],
+        university: { name: 'University of Queensland', detail: 'Bach. of Engineering · 1st year' },
         interests: ['Scuba Diving','Cycling','Botanical Illustration'],
       },
     };
 
     const ALL_DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+    const GENERAL_SUBJS = new Set(['General Sciences','Advanced Mathematics','General Mathematics','General English','History','General Economics','General French','General Legal Studies']);
+
+    function renderSubjTaught(subjects, filter) {
+      const filtered = filter === 'qcaa'    ? subjects.filter(s => !GENERAL_SUBJS.has(s))
+                     : filter === 'general' ? subjects.filter(s =>  GENERAL_SUBJS.has(s))
+                     : subjects;
+      return filtered.length
+        ? filtered.map(s => `<span class="tutor-modal-subj-tag">${s}</span>`).join('')
+        : `<span style="color:rgba(255,255,255,.35);font-size:.78rem;font-family:'Raleway',sans-serif">None in this category</span>`;
+    }
 
     function openTutorModal(ini) {
       const p = TUTOR_PROFILES[ini];
@@ -2322,8 +2355,18 @@
       } else {
         edu.innerHTML = `<div class="tutor-modal-edu-detail" style="color:rgba(255,255,255,.4)">Details coming soon</div>`;
       }
+      const uni = overlay.querySelector('#tmUni');
+      uni.innerHTML = `<div class="tutor-modal-edu-name">${p.university.name}</div><div class="tutor-modal-edu-detail">${p.university.detail}</div>`;
       overlay.querySelector('#tmInterests').innerHTML = p.interests.map(i => `<span class="tutor-modal-interest-tag">${i}</span>`).join('');
-      overlay.querySelector('#tmSubjectsTaught').innerHTML = p.subjects_taught.map(s => `<span class="tutor-modal-subj-tag">${s}</span>`).join('');
+      overlay.querySelector('#tmSubjectsTaught').innerHTML = renderSubjTaught(p.subjects_taught, 'qcaa');
+      overlay.querySelectorAll('.tutor-subj-filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === 'qcaa');
+        btn.onclick = () => {
+          overlay.querySelectorAll('.tutor-subj-filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          overlay.querySelector('#tmSubjectsTaught').innerHTML = renderSubjTaught(p.subjects_taught, btn.dataset.filter);
+        };
+      });
       overlay.querySelector('#tmDays').innerHTML = ALL_DAYS.map(d => `<span class="tutor-modal-day">${d}</span>`).join('');
       overlay.querySelector('#tmSubjects').innerHTML = p.subjects.map(([name, score]) =>
         `<div class="tutor-modal-subj-row"><span class="tutor-modal-subj-name">${name}</span>${score ? `<span class="tutor-modal-subj-score">${score}%</span>` : ''}</div>`
@@ -2389,12 +2432,19 @@
         </div>
         <div class="tutor-modal-col tutor-modal-col-right">
           <div class="tutor-modal-section">
-            <div class="tutor-modal-section-label">Subjects Taught</div>
+            <div class="tutor-subj-filter-header">
+              <div class="tutor-modal-section-label">Subjects Taught</div>
+              <div class="tutor-subj-filter">
+                <button class="tutor-subj-filter-btn active" data-filter="qcaa">QCAA</button>
+                <button class="tutor-subj-filter-btn" data-filter="general">General</button>
+              </div>
+            </div>
             <div class="tutor-modal-subj-tags" id="tmSubjectsTaught"></div>
           </div>
           <div class="tutor-modal-section">
             <div class="tutor-modal-section-label">Education</div>
             <div id="tmEdu"></div>
+            <div id="tmUni" style="margin-top:10px"></div>
           </div>
           <div class="tutor-modal-section">
             <div class="tutor-modal-section-label">Availability</div>
