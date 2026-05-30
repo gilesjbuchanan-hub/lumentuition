@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legal — Lumen Tuition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Cormorant+SC:wght@500;600;700&family=Raleway:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:      #0D1B52;
+      --navy-deep: #08113A;
+      --navy-mid:  #1A2D7C;
+      --gold:      #F2C94C;
+      --gold-lt:   #FDE99A;
+      --gold-dk:   #D4A832;
+      --cream:     #F7F6F1;
+      --cream-alt: #EDEEF9;
+      --white:     #FFFFFF;
+      --text:      #0B1020;
+      --text-mid:  #46506E;
+      --text-lt:   #8B93B0;
+      --r-sm: 8px; --r-md: 16px; --r-lg: 28px;
+      --sh:  0 4px 32px rgba(13,27,82,.08);
+      --sh-lg: 0 16px 64px rgba(13,27,82,.14);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lora', serif; background: var(--cream); color: var(--text); line-height: 1.7; }
+    a { text-decoration: none; color: inherit; }
+    h1,h2,h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; line-height: 1.1; }
+    h4 { font-family: 'Raleway', sans-serif; font-weight: 700; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── NAV ── */
+    nav { background: var(--navy-deep); padding: 18px 0; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { display: flex; align-items: center; gap: 12px; font-family: 'Cormorant SC', serif; font-weight: 600; font-size: 1.3rem; color: var(--white); }
+    .nav-logo svg { flex-shrink: 0; }
+    .nav-back { font-family: 'Raleway', sans-serif; font-size: .82rem; font-weight: 600; color: rgba(255,255,255,.5); letter-spacing: .04em; transition: color .2s; }
+    .nav-back:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero { background: var(--navy-deep); padding: 56px 0 72px; text-align: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 100% at 50% 100%, rgba(26,45,124,.6) 0%, transparent 70%); }
+    .hero-tag { font-family: 'Raleway', sans-serif; font-size: .74rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; position: relative; z-index: 2; }
+    .hero h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); color: var(--white); position: relative; z-index: 2; margin-bottom: 12px; }
+    .hero p { color: rgba(255,255,255,.5); font-size: .95rem; position: relative; z-index: 2; }
+
+    /* ── SIDEBAR NAV ── */
+    .page-body { padding: 72px 0 120px; }
+    .page-layout { position: relative; max-width: 680px; margin: 0 auto; }
+    .sidebar { position: absolute; right: calc(100% + 48px); top: 0; width: 200px; }
+    .sidebar h4 { color: var(--text-lt); margin-bottom: 16px; }
+    .sidebar ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+    .sidebar ul li a {
+      font-family: 'Raleway', sans-serif; font-size: .86rem; font-weight: 500;
+      color: var(--text-mid); display: block; padding: 8px 14px;
+      border-left: 2px solid transparent; border-radius: 0 var(--r-sm) var(--r-sm) 0;
+      transition: color .2s, border-color .2s, background .2s;
+    }
+    .sidebar ul li a:hover { color: var(--navy); border-left-color: var(--gold); background: rgba(242,201,76,.07); }
+
+    /* ── SECTIONS ── */
+    .legal-section { margin-bottom: 80px; scroll-margin-top: 40px; }
+    .legal-section:last-child { margin-bottom: 0; }
+
+    .section-tag { font-family: 'Raleway', sans-serif; font-size: .74rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-dk); margin-bottom: 10px; }
+    .legal-section h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--navy-deep); margin-bottom: 6px; }
+    .legal-section .last-updated { font-family: 'Raleway', sans-serif; font-size: .78rem; color: var(--text-lt); margin-bottom: 36px; }
+
+    .divider { width: 48px; height: 2px; background: var(--gold); margin-bottom: 32px; }
+
+    .legal-section p { color: var(--text-mid); font-size: .93rem; margin-bottom: 18px; }
+    .legal-section p:last-child { margin-bottom: 0; }
+
+    .legal-section h3 {
+      font-family: 'Cormorant Garamond', serif; font-weight: 600;
+      font-size: 1.2rem; color: var(--navy); margin: 32px 0 10px;
+    }
+    .legal-section ul.body-list {
+      list-style: none; padding: 0; margin-bottom: 18px;
+    }
+    .legal-section ul.body-list li {
+      font-size: .93rem; color: var(--text-mid); padding: 6px 0 6px 20px;
+      position: relative;
+    }
+    .legal-section ul.body-list li::before {
+      content: '';
+      position: absolute; left: 0; top: 14px;
+      width: 6px; height: 6px;
+      background: var(--gold); border-radius: 50%;
+    }
+
+    .card { background: var(--white); border-radius: var(--r-lg); padding: 40px 48px; box-shadow: var(--sh); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--navy-deep); padding: 24px 0; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .footer-bottom p { font-size: .82rem; color: rgba(255,255,255,.3); }
+
+    @media (max-width: 960px) {
+      .sidebar { display: none; }
+      .card { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <svg width="26" height="26" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 50 L28 14 L38 38 Z" fill="#F2C94C" opacity=".85"/>
+            <path d="M50 50 L72 14 L62 38 Z" fill="#F2C94C" opacity=".85"/>
+            <path d="M50 50 L86 28 L62 38 Z" fill="#F2C94C" opacity=".85"/>
+            <path d="M50 50 L86 72 L62 62 Z" fill="#F2C94C" opacity=".85"/>
+            <path d="M50 50 L72 86 L62 62 Z" fill="#F2C94C" opacity=".85"/>
+            <path d="M50 50 L28 86 L38 62 Z" fill="#F2C94C" opacity=".85"/>
+            <path d="M50 50 L14 72 L38 62 Z" fill="#F2C94C" opacity=".85"/>
+            <path d="M50 50 L14 28 L38 38 Z" fill="#F2C94C" opacity=".85"/>
+            <path d="M50 50 L38 38 L50 2 L62 38 Z" fill="#1A2D7C"/>
+            <path d="M50 50 L62 38 L98 50 L62 62 Z" fill="#1A2D7C"/>
+            <path d="M50 50 L62 62 L50 98 L38 62 Z" fill="#1A2D7C"/>
+            <path d="M50 50 L38 62 L2 50 L38 38 Z" fill="#1A2D7C"/>
+            <circle cx="50" cy="50" r="14" fill="white"/>
+            <circle cx="50" cy="50" r="10" fill="#F2C94C"/>
+          </svg>
+          Lumen Tuition
+        </a>
+        <a href="index.html" class="nav-back">← Back to home</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="container">
+      <div class="hero-tag">Legal</div>
+      <h1>Our policies</h1>
+      <p>Privacy, terms, and safeguarding information for Lumen Tuition.</p>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="page-body">
+    <div class="container">
+      <div class="page-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+          <h4>On this page</h4>
+          <ul>
+            <li><a href="#privacy">Privacy policy</a></li>
+            <li><a href="#terms">Terms of service</a></li>
+            <li><a href="#safeguarding">Safeguarding</a></li>
+          </ul>
+        </aside>
+
+        <!-- CONTENT -->
+        <main>
+
+          <!-- PRIVACY POLICY -->
+          <section id="privacy" class="legal-section card">
+            <div class="section-tag">Legal</div>
+            <h2>Privacy policy</h2>
+            <p class="last-updated">Last updated: May 2026</p>
+            <div class="divider"></div>
+
+            <p>Lumen Tuition ("we", "us", "our") is committed to protecting your personal information in accordance with the Australian Privacy Act 1988 and the Australian Privacy Principles.</p>
+
+            <h3>What we collect</h3>
+            <p>We collect personal information you provide when you enquire about or book tutoring services, including your name, email address, phone number, and the subjects or year levels you require assistance with. We may also collect information about your child if you are booking on their behalf.</p>
+
+            <h3>How we use your information</h3>
+            <ul class="body-list">
+              <li>To facilitate and manage tutoring bookings</li>
+              <li>To communicate with you about sessions, scheduling, and pricing</li>
+              <li>To send service-related updates and, where you have opted in, promotional material</li>
+              <li>To improve our service and website experience</li>
+            </ul>
+
+            <h3>Disclosure</h3>
+            <p>We do not sell, rent, or trade your personal information to third parties. We may share information with your assigned tutor solely for the purpose of delivering tutoring services.</p>
+
+            <h3>Data retention</h3>
+            <p>We retain your personal information for as long as necessary to provide our services and comply with legal obligations. You may request deletion of your data at any time by contacting us at hello@lumenuition.com.au.</p>
+
+            <h3>Your rights</h3>
+            <p>You have the right to access, correct, or request deletion of your personal information. To exercise these rights, please contact us directly.</p>
+          </section>
+
+          <!-- TERMS OF SERVICE -->
+          <section id="terms" class="legal-section card" style="margin-top: 40px;">
+            <div class="section-tag">Legal</div>
+            <h2>Terms of service</h2>
+            <p class="last-updated">Last updated: May 2026</p>
+            <div class="divider"></div>
+
+            <p>By booking or using any service provided by Lumen Tuition, you agree to the following terms. Please read them carefully.</p>
+
+            <h3>Bookings and cancellations</h3>
+            <ul class="body-list">
+              <li>Sessions must be booked at least 24 hours in advance unless otherwise agreed</li>
+              <li>Cancellations made with more than 24 hours' notice will not incur a charge</li>
+              <li>Late cancellations (under 24 hours) or no-shows may be charged at the full session rate</li>
+              <li>Your first session includes free cancellation with no commitment required</li>
+            </ul>
+
+            <h3>Payment</h3>
+            <p>Payment is due at the time of booking or as otherwise agreed in writing. All prices are stated in Australian dollars and are inclusive of GST where applicable.</p>
+
+            <h3>Service delivery</h3>
+            <p>Lumen Tuition provides private tutoring services online via video call. We make every effort to match students with the most suitable tutor; however, we reserve the right to reassign tutors where necessary.</p>
+
+            <h3>Liability</h3>
+            <p>Lumen Tuition provides educational support services only and does not guarantee specific academic outcomes. Our total liability in connection with any service is limited to the amount paid for that session.</p>
+
+            <h3>Changes to terms</h3>
+            <p>We reserve the right to update these terms at any time. Continued use of our services following any change constitutes acceptance of the updated terms.</p>
+          </section>
+
+          <!-- SAFEGUARDING -->
+          <section id="safeguarding" class="legal-section card" style="margin-top: 40px;">
+            <div class="section-tag">Legal</div>
+            <h2>Safeguarding</h2>
+            <p class="last-updated">Last updated: May 2026</p>
+            <div class="divider"></div>
+
+            <p>The safety and wellbeing of every student is our highest priority. Lumen Tuition is committed to providing a safe, respectful, and professional environment for all learners, particularly children and young people.</p>
+
+            <h3>Our commitment</h3>
+            <ul class="body-list">
+              <li>All tutors undergo a current Working With Children Check (WWCC) prior to tutoring</li>
+              <li>Sessions are conducted online, providing a transparent and safe environment</li>
+              <li>Parents and guardians are encouraged to be present or nearby during sessions with younger students</li>
+              <li>All tutors agree to our Code of Conduct, which sets out expected professional standards</li>
+            </ul>
+
+            <h3>Reporting concerns</h3>
+            <p>If you have any concern about the safety or welfare of a student — or about the conduct of a tutor — please contact us immediately at hello@lumenuition.com.au. All reports are treated confidentially and investigated promptly.</p>
+
+            <h3>Online session safety</h3>
+            <p>Tutoring sessions take place via secure video platforms. We do not permit sessions to be recorded without the explicit written consent of all parties. Tutors are not permitted to communicate with students outside of the agreed platform.</p>
+
+            <h3>Code of conduct</h3>
+            <p>All tutors are required to maintain professional boundaries at all times, treat students with respect and patience, and report any concerns about a student's wellbeing to Lumen Tuition management without delay.</p>
+          </section>
+
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2026 Lumen Tuition. All rights reserved.</p>
+        <p>Registered in Australia</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

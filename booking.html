@@ -128,8 +128,9 @@
     .times-card h4 { margin-bottom: 18px; }
     .times-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .tslot { padding: 11px 8px; border-radius: var(--r-sm); border: 2px solid var(--cream-alt); background: var(--white); font-family: 'Raleway', sans-serif; font-size: .82rem; font-weight: 600; text-align: center; cursor: pointer; transition: all .15s; }
-    .tslot:hover:not(.booked) { border-color: var(--navy); background: var(--cream-alt); }
+    .tslot:hover:not(.booked):not(.covered) { border-color: var(--navy); background: var(--cream-alt); }
     .tslot.selected { background: var(--navy); color: var(--gold); border-color: var(--navy); }
+    .tslot.covered { background: rgba(13,27,82,.07); border-color: rgba(13,27,82,.15); color: var(--navy); opacity: .55; cursor: default; }
     .tslot.booked { opacity: .28; cursor: default; text-decoration: line-through; }
     .t-placeholder { grid-column: 1/-1; text-align: center; padding: 36px 16px; color: var(--text-lt); font-size: .88rem; }
 
@@ -479,7 +480,7 @@
 
 <script>
 const TUTORS = [
-  { id:1, ini:'GB', name:'Giles Buchanan',
+  { id:1, ini:'GB', name:'Giles Buchanan', photo:'brand_assets/giles.jpg', photoPos:'50% 30%',
     subjects:['Mathematical Methods','Chemistry','Physics','General English','General Mathematics','Economics'],
     subjectsQCAA:['Mathematical Methods','Chemistry','Physics','English','Economics'],
     subjectsGeneral:['Advanced Mathematics','General Mathematics','General English','General Sciences','Economics'],
@@ -488,30 +489,30 @@ const TUTORS = [
     subjects:['Specialist Mathematics','Physics','Mathematical Methods','Chemistry','Biology','General Sciences'],
     subjectsQCAA:['Specialist Mathematics','Physics','Mathematical Methods','Chemistry','Biology'],
     subjectsGeneral:['Advanced Mathematics','General Mathematics','General English','General Sciences'],
-    levels:['General','QCAA'], rating:4.8, reviews:32, price:50, days:[1,2,3,4,5,6,7], bio:'Science specialist with a first-class degree in Biochemistry. Makes complex concepts accessible and engaging for every student.' },
+    levels:['General','QCAA'], rating:4.8, reviews:32, price:80, days:[1,2,3,4,5,6,7], bio:'Science specialist with a first-class degree in Biochemistry. Makes complex concepts accessible and engaging for every student.' },
   { id:3, ini:'AA', name:'Ari Atzeni',
     subjects:['Mathematical Methods','Physics','General English','Engineering','Economics'],
     subjectsQCAA:['Mathematical Methods','Physics','English','Engineering','Economics'],
     subjectsGeneral:['Advanced Mathematics','General Mathematics','General English','General Sciences','Economics'],
     levels:['General','QCAA'], rating:5.0, reviews:28, price:50, days:[1,2,3,4,5,6,7], bio:'Expert in essay technique, textual analysis and exam preparation across both General and QCAA English.' },
-  { id:4, ini:'RP', name:'Maya Markovich',
-    subjects:['Literature','Mathematical Methods','Modern History','French','Economics','Legal Studies','General Mathematics','History'],
-    subjectsQCAA:['Literature','Mathematical Methods','Modern History','French','Economics','Legal Studies'],
+  { id:4, ini:'RP', name:'Maya Markovich', photo:'brand_assets/maya.jpg', photoPos:'54% 44%',
+    subjects:['Literature','Modern History','French','Economics','Legal Studies','General Mathematics','History'],
+    subjectsQCAA:['Literature','Modern History','French','Economics','Legal Studies'],
     subjectsGeneral:['General Mathematics','History','French','Economics','Legal Studies'],
-    levels:['General','QCAA'], rating:4.9, reviews:21, price:50, days:[1,2,3,4,5,6,7], bio:'Humanities specialist with a strong track record across QCAA essay-based subjects and General Mathematics.' },
+    levels:['General','QCAA'], rating:4.9, reviews:21, price:60, days:[1,2,3,4,5,6,7], bio:'Humanities specialist with a strong track record across QCAA essay-based subjects and General Mathematics.' },
   { id:5, ini:'OB', name:'Dylan Nash',
     subjects:['Specialist Mathematics','Physics','Mathematical Methods','Engineering','Chemistry','Advanced Mathematics','General Mathematics'],
     subjectsQCAA:['Specialist Mathematics','Physics','Mathematical Methods','Engineering','Chemistry'],
     subjectsGeneral:['Advanced Mathematics','General Mathematics','General English','General Sciences'],
     levels:['General','QCAA'], rating:4.7, reviews:19, price:50, days:[1,2,3,4,5,6,7], bio:'Engineering and Mathematics tutor with a focus on building deep conceptual understanding across Years 7–12.' },
-  { id:6, ini:'AN', name:'Aryan Narayanan',
+  { id:6, ini:'AN', name:'Aryan Narayanan', photo:'brand_assets/aryan.jpg', photoPos:'45% 36%',
     subjects:['Digital Solutions','Economics','Engineering','Physics','General Mathematics','General Sciences'],
     subjectsQCAA:['Digital Solutions','Economics','Engineering','Physics'],
     subjectsGeneral:['General Mathematics','General Sciences','Economics'],
-    levels:['General','QCAA'], rating:4.8, reviews:35, price:55, days:[1,2,3,4,5,6,7], bio:'QCAA specialist across Engineering, Physics, Economics, and Digital Solutions. Graduated from St Peter\'s Lutheran College in 2025 with a raw ATAR of 97.9.' },
+    levels:['General','QCAA'], rating:4.8, reviews:35, price:50, days:[1,2,3,4,5,6,7], bio:'QCAA specialist across Engineering, Physics, Economics, and Digital Solutions. Graduated from St Peter\'s Lutheran College in 2025 with a raw ATAR of 97.9.' },
 ];
 
-const SLOTS = ['8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM','7:00 PM'];
+const SLOTS = ['8:00 AM','8:30 AM','9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','12:00 PM','12:30 PM','1:00 PM','1:30 PM','2:00 PM','2:30 PM','3:00 PM','3:30 PM','4:00 PM','4:30 PM','5:00 PM','5:30 PM','6:00 PM','6:30 PM','7:00 PM'];
 
 const SERVICE_NAMES = { '1on1': '1-on-1 Session', 'group': 'Group Session', 'marking': 'Assignment Marking' };
 
@@ -613,10 +614,9 @@ function buildTutorGrid() {
   document.getElementById('tutorGrid').innerHTML = TUTORS.map(t => `
     <div class="tcard" id="tc${t.id}" onclick="toggleTutor(${t.id})">
       <div class="chk">✓</div>
-      <div class="tavatar">${t.ini}</div>
+      <div class="tavatar">${t.photo ? `<img src="${t.photo}" alt="${t.name}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;object-position:${t.photoPos||'center'};">` : t.ini}</div>
       <h3>${t.name}</h3>
       <div class="tprice">${S.service==='group'&&S.groupSize ? `$${groupPrice(t.price)} / hr <span style="opacity:.6;font-size:.75em">(${S.groupSize} students)</span>` : `$${t.price} / hour`}</div>
-      <div class="trating"><span class="stars">${'★'.repeat(Math.floor(t.rating))}</span><span>${t.rating} (${t.reviews})</span></div>
       <div class="tsubs">${(S.level==='QCAA' ? t.subjectsQCAA : S.level==='General' ? t.subjectsGeneral : t.subjects).map(s=>`<span class="stag">${s}</span>`).join('')}</div>
       <p class="tbio">${t.bio}</p>
     </div>`).join('');
@@ -643,7 +643,7 @@ function renderTabs() {
   if (S.sel.length <= 1) { wrap.innerHTML=''; return; }
   wrap.innerHTML = S.sel.map(id => {
     const t = tutor(id);
-    return `<div class="ttab ${id===S.active?'active':''}" onclick="setActive(${id})"><div class="tab-av">${t.ini}</div>${t.name.split(' ')[0]} ${t.name.split(' ').slice(-1)}</div>`;
+    return `<div class="ttab ${id===S.active?'active':''}" onclick="setActive(${id})"><div class="tab-av">${t.photo ? `<img src="${t.photo}" alt="${t.name}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;object-position:${t.photoPos||'center'};">` : t.ini}</div>${t.name.split(' ')[0]} ${t.name.split(' ').slice(-1)}</div>`;
   }).join('');
 }
 
@@ -698,10 +698,21 @@ function renderTimes() {
   const grid = document.getElementById('timesGrid');
   if (!S.date) { grid.innerHTML='<div class="t-placeholder">Select a date to see available times</div>'; return; }
   const booked = fakeBooked(S.active, S.date);
+  // Work out which slots are covered by the selected session duration
+  const coveredSlots = new Set();
+  if (S.time) {
+    const startIdx = SLOTS.indexOf(S.time);
+    const halfHours = Math.round(S.duration * 2); // number of 30-min blocks
+    for (let i = 1; i < halfHours; i++) {
+      if (startIdx + i < SLOTS.length) coveredSlots.add(SLOTS[startIdx + i]);
+    }
+  }
   grid.innerHTML = SLOTS.map(slot => {
     const b = booked.includes(slot);
-    const sel = slot===S.time;
-    return `<div class="tslot${b?' booked':''}${sel?' selected':''}" ${!b?`onclick="pickTime('${slot}')"`:''}>${slot}</div>`;
+    const sel = slot === S.time;
+    const cov = !sel && coveredSlots.has(slot);
+    const cls = [b?'booked':'', sel?'selected':'', cov?'covered':''].filter(Boolean).join(' ');
+    return `<div class="tslot${cls?' '+cls:''}" ${!b&&!cov?`onclick="pickTime('${slot}')"`:''}>${slot}</div>`;
   }).join('');
 }
 

@@ -657,6 +657,8 @@
       cursor: pointer;
       outline: 2px solid transparent;
       outline-offset: -2px;
+      display: flex;
+      flex-direction: column;
     }
     .tutor-card:hover {
       transform: translateY(-8px) scale(1.01);
@@ -765,6 +767,9 @@
     }
     .tutor-card-body {
       padding: 24px 26px 28px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
     .tutor-card-header {
       display: flex;
@@ -807,6 +812,8 @@
       flex-wrap: wrap;
       gap: 6px;
       margin-bottom: 14px;
+      min-height: 88px;
+      align-content: flex-start;
     }
     .tutor-subj-tag {
       font-family: 'Raleway', sans-serif;
@@ -826,6 +833,7 @@
       border-top: 1px solid rgba(13,27,82,.07);
       padding-top: 14px;
       min-height: 80px;
+      flex: 1;
     }
     .tutor-card-desc em {
       color: var(--text-light);
@@ -1095,7 +1103,7 @@
     /* ── Tutor modal ── */
     .tutor-modal-overlay{position:fixed;inset:0;z-index:600;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(8,17,58,.78);backdrop-filter:blur(7px);opacity:0;pointer-events:none;transition:opacity .25s ease;}
     .tutor-modal-overlay.open{opacity:1;pointer-events:all;}
-    .tutor-modal{position:relative;background:var(--navy-deep);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-lg);width:100%;max-width:1140px;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 40px 100px rgba(0,0,0,.65);transform:translateY(18px) scale(.97);transition:transform .3s cubic-bezier(.34,1.56,.64,1);overflow:hidden;}
+    .tutor-modal{position:relative;background:var(--navy-deep);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-lg);width:100%;max-width:1140px;height:90vh;display:flex;flex-direction:column;box-shadow:0 40px 100px rgba(0,0,0,.65);transform:translateY(18px) scale(.97);transition:transform .3s cubic-bezier(.34,1.56,.64,1);overflow:hidden;}
     .tutor-modal-overlay.open .tutor-modal{transform:translateY(0) scale(1);}
     .tutor-modal-close{position:absolute;top:16px;right:18px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);transition:background .2s,color .2s;z-index:10;}
     .tutor-modal-close:hover{background:rgba(255,255,255,.15);color:var(--white);}
@@ -1112,15 +1120,15 @@
     .tutor-modal-rate-pill{display:inline-flex;align-items:center;margin-top:7px;background:rgba(242,201,76,.14);border:1px solid rgba(242,201,76,.28);border-radius:100px;padding:3px 13px;font-family:'Raleway',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.07em;color:var(--gold);}
     .tutor-modal-book{display:inline-flex;align-items:center;gap:6px;background:var(--gold);color:var(--navy-deep);font-family:'Raleway',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.04em;padding:11px 22px;border-radius:100px;text-decoration:none;transition:background .2s,transform .18s;flex-shrink:0;}
     .tutor-modal-book:hover{background:#e8b93e;transform:translateY(-1px);}
-    .tutor-modal-body{display:grid;grid-template-columns:1fr 1fr 1fr;flex:1;}
-    .tutor-modal-col{padding:26px 28px;}
+    .tutor-modal-body{display:grid;grid-template-columns:1fr 1fr 1fr;flex:1;min-height:0;}
+    .tutor-modal-col{padding:26px 34px;overflow-y:auto;}
     .tutor-modal-col-left{border-right:1px solid rgba(255,255,255,.06);}
     .tutor-modal-col-mid{border-right:1px solid rgba(255,255,255,.06);}
     .tutor-modal-section{margin-bottom:22px;}
     .tutor-modal-section:last-child{margin-bottom:0;}
     .tutor-modal-section-label{font-family:'Raleway',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-bottom:10px;}
-    .tutor-modal-bio{font-family:'Lora',serif;font-size:.95rem;color:rgba(255,255,255,.8);line-height:1.78;}
-    .tutor-modal-interest-tags{display:flex;flex-direction:column;gap:4px;}
+    .tutor-modal-bio{font-family:'Lora',serif;font-size:.82rem;color:rgba(255,255,255,.8);line-height:1.72;}
+    .tutor-modal-interest-tags{display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;}
     .tutor-modal-interest-tag{font-family:'Raleway',sans-serif;font-size:.78rem;color:rgba(255,255,255,.65);padding-left:12px;position:relative;}
     .tutor-modal-interest-tag::before{content:'·';position:absolute;left:0;color:var(--gold);}
     .tutor-modal-subj-list{display:flex;flex-direction:column;gap:7px;}
@@ -1279,12 +1287,12 @@
 
             <!-- Tutor avatars on orbit ring radius (290px from compass centre) -->
             <div class="tutor-floaters">
-              <!-- 0°  top        --> <div class="tf" style="top:-83px;  left:207px; --fdur:9s;  --fdelay:-1s;  --fx:-7px; --fy:-12px;"><div class="tf-av">DN</div><div class="tf-name">D. Nash</div></div>
-              <!-- 60° upper-right --> <div class="tf" style="top:62px;   left:458px; --fdur:11s; --fdelay:-5s;  --fx:11px; --fy:-10px;"><div class="tf-av">TH</div><div class="tf-name">T. Hewett</div></div>
+              <!-- 0°  top        --> <div class="tf" style="top:-83px;  left:207px; --fdur:9s;  --fdelay:-1s;  --fx:-7px; --fy:-12px;"><div class="tf-av" style="padding:0;overflow:hidden;"><img src="brand_assets/dylan.jpg" alt="Dylan Nash" style="width:100%;height:100%;object-fit:cover;object-position:45% 35%;transform:scale(1.4);transform-origin:45% 35%;"></div><div class="tf-name">D. Nash</div></div>
+              <!-- 60° upper-right --> <div class="tf" style="top:62px;   left:458px; --fdur:11s; --fdelay:-5s;  --fx:11px; --fy:-10px;"><div class="tf-av" style="padding:0;overflow:hidden;"><img src="brand_assets/tyler.jpg" alt="Tyler Hewett" style="width:100%;height:100%;object-fit:cover;object-position:35% 20%;transform:scale(1.45);transform-origin:35% 20%;"></div><div class="tf-name">T. Hewett</div></div>
               <!-- 120° lower-right --> <div class="tf" style="top:352px;  left:458px; --fdur:8s;  --fdelay:-3s;  --fx:10px; --fy:12px;"> <div class="tf-av">AA</div><div class="tf-name">A. Atzeni</div></div>
-              <!-- 180° bottom     --> <div class="tf" style="top:497px;  left:207px; --fdur:10s; --fdelay:-7s;  --fx:-6px; --fy:14px;"> <div class="tf-av">MM</div><div class="tf-name">M. Markovich</div></div>
-              <!-- 240° lower-left --> <div class="tf" style="top:352px;  left:-44px; --fdur:12s; --fdelay:-2s;  --fx:-11px;--fy:12px;"><div class="tf-av">AN</div><div class="tf-name">A. Narayanan</div></div>
-              <!-- 300° upper-left --> <div class="tf" style="top:62px;   left:-44px; --fdur:7s;  --fdelay:-9s;  --fx:-10px;--fy:-12px;"><div class="tf-av">GB</div><div class="tf-name"> G. Buchanan</div></div>
+              <!-- 180° bottom     --> <div class="tf" style="top:497px;  left:207px; --fdur:10s; --fdelay:-7s;  --fx:-6px; --fy:14px;"> <div class="tf-av" style="padding:0;overflow:hidden;"><img src="brand_assets/maya.jpg" alt="Maya Markovich" style="width:100%;height:100%;object-fit:cover;object-position:54% 44%;"></div><div class="tf-name">M. Markovich</div></div>
+              <!-- 240° lower-left --> <div class="tf" style="top:352px;  left:-44px; --fdur:12s; --fdelay:-2s;  --fx:-11px;--fy:12px;"><div class="tf-av" style="padding:0;overflow:hidden;"><img src="brand_assets/aryan.jpg" alt="Aryan Narayanan" style="width:100%;height:100%;object-fit:cover;object-position:45% 36%;"></div><div class="tf-name">A. Narayanan</div></div>
+              <!-- 300° upper-left --> <div class="tf" style="top:62px;   left:-44px; --fdur:7s;  --fdelay:-9s;  --fx:-10px;--fy:-12px;"><div class="tf-av" style="padding:0;overflow:hidden;"><img src="brand_assets/giles.jpg" alt="Giles Buchanan" style="width:100%;height:100%;object-fit:cover;object-position:50% 30%;"></div><div class="tf-name"> G. Buchanan</div></div>
             </div>
 
           </div>
@@ -1378,7 +1386,7 @@
         <div class="why-content reveal reveal-delay-1">
           <div class="tag">Why Lumen</div>
           <h2>We care. A lot.</h2>
-          <p>As recent high school graduates, we at Lumen understand the stress and pressure that high school can cause, and the importance of a tutor in alleviating that. . We try hard to make sure it doesn't. Every student we work with gets real attention — not a script, not a formula, just someone genuinely invested in helping them get there.</p>
+          <p>As recent high school graduates, we at Lumen understand the stress and pressure that high school can bring, and the importance of a tutor in alleviating that. We aim to not just teach content, but to build the confidence and skills that carry students well beyond the classroom.</p>
 
           <div class="feature-list">
             <div class="feature-item reveal" style="--rd:.1s">
@@ -1391,8 +1399,8 @@
                 </svg>
               </div>
               <div class="feature-text">
-                <h4>Built around you, not a syllabus</h4>
-                <p>We figure out how you actually learn, what's clicking and what isn't, and work from there. No cookie-cutter lesson plans.</p>
+                <h4>Tailored for the student, not the syllabus</h4>
+                <p>In contrast to a fixed "one size fits all" lesson plan, we figure out how you learn and build every session around that.</p>
               </div>
             </div>
             <div class="feature-item reveal" style="--rd:.22s">
@@ -1405,8 +1413,8 @@
                 </svg>
               </div>
               <div class="feature-text">
-                <h4>Tutors who know their stuff</h4>
-                <p>Everyone at Lumen has been where you are. We're not just qualified — we remember what it felt like to find it hard.</p>
+                <h4>Battle-tested tutors</h4>
+                <p>Everyone at Lumen has been where you are, with recent experience and knowledge on how to achieve profound results.</p>
               </div>
             </div>
             <div class="feature-item reveal" style="--rd:.34s">
@@ -1421,8 +1429,8 @@
                 </svg>
               </div>
               <div class="feature-text">
-                <h4>Fits around real life</h4>
-                <p>Afternoons, evenings, weekends — whenever works. And if something comes up, just let us know. We're pretty easy about it.</p>
+                <h4>Flexible, convenient scheduling</h4>
+                <p>We operate around the clock, seven days a week, with an easy and flexible bookings system, and free 24 hour cancellations.</p>
               </div>
             </div>
             <div class="feature-item reveal" style="--rd:.46s">
@@ -1434,8 +1442,8 @@
                 </svg>
               </div>
               <div class="feature-text">
-                <h4>You'll always know how it's going</h4>
-                <p>No vague reassurances. We keep students and parents in the loop so there are no surprises come exam time.</p>
+                <h4>Noticeable progress with satisfying results</h4>
+                <p>Our main focus is improvement, from simply solving a problem you were stuck on, all the way to achieving your ATAR goal.</p>
               </div>
             </div>
           </div>
@@ -1597,12 +1605,7 @@
         <!-- Tutor 1 -->
         <div class="tutor-card reveal" data-tutor="GB">
           <div class="tutor-photo">
-            <!-- Replace src with tutor photo path when available -->
-            <!-- <img src="images/tutor-1.jpg" alt="Tutor name"> -->
-            <div class="tutor-photo-placeholder">
-              <div class="tutor-photo-initials">GB</div>
-              <span>Add photo</span>
-            </div>
+            <img src="brand_assets/giles.jpg" alt="Giles Buchanan" style="object-position:50% 30%;">
             <div class="tutor-photo-overlay"><span class="tutor-photo-overlay-text">View Profile →</span></div>
           </div>
           <div class="tutor-card-body">
@@ -1625,10 +1628,7 @@
         <!-- Tutor 2 -->
         <div class="tutor-card reveal reveal-delay-1" data-tutor="TH">
           <div class="tutor-photo">
-            <div class="tutor-photo-placeholder">
-              <div class="tutor-photo-initials">TH</div>
-              <span>Add photo</span>
-            </div>
+            <img src="brand_assets/tyler.jpg" alt="Tyler Hewett" style="object-position:35% 20%; transform:scale(1.45); transform-origin:35% 20%;">
             <div class="tutor-photo-overlay"><span class="tutor-photo-overlay-text">View Profile →</span></div>
           </div>
           <div class="tutor-card-body">
@@ -1667,8 +1667,8 @@
               <span class="tutor-subj-tag">Mathematical Methods | 95%</span>
               <span class="tutor-subj-tag">Physics | 99%</span>
               <span class="tutor-subj-tag">General English | 97%</span>
-              <span class="tutor-subj-tag">Engineering</span>
-              <span class="tutor-subj-tag">Economics</span>
+              <span class="tutor-subj-tag">Engineering | 92%</span>
+              <span class="tutor-subj-tag">Economics | 93%</span>
             </div>
             <p class="tutor-card-desc"><em>Graduated from St Peter's Lutheran College in 2025, with a raw ATAR of 98.15</em></p>
           </div>
@@ -1677,37 +1677,30 @@
         <!-- Tutor 4 -->
         <div class="tutor-card reveal" data-tutor="RP">
           <div class="tutor-photo">
-            <div class="tutor-photo-placeholder">
-              <div class="tutor-photo-initials">MM</div>
-              <span>Add photo</span>
-            </div>
+            <img src="brand_assets/maya.jpg" alt="Maya Markovich" style="object-position:54% 44%;">
             <div class="tutor-photo-overlay"><span class="tutor-photo-overlay-text">View Profile →</span></div>
           </div>
           <div class="tutor-card-body">
             <div class="tutor-card-header">
               <div class="tutor-card-name">Maya Markovich</div>
-              <span class="tutor-card-rate">$50 / hr</span>
+              <span class="tutor-card-rate">$60 / hr</span>
             </div>
             <div class="tutor-card-role">Subjects | Year 12 Results </div>
             <div class="tutor-card-subjects">
-              <span class="tutor-subj-tag">Literature</span>
-              <span class="tutor-subj-tag">Mathematical Methods</span>
-              <span class="tutor-subj-tag">Modern History</span>
-              <span class="tutor-subj-tag">French</span>
-              <span class="tutor-subj-tag">Economics</span>
-              <span class="tutor-subj-tag">Legal Studies</span>
+              <span class="tutor-subj-tag">Literature | 96%</span>
+              <span class="tutor-subj-tag">Modern History | 100%</span>
+              <span class="tutor-subj-tag">French | 97%</span>
+              <span class="tutor-subj-tag">Economics | 95%</span>
+              <span class="tutor-subj-tag">Legal Studies | 96%</span>
             </div>
-            <p class="tutor-card-desc"><em>Graduated from St Peter's Lutheran College in 2025, with a raw ATAR of 97.5</em></p>
+            <p class="tutor-card-desc"><em>Graduated from St Peter's Lutheran College in 2025, with a raw ATAR of 97.65</em></p>
           </div>
         </div>
 
         <!-- Tutor 5 -->
         <div class="tutor-card reveal reveal-delay-1" data-tutor="OB">
           <div class="tutor-photo">
-            <div class="tutor-photo-placeholder">
-              <div class="tutor-photo-initials">DN</div>
-              <span>Add photo</span>
-            </div>
+            <img src="brand_assets/dylan.jpg" alt="Dylan Nash" style="object-position:45% 38%; transform:scale(1.2); transform-origin:45% 38%;">
             <div class="tutor-photo-overlay"><span class="tutor-photo-overlay-text">View Profile →</span></div>
           </div>
           <div class="tutor-card-body">
@@ -1729,10 +1722,7 @@
         <!-- Tutor 6 -->
         <div class="tutor-card reveal reveal-delay-2" data-tutor="TA">
           <div class="tutor-photo">
-            <div class="tutor-photo-placeholder">
-              <div class="tutor-photo-initials">KL</div>
-              <span>Add photo</span>
-            </div>
+            <img src="brand_assets/aryan.jpg" alt="Aryan Narayanan" style="object-position:45% 36%;">
             <div class="tutor-photo-overlay"><span class="tutor-photo-overlay-text">View Profile →</span></div>
           </div>
           <div class="tutor-card-body">
@@ -1803,17 +1793,17 @@
         <div class="step-card reveal">
           <div class="step-num">01</div>
           <h3>Set up a session</h3>
-          <p>Share your subject, current level, target grade, and any specific gaps. We listen carefully before anything else.</p>
+          <p>Share your preffered learning arrangement, current year level, subject of interest, and any specific information about your learning goals. </p>
         </div>
         <div class="step-card reveal reveal-delay-1">
           <div class="step-num">02</div>
           <h3>Meet your tutor</h3>
-          <p>We pair you with a specialist who fits your learning style. Your free introductory session lets you find your rhythm together.</p>
+          <p>Lumen has tutors suited to a range of learning styles. Find the one that fits, and meet them online or in person for your first session.</p>
         </div>
         <div class="step-card reveal reveal-delay-2">
           <div class="step-num">03</div>
           <h3>Watch the results</h3>
-          <p>Lumen delivers through regular sessions, targeted practice, and constructive feedback, ensuring measurable progress and lasting success.</p>
+          <p>Lumen delivers through regular sessions, targeted practice, and constructive feedback, ensuring visible progress and lasting success.</p>
         </div>
       </div>
     </div>
@@ -1913,7 +1903,7 @@
       <div class="cta-inner reveal">
         <div>
           <h2>Ready to il<span style="color:var(--gold)">lumen</span>ate your potential?</h2>
-          <p>Book an introductory session today, with zero commitments, and free cancellation</p>
+          <p>Book an introductory session today, with zero commitments, and free 24 hour cancellation.</p>
         </div>
         <div class="cta-actions">
           <a href="booking.html" class="btn btn-primary" style="font-size:1.05rem;padding:18px 36px;">Book your first session →</a>
@@ -1952,9 +1942,9 @@
         <div class="footer-col">
           <h4>Company</h4>
           <ul>
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Our tutors</a></li>
-            <li><a href="#">Pricing</a></li>
+            <li><a href="#why">About us</a></li>
+            <li><a href="#team">Our tutors</a></li>
+            <li><a href="booking.html">Bookings</a></li>
             <li><a href="#subjects">Subjects</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
@@ -1962,9 +1952,9 @@
         <div class="footer-col">
           <h4>Legal</h4>
           <ul>
-            <li><a href="#">Privacy policy</a></li>
-            <li><a href="#">Terms of service</a></li>
-            <li><a href="#">Safeguarding</a></li>
+            <li><a href="legal.html#privacy">Privacy policy</a></li>
+            <li><a href="legal.html#terms">Terms of service</a></li>
+            <li><a href="legal.html#safeguarding">Safeguarding</a></li>
           </ul>
         </div>
       </div>
@@ -2263,63 +2253,63 @@
     // ── Tutor modal ──
     const TUTOR_PROFILES = {
       GB: {
-        name: 'Giles Buchanan', rate: 50, color: '#F2C94C', email: 'giles@lumentuition.com.au',
+        name: 'Giles Buchanan', rate: 50, color: '#F2C94C', email: 'giles@lumentuition.com.au', photo: 'brand_assets/giles.jpg', photoPos: '50% 30%',
         quote: 'Giles has an incredible ability to break down complex problems into steps that actually make sense. My Methods grade went from a C to an A in one term.', quoteBy: '— Year 12 student',
-        bio: 'Specialist in QCAA Mathematical Methods and Sciences. Graduated from St Peter\'s Lutheran College in 2025 with a raw ATAR of 98.15, achieving outstanding results across Mathematics, Sciences, and Humanities.',
+        bio: 'Hello, I’m Giles, I graduated from St Peters Lutheran College in 2025 with an ATAR of 98.15. I’m currently on a gap year, studying for the UCAT in hope of studying medicine in the coming year. Over the years, my academics have been an absolute roller coaster ride, going from the “naturally talented” kid to a C standard student, back to where I am today. I completely understand the full spectrum of academic success, and that’s why as a tutor I look to not only teach content and provide assignment help, but create successful learning habits that apply outside of my sessions, and can be utilised at all levels of learning.',
         school: "St Peter's Lutheran College", atar: '98.15', year: '2025',
         subjects: [['Mathematical Methods','94'],['Chemistry','98'],['Physics','99'],['General English','97'],['Economics','85']],
         subjects_taught: ['Mathematical Methods','Chemistry','Physics','General English','Economics','General Sciences','Advanced Mathematics','General Mathematics'],
-        interests: ['Rock Climbing','Chess','Film Photography'],
+        interests: ['Playing basketball','Going to the gym','Making coffee','Anything music related'],
       },
       TH: {
-        name: 'Tyler Hewett', rate: 80, color: '#6EC6F0', email: 'tyler@lumentuition.com.au',
+        name: 'Tyler Hewett', rate: 80, color: '#6EC6F0', email: 'tyler@lumentuition.com.au', photo: 'brand_assets/tyler.jpg', photoPos: '35% 20%',
         quote: 'Tyler made Physics click for me in a way no teacher ever had. His explanations are clear, patient, and always connected to what actually comes up in the exam.', quoteBy: '— Year 12 student',
-        bio: 'Science specialist making complex concepts accessible and engaging for every student. Graduated from St Peter\'s Lutheran College in 2025 with one of the highest ATARs in Queensland at 99.35.',
-        school: "St Peter's Lutheran College", atar: '99.35', year: '2025',
+        bio: 'Hello, I\'m Tyler, a first-year Advanced Finance and Economics student at UQ, and a 2025 graduate of St Peter\'s Lutheran College, where I achieved an ATAR of 99.45. At school, I took mainly sciences and maths not because I was good at them, but because of the curiosity that those subjects evoked from me. As a tutor, I try to achieve a similar result. Every student I work with comes in with a different relationship to these subjects, I tailor my approach to wherever they are, because the right explanation at the right time can completely change how a student sees a subject.',
+        school: "St Peter's Lutheran College", atar: '99.45', year: '2025',
         subjects: [['Specialist Mathematics','95'],['Mathematical Methods','97'],['Physics','99'],['Chemistry','97'],['Biology','99']],
         subjects_taught: ['Specialist Mathematics','Mathematical Methods','Physics','Chemistry','Biology','General Sciences','Advanced Mathematics','General Mathematics'],
         university: { name: 'University of Queensland', detail: 'Bach. of Adv. finance & economics · 1st year' },
-        interests: ['Distance Running','Astrophysics','Jazz Piano'],
+        interests: [' Running','Going to the gym','Investment','Hiking & exploring'],
       },
       AA: {
         name: 'Ari Atzeni', rate: 50, color: '#A78BFA', email: 'ari@lumentuition.com.au',
         quote: 'Ari helped me completely restructure how I approach essay writing. My English mark jumped significantly and I actually enjoy the subject now.', quoteBy: '— Year 11 student',
-        bio: 'Expert in essay technique, textual analysis, and exam preparation across both General and QCAA subjects. Graduated from St Peter\'s Lutheran College in 2025 with a raw ATAR of 98.15.',
+        bio: 'Hello, I\'m Ari, a first-year Advanced Business student at UQ and a 2025 graduate of St Peter\'s Lutheran College, where I achieved an ATAR of 98.15. I plan on entering a degree in Advanced Finance and Economics next year. At school I developed a genuine strength across both analytical and written subjects, achieving results in the high 90s across Physics, General English, Economics, Engineering and Mathematical Methods. Achieving highly across a variety of subjects showed me that confidence in one area can completely transform how you approach another. As a tutor I focus on building that confidence, because once a student starts to believe they can do it, the content becomes a lot easier to work through together.',
         school: "St Peter's Lutheran College", atar: '98.15', year: '2025',
-        subjects: [['Mathematical Methods','95'],['Physics','99'],['General English','97'],['Engineering',null],['Economics',null]],
+        subjects: [['Mathematical Methods','95'],['Physics','99'],['General English','97'],['Engineering',92],['Economics',93]],
         subjects_taught: ['Mathematical Methods','Physics','Engineering','Economics','General English','General Sciences','Advanced Mathematics','General Mathematics'],
         university: { name: 'University of Queensland', detail: 'Bach. of adv. business · 1st year' },
         interests: ['Architecture','Hiking','Graphic Design'],
       },
       RP: {
-        name: 'Maya Markovich', rate: 50, color: '#F9A8D4', email: 'maya@lumentuition.com.au',
+        name: 'Maya Markovich', rate: 60, color: '#F9A8D4', email: 'maya@lumentuition.com.au', photo: 'brand_assets/maya.jpg', photoPos: '54% 44%',
         quote: 'Maya gave me the tools to actually analyse texts independently. Her feedback on my practice essays was more useful than anything I received at school.', quoteBy: '— Year 12 student',
-        bio: 'Humanities specialist with a strong track record across QCAA essay-based subjects and senior mathematics. Graduated from St Peter\'s Lutheran College in 2025 with a raw ATAR of 97.5.',
-        school: "St Peter's Lutheran College", atar: '97.5', year: '2025',
-        subjects: [['Literature',null],['Mathematical Methods',null],['Modern History',null],['French',null],['Economics',null],['Legal Studies',null]],
+        bio: 'Hello, I’m Maya, a first‑year law (honours) student at UQ with a strong academic background and a genuine passion for helping students thrive. Throughout high school, I was Rowing Captain and competed for five years, which taught me discipline, teamwork, and resilience, qualities I bring into my tutoring. I’ve always loved learning, especially languages, and a French exchange cemented my love for travel and global perspectives. With a raw ATAR of 97.65, I excelled across humanities and analytical subjects including French, Literature, Mathematical Methods, Modern History, Economics, and Legal Studies. I began tutoring this year and have already helped my students achieve meaningful improvements in confidence, grades, and study habits. I hope to pursue a career as a human rights lawyer, and I’m planning to move overseas after completing my degree.',
+        school: "St Peter's Lutheran College", atar: '97.65', year: '2025',
+        subjects: [['Literature','96'],['Modern History','100'],['French','97'],['Economics','95'],['Legal Studies','96']],
         subjects_taught: ['Literature','Modern History','French','Economics','Legal Studies','Mathematical Methods','General Mathematics','History','General Economics'],
         university: { name: 'University of Queensland', detail: 'Bach. of Laws · 1st year' },
-        interests: ['Contemporary Dance','Travel Writing','Tennis'],
+        interests: ['Reading','Traveling','Excersising','Learning new languages'],
       },
       OB: {
-        name: 'Dylan Nash', rate: 50, color: '#6EE7B7', email: 'dylan@lumentuition.com.au',
+        name: 'Dylan Nash', rate: 50, color: '#6EE7B7', email: 'dylan@lumentuition.com.au', photo: 'brand_assets/dylan.jpg', photoPos: '45% 35%',
         quote: 'Dylan has a real knack for spotting exactly where your understanding breaks down. He fixed gaps in my Specialist Maths knowledge I didn\'t even know I had.', quoteBy: '— Year 12 student',
-        bio: 'Engineering and Mathematics tutor with a focus on building deep conceptual understanding across Years 7–12. Graduated from St Peter\'s Lutheran College in 2025 with a raw ATAR of 98.2.',
+        bio: 'Hello, I\'m Dylan, a first-year Engineering student at UQ and a 2025 graduate of St Peter\'s Lutheran College, where I achieved an ATAR of 98.2. Throughout high school I found a real passion for the way maths and science build on each other, and I worked hard to develop a deep understanding across Specialist Mathematics, Mathematical Methods, Physics and Engineering. As a tutor, one thing I\'ve always been good at is spotting exactly where a student\'s understanding starts to slip, often before they even realise it themselves. Once you find that gap and fill it properly, everything else tends to click into place pretty quickly. I\'ve already seen that happen with students I work with, and honestly that moment is what makes tutoring so worthwhile for me.',
         school: "St Peter's Lutheran College", atar: '98.2', year: '2025',
         subjects: [['Specialist Mathematics','94'],['Mathematical Methods','95'],['Physics','97'],['Engineering','95']],
         subjects_taught: ['Specialist Mathematics','Mathematical Methods','Physics','Engineering','General Sciences','Advanced Mathematics','General Mathematics','General English'],
         university: { name: 'University of Queensland', detail: 'Bach. of Engineering · 1st year' },
-        interests: ['Surfing','Robotics','Acoustic Guitar'],
+        interests: ['Playing cricket','Going to the gym','Chess','Watching youtube'],
       },
       TA: {
-        name: 'Aryan Narayanan', rate: 55, color: '#FCA5A5', email: 'aryan@lumentuition.com.au',
+        name: 'Aryan Narayanan', rate: 55, color: '#FCA5A5', email: 'aryan@lumentuition.com.au', photo: 'brand_assets/aryan.jpg', photoPos: '50% 40%',
         quote: 'Aryan is incredibly patient and thorough. He explained Biology concepts in a way that genuinely stuck, and my confidence going into exams completely changed.', quoteBy: '— Year 11 student',
-        bio: 'QCAA specialist across Engineering, Physics, Economics, and Digital Solutions. Graduated from St Peter\'s Lutheran College in 2025 with a raw ATAR of 97.9.',
+        bio: 'Hello, I’m Aryan, a 2025 graduate of St Peter’s Lutheran College and currently studying a dual degree in Engineering and Economics at the University of Queensland. I graduated with an ATAR of 98 and offer tutoring in Engineering, Economics and Digital Solutions. I have over six months of tutoring experience and currently tutor at multiple institutes, giving me experience working with different students, learning styles and levels of confidence. As a tutor, I focus on making difficult concepts clear, practical and easy to apply, whether that involves breaking down theory, improving assignment structure, or preparing for exams. My goal is to help students build confidence, strengthen their problem-solving skills and approach assessments with greater clarity and direction.',
         school: "St Peter's Lutheran College", atar: '97.9', year: '2025',
         subjects: [['Digital Solutions','97'],['Economics','93'],['Engineering','94'],['Physics','92']],
         subjects_taught: ['Digital Solutions','Economics','Engineering','Physics','General Mathematics','General Sciences'],
         university: { name: 'University of Queensland', detail: 'Bach. of Engineering · 1st year' },
-        interests: ['Scuba Diving','Cycling','Botanical Illustration'],
+        interests: ['Playing tennis and football','Travelling','Going to the gym','Binging netflix'],
       },
     };
 
@@ -2341,8 +2331,13 @@
       if (!p) return;
       const overlay = document.getElementById('tutorModal');
       const av = overlay.querySelector('#tmAvatar');
-      av.textContent = ini;
-      av.style.background = p.color;
+      if (p.photo) {
+        av.innerHTML = `<img src="${p.photo}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;object-position:${p.photoPos||'center'};">`;
+        av.style.background = 'transparent';
+      } else {
+        av.textContent = ini;
+        av.style.background = p.color;
+      }
       overlay.querySelector('#tmName').textContent = p.name;
       overlay.querySelector('#tmContact').textContent = `Contact: ${p.email}`;
       overlay.querySelector('#tmQuote').textContent = `"${p.quote}"`;
@@ -2356,7 +2351,7 @@
         edu.innerHTML = `<div class="tutor-modal-edu-detail" style="color:rgba(255,255,255,.4)">Details coming soon</div>`;
       }
       const uni = overlay.querySelector('#tmUni');
-      uni.innerHTML = `<div class="tutor-modal-edu-name">${p.university.name}</div><div class="tutor-modal-edu-detail">${p.university.detail}</div>`;
+      uni.innerHTML = p.university ? `<div class="tutor-modal-edu-name">${p.university.name}</div><div class="tutor-modal-edu-detail">${p.university.detail}</div>` : '';
       overlay.querySelector('#tmInterests').innerHTML = p.interests.map(i => `<span class="tutor-modal-interest-tag">${i}</span>`).join('');
       overlay.querySelector('#tmSubjectsTaught').innerHTML = renderSubjTaught(p.subjects_taught, 'qcaa');
       overlay.querySelectorAll('.tutor-subj-filter-btn').forEach(btn => {
@@ -2387,6 +2382,16 @@
       const card = e.target.closest('.tutor-card');
       if (card && card.dataset.tutor) openTutorModal(card.dataset.tutor);
     });
+
+    function equalizeCardHeights() {
+      const cards = document.querySelectorAll('.tutor-card');
+      cards.forEach(c => c.style.minHeight = '');
+      let max = 0;
+      cards.forEach(c => { max = Math.max(max, c.offsetHeight); });
+      cards.forEach(c => c.style.minHeight = max + 'px');
+    }
+    equalizeCardHeights();
+    window.addEventListener('resize', equalizeCardHeights);
   </script>
 
   <!-- Subject modal -->
