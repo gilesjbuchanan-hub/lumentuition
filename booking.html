@@ -837,7 +837,7 @@ function confirmBooking() {
   const hourlyPrice = isGroup ? groupPrice(t.price) : t.price;
   const sessionPrice = isMarking ? 40 : Math.round(hourlyPrice * hrs);
 
-  emailjs.send('service_weeqc92', 'template_49nh3cb', {
+  const emailParams = {
     tutor_name:    t.name,
     tutor_email:   t.email,
     student_name:  first + ' ' + last,
@@ -851,7 +851,9 @@ function confirmBooking() {
     total:         '$' + sessionPrice + '.00',
     reference:     ref,
     notes:         notes || 'None'
-  });
+  };
+  emailjs.send('service_weeqc92', 'template_49nh3cb', emailParams);
+  emailjs.send('service_weeqc92', 'template_42tfozc', emailParams);
 
   const successMsg = isMarking
     ? `Your assignment has been submitted to <strong>${t.name}</strong> for marking. They'll be in touch shortly.`
