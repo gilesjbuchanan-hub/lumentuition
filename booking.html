@@ -487,7 +487,7 @@ const TUTORS = [
     subjectsQCAA:['Mathematical Methods','Chemistry','Physics','English','Economics'],
     subjectsGeneral:['Advanced Mathematics','General Mathematics','General English','General Sciences','Economics'],
     levels:['General','QCAA'], rating:4.9, reviews:47, price:50, days:[1,2,3,4,5,6,7], bio:'Specialist in QCAA Mathematical Methods and Sciences with 8 years of tutoring experience across Years 7–12.' },
-  { id:2, ini:'TH', name:'Tyler Hewett', email:'tyler@lumentuition.com.au', photo:'brand_assets/tyler.jpg', photoPos:'35% 20%',
+  { id:2, ini:'TH', name:'Tyler Hewett', email:'tyler@lumentuition.com.au', photo:'brand_assets/tyler.jpg', photoPos:'35% 20%', photoScale:1.45,
     subjects:['Specialist Mathematics','Physics','Mathematical Methods','Chemistry','Biology','General Sciences'],
     subjectsQCAA:['Specialist Mathematics','Physics','Mathematical Methods','Chemistry','Biology'],
     subjectsGeneral:['Advanced Mathematics','General Mathematics','General English','General Sciences'],
@@ -663,7 +663,7 @@ function buildTutorGrid() {
   document.getElementById('tutorGrid').innerHTML = TUTORS.map(t => `
     <div class="tcard" id="tc${t.id}" onclick="toggleTutor(${t.id})">
       <div class="chk">✓</div>
-      <div class="tavatar">${t.photo ? `<img src="${t.photo}" alt="${t.name}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;object-position:${t.photoPos||'center'};">` : t.ini}</div>
+      <div class="tavatar">${t.photo ? `<img src="${t.photo}" alt="${t.name}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;object-position:${t.photoPos||'center'};transform:scale(${t.photoScale||1});transform-origin:${t.photoPos||'center'};">` : t.ini}</div>
       <h3>${t.name}</h3>
       <div class="tprice">${S.service==='group'&&S.groupSize ? `$${groupPrice(t.price)} / hr <span style="opacity:.6;font-size:.75em">(${S.groupSize} students)</span>` : `$${t.price} / hour`}</div>
       <div class="tsubs">${(S.level==='QCAA' ? t.subjectsQCAA : S.level==='General' ? t.subjectsGeneral : t.subjects).map(s=>`<span class="stag">${s}</span>`).join('')}</div>
@@ -693,7 +693,7 @@ function renderTabs() {
   if (S.sel.length <= 1) { wrap.innerHTML=''; return; }
   wrap.innerHTML = S.sel.map(id => {
     const t = tutor(id);
-    return `<div class="ttab ${id===S.active?'active':''}" onclick="setActive(${id})"><div class="tab-av">${t.photo ? `<img src="${t.photo}" alt="${t.name}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;object-position:${t.photoPos||'center'};">` : t.ini}</div>${t.name.split(' ')[0]} ${t.name.split(' ').slice(-1)}</div>`;
+    return `<div class="ttab ${id===S.active?'active':''}" onclick="setActive(${id})"><div class="tab-av">${t.photo ? `<img src="${t.photo}" alt="${t.name}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;object-position:${t.photoPos||'center'};transform:scale(${t.photoScale||1});transform-origin:${t.photoPos||'center'};">` : t.ini}</div>${t.name.split(' ')[0]} ${t.name.split(' ').slice(-1)}</div>`;
   }).join('');
 }
 
