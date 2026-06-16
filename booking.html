@@ -250,6 +250,8 @@
       .step-lbl { display: none; }
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init('WNNPf0EhC0GNF2ogF');</script>
 </head>
 <body>
 
@@ -480,32 +482,32 @@
 
 <script>
 const TUTORS = [
-  { id:1, ini:'GB', name:'Giles Buchanan', photo:'brand_assets/giles.jpg', photoPos:'50% 30%',
+  { id:1, ini:'GB', name:'Giles Buchanan', email:'gilesjbuchanan@icloud.com', photo:'brand_assets/giles.jpg', photoPos:'50% 30%',
     subjects:['Mathematical Methods','Chemistry','Physics','General English','General Mathematics','Economics'],
     subjectsQCAA:['Mathematical Methods','Chemistry','Physics','English','Economics'],
     subjectsGeneral:['Advanced Mathematics','General Mathematics','General English','General Sciences','Economics'],
     levels:['General','QCAA'], rating:4.9, reviews:47, price:50, days:[1,2,3,4,5,6,7], bio:'Specialist in QCAA Mathematical Methods and Sciences with 8 years of tutoring experience across Years 7–12.' },
-  { id:2, ini:'TH', name:'Tyler Hewett',
+  { id:2, ini:'TH', name:'Tyler Hewett', email:'tyler@lumentuition.com.au',
     subjects:['Specialist Mathematics','Physics','Mathematical Methods','Chemistry','Biology','General Sciences'],
     subjectsQCAA:['Specialist Mathematics','Physics','Mathematical Methods','Chemistry','Biology'],
     subjectsGeneral:['Advanced Mathematics','General Mathematics','General English','General Sciences'],
     levels:['General','QCAA'], rating:4.8, reviews:32, price:80, days:[1,2,3,4,5,6,7], bio:'Science specialist with a first-class degree in Biochemistry. Makes complex concepts accessible and engaging for every student.' },
-  { id:3, ini:'AA', name:'Ari Atzeni',
+  { id:3, ini:'AA', name:'Ari Atzeni', email:'ari@lumentuition.com.au',
     subjects:['Mathematical Methods','Physics','General English','Engineering','Economics'],
     subjectsQCAA:['Mathematical Methods','Physics','English','Engineering','Economics'],
     subjectsGeneral:['Advanced Mathematics','General Mathematics','General English','General Sciences','Economics'],
     levels:['General','QCAA'], rating:5.0, reviews:28, price:50, days:[1,2,3,4,5,6,7], bio:'Expert in essay technique, textual analysis and exam preparation across both General and QCAA English.' },
-  { id:4, ini:'RP', name:'Maya Markovich', photo:'brand_assets/maya.jpg', photoPos:'54% 44%',
+  { id:4, ini:'RP', name:'Maya Markovich', email:'maya@lumentuition.com.au', photo:'brand_assets/maya.jpg', photoPos:'54% 44%',
     subjects:['Literature','Modern History','French','Economics','Legal Studies','General Mathematics','History'],
     subjectsQCAA:['Literature','Modern History','French','Economics','Legal Studies'],
     subjectsGeneral:['General Mathematics','History','French','Economics','Legal Studies'],
     levels:['General','QCAA'], rating:4.9, reviews:21, price:60, days:[1,2,3,4,5,6,7], bio:'Humanities specialist with a strong track record across QCAA essay-based subjects and General Mathematics.' },
-  { id:5, ini:'OB', name:'Dylan Nash',
+  { id:5, ini:'OB', name:'Dylan Nash', email:'dylan@lumentuition.com.au',
     subjects:['Specialist Mathematics','Physics','Mathematical Methods','Engineering','Chemistry','Advanced Mathematics','General Mathematics'],
     subjectsQCAA:['Specialist Mathematics','Physics','Mathematical Methods','Engineering','Chemistry'],
     subjectsGeneral:['Advanced Mathematics','General Mathematics','General English','General Sciences'],
     levels:['General','QCAA'], rating:4.7, reviews:19, price:50, days:[1,2,3,4,5,6,7], bio:'Engineering and Mathematics tutor with a focus on building deep conceptual understanding across Years 7–12.' },
-  { id:6, ini:'AN', name:'Aryan Narayanan', photo:'brand_assets/aryan.jpg', photoPos:'45% 36%',
+  { id:6, ini:'AN', name:'Aryan Narayanan', email:'aryan@lumentuition.com.au', photo:'brand_assets/aryan.jpg', photoPos:'45% 36%',
     subjects:['Digital Solutions','Economics','Engineering','Physics','General Mathematics','General Sciences'],
     subjectsQCAA:['Digital Solutions','Economics','Engineering','Physics'],
     subjectsGeneral:['General Mathematics','General Sciences','Economics'],
@@ -823,7 +825,32 @@ function confirmBooking() {
   const ref = 'LT-' + Math.random().toString(36).substr(2,6).toUpperCase();
   const t = tutor(S.active);
   const email = document.getElementById('fEmail').value.trim();
+  const first = document.getElementById('fFirst').value.trim();
+  const last = document.getElementById('fLast').value.trim();
+  const subj = document.getElementById('fSubject') ? document.getElementById('fSubject').value : '';
+  const year = document.getElementById('fYear') ? document.getElementById('fYear').value : '';
   const isMarking = S.service === 'marking';
+  const isGroup = S.service === 'group' && S.groupSize;
+  const hrs = S.duration;
+  const durStr = hrs === 1 ? '1 hour' : hrs + ' hours';
+  const hourlyPrice = isGroup ? groupPrice(t.price) : t.price;
+  const sessionPrice = isMarking ? 40 : Math.round(hourlyPrice * hrs);
+
+  emailjs.send('service_weeqc92', 'template_49nh3cb', {
+    tutor_name:    t.name,
+    tutor_email:   t.email,
+    student_name:  first + ' ' + last,
+    student_email: email,
+    subject:       subj || 'Not specified',
+    year_level:    year || 'Not specified',
+    session_type:  SERVICE_NAMES[S.service] + (isGroup ? ' · ' + S.groupSize + ' students' : ''),
+    date:          isMarking ? 'N/A' : fmtDate(S.date),
+    time:          isMarking ? 'N/A' : (S.time || 'N/A'),
+    duration:      isMarking ? 'N/A' : durStr,
+    total:         '$' + sessionPrice + '.00',
+    reference:     ref
+  });
+
   const successMsg = isMarking
     ? `Your assignment has been submitted to <strong>${t.name}</strong> for marking. They'll be in touch shortly.`
     : `Your session with <strong>${t.name}</strong> on <strong>${fmtDate(S.date)}</strong> at <strong>${S.time}</strong> is confirmed.`;
