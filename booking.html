@@ -829,6 +829,7 @@ function confirmBooking() {
   const last = document.getElementById('fLast').value.trim();
   const subj = document.getElementById('fSubject') ? document.getElementById('fSubject').value : '';
   const year = document.getElementById('fYear') ? document.getElementById('fYear').value : '';
+  const notes = document.getElementById('fNotes').value.trim();
   const isMarking = S.service === 'marking';
   const isGroup = S.service === 'group' && S.groupSize;
   const hrs = S.duration;
@@ -848,7 +849,8 @@ function confirmBooking() {
     time:          isMarking ? 'N/A' : (S.time || 'N/A'),
     duration:      isMarking ? 'N/A' : durStr,
     total:         '$' + sessionPrice + '.00',
-    reference:     ref
+    reference:     ref,
+    notes:         notes || 'None'
   });
 
   const successMsg = isMarking
