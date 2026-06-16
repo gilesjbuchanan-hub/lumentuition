@@ -520,9 +520,56 @@ const SERVICE_NAMES = { '1on1': '1-on-1 Session', 'group': 'Group Session', 'mar
 
 const S = { step:1, service:null, level:null, groupSize:null, duration:1, sel:[], active:null, cy:new Date().getFullYear(), cm:new Date().getMonth(), date:null, time:null, stype:'online' };
 
+const BOOKED_CACHE   = {};
+const FETCHED_TUTORS = new Set();
+
 function tutor(id) { return TUTORS.find(t => t.id === id); }
-function fakeBooked() { return []; }
 function fmtDate(d) { return d.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long',year:'numeric'}); }
+
+function dateKey(date) {
+  return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+}
+
+function getBooked(tutorId, date) {
+  if (!tutorId || !date) return [];
+  return BOOKED_CACHE[`${tutorId}_${dateKey(date)}`] || [];
+}
+
+async function fetchTutorBookings(tutorId) {
+  if (FETCHED_TUTORS.has(tutorId)) return;
+  FETCHED_TUTORS.add(tutorId);
+  try {
+    const res = await fetch(`/api/bookings?tutorId=${tutorId}`);
+    const data = await res.json();
+    (data.records || []).forEach(r => {
+      const key = `${tutorId}_${r.fields.date}`;
+      if (!BOOKED_CACHE[key]) BOOKED_CACHE[key] = [];
+      if (r.fields.time) BOOKED_CACHE[key].push(r.fields.time);
+    });
+    renderTimes();
+  } catch(e) { console.error('Airtable fetch error', e); }
+}
+
+async function saveBookingSlots(tutorId, date, startTime, duration, ref, studentName, studentEmail, subject) {
+  const dk = dateKey(date);
+  const startIdx = SLOTS.indexOf(startTime);
+  const blocks = Math.round(duration * 2);
+  const records = [];
+  for (let i = 0; i < blocks; i++) {
+    const slot = SLOTS[startIdx + i];
+    if (!slot) break;
+    records.push({ fields: { tutor_id: tutorId, date: dk, time: slot, reference: ref, student_name: studentName, student_email: studentEmail, subject: subject } });
+    const key = `${tutorId}_${dk}`;
+    if (!BOOKED_CACHE[key]) BOOKED_CACHE[key] = [];
+    BOOKED_CACHE[key].push(slot);
+  }
+  if (!records.length) return;
+  await fetch('/api/bookings', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ records })
+  });
+}
 
 // ── NAVIGATION ──
 function nextStep() {
@@ -638,6 +685,7 @@ function toggleTutor(id) {
 // ── STEP 3 — DATE & TIME ──
 function renderStep3() {
   renderTabs(); drawCal(); renderTimes();
+  S.sel.forEach(id => fetchTutorBookings(id));
 }
 
 function renderTabs() {
@@ -653,6 +701,7 @@ function setActive(id) {
   S.active = id; S.date = null; S.time = null;
   renderTabs(); drawCal(); renderTimes();
   document.getElementById('btn3Next').disabled = true;
+  fetchTutorBookings(id);
 }
 
 function drawCal() {
@@ -699,7 +748,7 @@ function pickDate(y,m,d) {
 function renderTimes() {
   const grid = document.getElementById('timesGrid');
   if (!S.date) { grid.innerHTML='<div class="t-placeholder">Select a date to see available times</div>'; return; }
-  const booked = fakeBooked(S.active, S.date);
+  const booked = getBooked(S.active, S.date);
   // Work out which slots are covered by the selected session duration
   const coveredSlots = new Set();
   if (S.time) {
@@ -853,6 +902,7 @@ function confirmBooking() {
     notes:         notes || 'None'
   };
   emailjs.send('service_weeqc92', 'template_49nh3cb', emailParams);
+  if (!isMarking) saveBookingSlots(t.id, S.date, S.time, hrs, ref, first + ' ' + last, email, subj);
 
   const successMsg = isMarking
     ? `Your assignment has been submitted to <strong>${t.name}</strong> for marking. They'll be in touch shortly.`
