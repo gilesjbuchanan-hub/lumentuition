@@ -853,7 +853,6 @@ function confirmBooking() {
     notes:         notes || 'None'
   };
   emailjs.send('service_weeqc92', 'template_49nh3cb', emailParams);
-  emailjs.send('service_weeqc92', 'template_42tfozc', emailParams);
 
   const successMsg = isMarking
     ? `Your assignment has been submitted to <strong>${t.name}</strong> for marking. They'll be in touch shortly.`
