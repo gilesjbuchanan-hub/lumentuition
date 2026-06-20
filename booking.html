@@ -506,7 +506,7 @@ const TUTORS = [
     subjectsQCAA:['Literature','Modern History','French','Economics','Legal Studies'],
     subjectsGeneral:['General Mathematics','History','French','Economics','Legal Studies'],
     levels:['General','QCAA'], rating:4.9, reviews:21, price:60, days:[1,2,3,4,5,6,7], bio:'Graduated from St Peter\'s Lutheran College in 2025, with a raw ATAR of 97.65.' },
-  { id:5, ini:'DN', name:'Dylan Nash', email:'dylannash2007@gmail.com', photo:'brand_assets/dylan.jpg', photoPos:'45% 35%',
+  { id:5, ini:'DN', name:'Dylan Nash', email:'dylanyynash2007@gmail.com', photo:'brand_assets/dylan.jpg', photoPos:'45% 35%',
     subjects:['Specialist Mathematics','Physics','Mathematical Methods','Engineering','Chemistry','Advanced Mathematics','General Mathematics'],
     subjectsQCAA:['Specialist Mathematics','Physics','Mathematical Methods','Engineering','Chemistry'],
     subjectsGeneral:['Advanced Mathematics','General Mathematics','General English','General Sciences'],
@@ -887,6 +887,7 @@ function confirmBooking() {
   const subj = document.getElementById('fSubject') ? document.getElementById('fSubject').value : '';
   const year = document.getElementById('fYear') ? document.getElementById('fYear').value : '';
   const notes = document.getElementById('fNotes').value.trim();
+  const meetingPlace = document.getElementById('fMeetingPlace').value.trim();
   const isMarking = S.service === 'marking';
   const isGroup = S.service === 'group' && S.groupSize;
   const hrs = S.duration;
