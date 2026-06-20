@@ -456,6 +456,10 @@
             <div class="stype-btn" onclick="pickType(this,'in-person')"><div class="si">🏠</div><div class="sl">In-Person</div></div>
           </div>
         </div>
+        <div class="fg full" id="meetingPlaceRow" style="display:none;">
+          <label>Preferred Meeting Place</label>
+          <input type="text" id="fMeetingPlace" placeholder="e.g. Brisbane City Library, Café on X street…" />
+        </div>
         <div class="fg full"><label>Additional Notes</label><textarea id="fNotes" placeholder="e.g. Struggling with integration by parts — want to focus on exam technique…"></textarea></div>
       </div>
       <div class="actions">
@@ -804,6 +808,8 @@ function populateSubjects() {
 function pickType(el, type) {
   document.querySelectorAll('.stype-btn').forEach(b=>b.classList.remove('active'));
   el.classList.add('active'); S.stype = type;
+  document.getElementById('meetingPlaceRow').style.display = type === 'in-person' ? '' : 'none';
+  if (type === 'online') document.getElementById('fMeetingPlace').value = '';
 }
 
 function validate4() {
@@ -833,6 +839,7 @@ function buildConfirm() {
   const level = S.level === 'QCAA' ? 'QCAA (Years 11–12)' : 'General (Years 7–10)';
   const year  = document.getElementById('fYear').value;
   const notes = document.getElementById('fNotes').value.trim();
+  const meetingPlace = document.getElementById('fMeetingPlace').value.trim();
   const isMarking = S.service === 'marking';
   const durStr = S.duration === 1 ? '1 hr' : `${S.duration} hrs`;
 
@@ -840,7 +847,8 @@ function buildConfirm() {
     ? `<div class="conf-row"><span class="cr-lbl">Turnaround</span><span class="cr-val">Arranged directly with your tutor</span></div>`
     : `<div class="conf-row"><span class="cr-lbl">Date</span><span class="cr-val">${fmtDate(S.date)}</span></div>
        <div class="conf-row"><span class="cr-lbl">Time</span><span class="cr-val">${S.time} (${durStr})</span></div>
-       <div class="conf-row"><span class="cr-lbl">Format</span><span class="cr-val">${S.stype==='online'?'💻 Online':'🏠 In-Person'}</span></div>`;
+       <div class="conf-row"><span class="cr-lbl">Format</span><span class="cr-val">${S.stype==='online'?'💻 Online':'🏠 In-Person'}</span></div>
+       ${meetingPlace ? `<div class="conf-row"><span class="cr-lbl">Meeting Place</span><span class="cr-val">${meetingPlace}</span></div>` : ''}`;
 
   const isGroup = S.service === 'group' && S.groupSize;
   const hourlyPrice = isGroup ? groupPrice(t.price) : t.price;
@@ -899,7 +907,8 @@ function confirmBooking() {
     duration:      isMarking ? 'N/A' : durStr,
     total:         '$' + sessionPrice + '.00',
     reference:     ref,
-    notes:         notes || 'None'
+    notes:         notes || 'None',
+    meeting_place: meetingPlace || 'N/A'
   };
   emailjs.send('service_weeqc92', 'template_49nh3cb', emailParams);
   if (!isMarking) saveBookingSlots(t.id, S.date, S.time, hrs, ref, first + ' ' + last, email, subj);
